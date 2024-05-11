@@ -5,6 +5,7 @@
   },
   "linter": {
     "enabled": true,
+    "ignore": ["node_modules", "dist", ".next"],
     "rules": {
       "recommended": true,
       "nursery": {
@@ -22,7 +23,8 @@
     "enabled": true,
     "indentWidth": 2,
     "indentStyle": "space",
-    "lineWidth": 100
+    "lineWidth": 100,
+    "ignore": ["node_modules", "dist", ".next"]
   },
   "json": {
     "parser": {
