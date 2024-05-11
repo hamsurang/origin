@@ -29,7 +29,7 @@ importers:
 
   apps/activity:
     dependencies:
-      '@repo/ui':
+      '@hamsurang/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       next:
@@ -63,7 +63,7 @@ importers:
 
   apps/web:
     dependencies:
-      '@repo/ui':
+      '@hamsurang/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       next:
