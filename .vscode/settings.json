@@ -14,5 +14,15 @@
   "[json]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
-  "cSpell.words": ["biomejs", "clsx", "corepack", "nextjs", "Nextra", "preinstall"]
+  "cSpell.words": [
+    "biomejs",
+    "clsx",
+    "corepack",
+    "hamsurang",
+    "lucide",
+    "nextjs",
+    "Nextra",
+    "preinstall",
+    "tailwindcss"
+  ]
 }
