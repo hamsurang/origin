@@ -11,7 +11,7 @@ importers:
       '@biomejs/biome':
         specifier: 1.7.3
         version: 1.7.3
-      '@repo/typescript-config':
+      '@hamsurang/typescript-config':
         specifier: workspace:*
         version: link:packages/typescript-config
       husky:
@@ -48,7 +48,7 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
-      '@repo/typescript-config':
+      '@hamsurang/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
       '@types/node':
@@ -79,7 +79,7 @@ importers:
       '@hamsurang/tailwind-config':
         specifier: workspace:*
         version: link:../../packages/tailwind-config
-      '@repo/typescript-config':
+      '@hamsurang/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
       '@types/node':
@@ -129,7 +129,7 @@ importers:
       '@hamsurang/tailwind-config':
         specifier: workspace:*
         version: link:../tailwind-config
-      '@repo/typescript-config':
+      '@hamsurang/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       '@turbo/gen':
