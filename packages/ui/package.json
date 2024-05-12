@@ -9,8 +9,7 @@
     }
   },
   "scripts": {
-    "lint": "biome lint ./src",
-    "generate:component": "turbo gen react-component"
+    "lint": "biome lint ./src"
   },
   "devDependencies": {
     "@hamsurang/tailwind-config": "workspace:*",
