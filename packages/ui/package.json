@@ -9,7 +9,8 @@
     }
   },
   "scripts": {
-    "lint": "biome lint ./src"
+    "lint": "biome lint ./src",
+    "format": "biome format ./src --write"
   },
   "devDependencies": {
     "@hamsurang/tailwind-config": "workspace:*",

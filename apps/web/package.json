@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "biome lint ./app"
+    "lint": "biome lint ./app",
+    "format": "biome format ./app --write"
   },
   "dependencies": {
     "@hamsurang/ui": "workspace:*",
