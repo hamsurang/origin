@@ -61,7 +61,7 @@ importers:
         specifier: ^18.2.19
         version: 18.2.19
 
-  apps/web:
+  apps/home:
     dependencies:
       '@hamsurang/ui':
         specifier: workspace:*
@@ -150,6 +150,49 @@ importers:
       react:
         specifier: ^18.2.0
         version: 18.2.0
+      tailwindcss:
+        specifier: ^3.4.3
+        version: 3.4.3(ts-node@10.9.1(@types/node@20.11.24)(typescript@5.5.0-beta))
+
+  web:
+    dependencies:
+      '@hamsurang/ui':
+        specifier: workspace:*
+        version: link:../packages/ui
+      next:
+        specifier: ^14.1.1
+        version: 14.1.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+    devDependencies:
+      '@hamsurang/tailwind-config':
+        specifier: workspace:*
+        version: link:../packages/tailwind-config
+      '@hamsurang/typescript-config':
+        specifier: workspace:*
+        version: link:../packages/typescript-config
+      '@types/node':
+        specifier: ^20.11.24
+        version: 20.11.24
+      '@types/react':
+        specifier: ^18.2.61
+        version: 18.2.61
+      '@types/react-dom':
+        specifier: ^18.2.19
+        version: 18.2.19
+      autoprefixer:
+        specifier: ^10.4.19
+        version: 10.4.19(postcss@8.4.38)
+      class-variance-authority:
+        specifier: ^0.7.0
+        version: 0.7.0
+      postcss:
+        specifier: ^8.4.38
+        version: 8.4.38
       tailwindcss:
         specifier: ^3.4.3
         version: 3.4.3(ts-node@10.9.1(@types/node@20.11.24)(typescript@5.5.0-beta))
@@ -630,9 +673,6 @@ packages:
   camelcase-css@2.0.1:
     resolution: {integrity: sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==}
     engines: {node: '>= 6'}
-
-  caniuse-lite@1.0.30001593:
-    resolution: {integrity: sha512-UWM1zlo3cZfkpBysd7AS+z+v007q9G1+fLTUU42rQnY6t2axoogPW/xol6T7juU5EUoOhML4WgBIdG+9yYqAjQ==}
 
   caniuse-lite@1.0.30001617:
     resolution: {integrity: sha512-mLyjzNI9I+Pix8zwcrpxEbGlfqOkF9kM3ptzmKNw5tizSyYwMe+nGLTqMK9cO+0E+Bh6TsBxNAaHWEM8xwSsmA==}
@@ -2568,8 +2608,6 @@ snapshots:
 
   camelcase-css@2.0.1: {}
 
-  caniuse-lite@1.0.30001593: {}
-
   caniuse-lite@1.0.30001617: {}
 
   ccount@2.0.1: {}
@@ -3805,7 +3843,7 @@ snapshots:
       '@next/env': 14.1.1
       '@swc/helpers': 0.5.2
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001593
+      caniuse-lite: 1.0.30001617
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.2.0
