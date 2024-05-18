@@ -13,7 +13,10 @@
     "@hamsurang/ui": "workspace:*",
     "next": "^14.1.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "framer-motion": "^11.2.4",
+    "@floating-ui/react": "^0.26.15",
+    "react-use": "^17.5.0"
   },
   "devDependencies": {
     "@hamsurang/typescript-config": "workspace:*",

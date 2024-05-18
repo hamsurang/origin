@@ -1,7 +1,7 @@
 'use client'
 
 import { FloatingArrow, arrow, useFloating } from '@floating-ui/react'
-import { Avatar, AvatarFallback, AvatarImage } from '@ui/components'
+import { Avatar, AvatarFallback, AvatarImage } from '@hamsurang/ui'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRef } from 'react'
 import { useTimeout } from 'react-use'
