@@ -1,4 +1,4 @@
-export const 클라이머 = [
+export const HAMSURANG_PEOPLE = [
   {
     name: '쿼카',
     username: 'minsoo-web',

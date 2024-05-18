@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@ui/components'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRef } from 'react'
 import { useTimeout } from 'react-use'
-import { 클라이머 } from './People.constants'
+import { HAMSURANG_PEOPLE } from './People.constants'
 
 export const People = () => {
   const arrowRef = useRef(null)
@@ -30,7 +30,7 @@ export const People = () => {
       </a>
 
       <div ref={refs.setReference} className="flex flex-wrap mt-3 gap-1">
-        {클라이머.map(({ name, username }) => (
+        {HAMSURANG_PEOPLE.map(({ name, username }) => (
           <a href={`https://github.com/${username}`} target="_blank" rel="noreferrer" key={name}>
             <Avatar>
               <AvatarImage src={`https://github.com/${username}.png?size=70`} alt="" />
