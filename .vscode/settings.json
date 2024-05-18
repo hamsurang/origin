@@ -22,5 +22,21 @@
     "editor.defaultFormatter": "biomejs.biome"
   },
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "cSpell.words": [
+    "biomejs",
+    "clsx",
+    "corepack",
+    "hamsurang",
+    "lucide",
+    "minsoo",
+    "nextjs",
+    "Nextra",
+    "preinstall",
+    "sonsurim",
+    "tailwindcss"
+  ],
+  "[css]": {
+    "editor.defaultFormatter": "vscode.css-language-features"
+  }
 }
