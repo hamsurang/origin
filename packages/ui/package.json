@@ -3,17 +3,17 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    ".": {
-      "import": "./src/index.ts",
-      "require": "./src/index.ts"
-    }
+    ".": "./src/index.ts",
+    "./globals.css": "./src/styles/globals.css",
+    "./postcss.config": "./postcss.config.js",
+    "./tailwind.config": "./tailwind.config.ts"
   },
+
   "scripts": {
     "lint": "biome lint ./src",
     "format": "biome format ./src --write"
   },
   "devDependencies": {
-    "@hamsurang/tailwind-config": "workspace:*",
     "@hamsurang/typescript-config": "workspace:*",
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.61",
