@@ -56,7 +56,6 @@ export const People = () => {
                 transition: {
                   type: 'spring',
                   damping: 3,
-                  // Stiffness of the spring. Higher values will create more sudden movement. Set to 100 by default.
                   stiffness: 200,
                 },
               },
