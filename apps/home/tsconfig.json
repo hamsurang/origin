@@ -8,8 +8,7 @@
       }
     ],
     "paths": {
-      "@/*": ["./app/*"],
-      "@ui/*": ["../../packages/ui/src/*"]
+      "@/*": ["./app/*"]
     }
   },
   "include": ["next-env.d.ts", "next.config.js", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
