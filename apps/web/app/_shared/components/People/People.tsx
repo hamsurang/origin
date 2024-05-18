@@ -33,7 +33,10 @@ export const People = () => {
         {HAMSURANG_PEOPLE.map(({ name, username }) => (
           <a href={`https://github.com/${username}`} target="_blank" rel="noreferrer" key={name}>
             <Avatar>
-              <AvatarImage src={`https://github.com/${username}.png?size=70`} alt="" />
+              <AvatarImage
+                src={`https://github.com/${username}.png?size=70`}
+                alt={`${username}의 프로필`}
+              />
               <AvatarFallback />
             </Avatar>
           </a>
