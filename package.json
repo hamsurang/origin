@@ -9,10 +9,8 @@
     "build:web": "turbo run build --filter=web",
     "dev:activity": "turbo run dev --filter=activity",
     "dev:home": "turbo run dev --filter=home",
-    "dev:web": "turbo run dev --filter=home --filter=activity --filter=web --parallel --continue",
-    "lint:activity": "turbo run lint --filter=activity",
-    "lint:home": "turbo run lint --filter=home",
-    "lint:web": "turbo run lint --filter=web",
+    "dev:web": "turbo run dev",
+    "lint": "turbo run lint",
     "format": "turbo format",
     "prepare": "husky",
     "preinstall": "corepack enable"
