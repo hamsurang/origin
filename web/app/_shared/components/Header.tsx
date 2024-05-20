@@ -1,13 +1,9 @@
 'use client'
 
 import { HamsurangLogo } from '@hamsurang/icon'
-import { usePathname, useSearchParams } from 'next/navigation'
 import { GlobalNavigationBar } from './GlobalNavigationBar'
 
 export const Header = () => {
-  const pathname = usePathname()
-  useSearchParams()
-
   return (
     <>
       <header className="flex flex-col gap-2 fixed bg-background px-4 pt-2 w-full">
@@ -16,7 +12,6 @@ export const Header = () => {
             <HamsurangLogo width="100%" height="100%" />
           </div>
           <h1>함수랑산악회</h1>
-          {pathname}
         </div>
 
         <GlobalNavigationBar />
