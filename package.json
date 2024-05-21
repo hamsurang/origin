@@ -2,9 +2,15 @@
   "name": "origin",
   "private": true,
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "lint": "turbo lint",
+    "clean:branch": "git fetch --prune && git branch | grep -v '^*' | xargs git branch -D",
+    "clean:cache": "turbo run clean",
+    "build:activity": "turbo run build --filter=activity",
+    "build:home": "turbo run build --filter=home",
+    "build:web": "turbo run build --filter=web",
+    "dev:activity": "turbo run dev --filter=activity",
+    "dev:home": "turbo run dev --filter=home",
+    "dev:web": "turbo run dev",
+    "lint": "turbo run lint",
     "format": "turbo format",
     "prepare": "husky",
     "preinstall": "corepack enable"
