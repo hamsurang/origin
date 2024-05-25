@@ -1,7 +1,7 @@
 import '@hamsurang/ui/globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { GlobalNavigationBar } from './_shared/components/GlobalNavigationBar'
+import { Header } from './_shared/components/Header'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={inter.className}>
-        <GlobalNavigationBar />
+        <Header />
         {children}
       </body>
     </html>

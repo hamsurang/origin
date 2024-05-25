@@ -1,15 +1,22 @@
 'use client'
 
+import { Book, Code } from '@hamsurang/icon'
 import { cn } from '@hamsurang/ui'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 export const GlobalNavigationBar = () => {
   return (
-    <div>
-      <LinkButton href="/">홈</LinkButton>
-      <LinkButton href="/activity">활동</LinkButton>
-    </div>
+    <nav className="flex gap-4">
+      <LinkButton href="/">
+        <Code />
+        <span>홈</span>
+      </LinkButton>
+      <LinkButton href="/activity">
+        <Book />
+        <span>활동</span>
+      </LinkButton>
+    </nav>
   )
 }
 
@@ -25,8 +32,10 @@ const LinkButton = ({
   return (
     <Link
       className={cn(
-        'px-4 py-2text-primaryhover:bg-primary/90hover:text-primary-foregroundfont-bold',
-        href === pathname ? 'bg-primary text-primary-foreground' : '',
+        'flex gap-2 justify-center items-center border-b-4 px-2 py-1',
+        href === pathname
+          ? 'border-primary text-primary'
+          : 'border-transparent text-muted-foreground',
       )}
       href={href}
     >

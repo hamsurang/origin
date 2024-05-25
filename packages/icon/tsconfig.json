@@ -1,0 +1,8 @@
+{
+  "extends": "@hamsurang/typescript-config/base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "plugins": []
+  },
+  "include": ["index.ts", "types.d.ts"]
+}
