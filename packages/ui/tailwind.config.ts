@@ -1,3 +1,4 @@
+import scrollbarHide from 'tailwind-scrollbar-hide'
 import type { Config } from 'tailwindcss'
 import tailwindcssAnimate from 'tailwindcss-animate'
 
@@ -19,7 +20,16 @@ const config = {
         '2xl': '1400px',
       },
     },
+    screens: {
+      tablet: { max: '1023px' },
+    },
     extend: {
+      width: {
+        'w-2.5': '10px',
+      },
+      height: {
+        'h-2.5': '10px',
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -76,7 +86,7 @@ const config = {
       },
     },
   },
-  plugins: [tailwindcssAnimate],
+  plugins: [tailwindcssAnimate, scrollbarHide],
 } satisfies Config
 
 export default config
