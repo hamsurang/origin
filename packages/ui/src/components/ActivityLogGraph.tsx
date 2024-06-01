@@ -14,7 +14,7 @@ interface ActivityLogGraphProps {
   data: ActivityLogGraphDataType[]
 }
 
-const weekDays = ['', 'Mon', '', 'Wed', '', 'Fri', '']
+const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 const getCellColorClass = ({ contents, date }: { contents?: string; date?: dayjs.Dayjs }) => {
   if (!contents) return 'bg-gray-200'
@@ -79,6 +79,11 @@ const getDayDataMap = ({ data }: { data: ActivityLogGraphDataType[] }) => {
   }, {})
 }
 
+const getSrOnlyClass = ({ weekDay }: { weekDay: string }) => {
+  const isNonSrOnly = weekDay === 'Mon' || weekDay === 'Wed' || weekDay === 'Fri'
+  return isNonSrOnly ? '' : 'sr-only'
+}
+
 const ActivityLogGraph = ({ data }: ActivityLogGraphProps) => {
   const [selectedYear, setSelectedYear] = useState<number | undefined>(undefined)
   const today = dayjs()
@@ -107,10 +112,13 @@ const ActivityLogGraph = ({ data }: ActivityLogGraphProps) => {
           })}
         </header>
         <div className="flex gap-2">
-          <aside className="flex flex-col justify-around">
-            {weekDays.map((week, i) => (
-              <span className="text-xs text-right" key={`${week}+${crypto.randomUUID()}`}>
-                {week}
+          <aside className="flex flex-col justify-evenly">
+            {weekDays.map((weekDay, i) => (
+              <span
+                className={cn('text-xs text-right', getSrOnlyClass({ weekDay }))}
+                key={`${weekDay}+${crypto.randomUUID()}`}
+              >
+                {weekDay}
               </span>
             ))}
           </aside>
