@@ -24,12 +24,6 @@ const config = {
       tablet: { max: '1023px' },
     },
     extend: {
-      width: {
-        'w-2.5': '10px',
-      },
-      height: {
-        'h-2.5': '10px',
-      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

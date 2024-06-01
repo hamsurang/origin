@@ -134,7 +134,12 @@ const ActivityLogGraph = ({ data }: ActivityLogGraphProps) => {
                       dayIndex >= totalDays ||
                       (selectedYear && currentDate.year() < selectedYear)
                     )
-                      return <td key={dayIndex} className="w-2.5 h-2.5  max-w-2.5 max-h-2.5" />
+                      return (
+                        <td
+                          key={dayIndex}
+                          className="w-[10px] h-[10px]  max-w-[10px] max-h-[10px]"
+                        />
+                      )
 
                     const formattedDate = currentDate.format('YYYY-MM-DD')
                     const contents = dayDataMap[formattedDate]
@@ -143,7 +148,7 @@ const ActivityLogGraph = ({ data }: ActivityLogGraphProps) => {
                       <td
                         key={formattedDate}
                         className={cn(
-                          'w-2.5 h-2.5 cursor-pointer  max-w-2.5 max-h-2.5',
+                          'w-[10px] h-[10px] cursor-pointer  max-w-[10px] max-h-[10px]',
                           getCellColorClass({ contents, date: currentDate }),
                         )}
                         style={{ borderRadius: '2px' }}
