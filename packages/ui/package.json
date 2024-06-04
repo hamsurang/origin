@@ -27,9 +27,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "dayjs": "^1.11.11",
     "lucide-react": "^0.378.0",
-    "react-tooltip": "^5.26.4",
     "tailwind-merge": "^2.3.0",
     "tailwind-scrollbar-hide": "^1.1.7",
     "tailwindcss-animate": "^1.0.7"

@@ -1,5 +1,5 @@
-import { People, Repository } from '@/_shared'
-import { ActivityLogGraph, Button } from '@hamsurang/ui'
+import { ActivityLogGraph, People, Repository } from '@/_shared'
+import { Button } from '@hamsurang/ui'
 import type { RepositoryItem } from './_shared/components'
 
 const REPOSITORY_ITEMS: RepositoryItem[] = [
