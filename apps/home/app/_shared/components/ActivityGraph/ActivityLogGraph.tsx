@@ -6,7 +6,8 @@ import { cn } from '../../../../../../packages/ui/src/lib/utils'
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip'
 
 type ActivityLogGraphDataType = {
-  date: string
+  startDate: string
+  endDate: string
   contents: string
 }
 
@@ -16,10 +17,10 @@ interface ActivityLogGraphProps {
 
 const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
-const getCellColorClass = ({ contents, date }: { contents?: string; date?: dayjs.Dayjs }) => {
-  if (!contents) return 'bg-gray-200'
+const getCellColorClass = ({ count }: { count: number }) => {
+  if (count === 0) return 'bg-gray-200'
   const colorClasses = ['bg-green-200', 'bg-green-400', 'bg-green-600', 'bg-green-800']
-  const colorIndex = date ? date.get('day') % colorClasses.length : 0
+  const colorIndex = Math.min(count, colorClasses.length) - 1
   return colorClasses[colorIndex]
 }
 
@@ -72,9 +73,21 @@ const getButtonBgColor = ({ isSelected }: { isSelected: boolean }) => {
 }
 
 const getDayDataMap = ({ data }: { data: ActivityLogGraphDataType[] }) => {
-  return data.reduce<Record<string, string>>((acc, data) => {
-    const date = dayjs(data.date).format('YYYY-MM-DD')
-    acc[date] = data.contents
+  return data.reduce<Record<string, { count: number; contents: string[] }>>((acc, data) => {
+    const startDate = dayjs(data.startDate)
+    const endDate = dayjs(data.endDate)
+    let currentDate = startDate
+
+    while (currentDate.isBefore(endDate) || currentDate.isSame(endDate, 'day')) {
+      const date = currentDate.format('YYYY-MM-DD')
+      if (!acc[date]) {
+        acc[date] = { count: 0, contents: [] }
+      }
+      acc[date].count += 1
+      acc[date].contents.push(data.contents)
+      currentDate = currentDate.add(1, 'day')
+    }
+
     return acc
   }, {})
 }
@@ -99,7 +112,7 @@ const ActivityLogGraph = ({ data }: ActivityLogGraphProps) => {
 
   return (
     <section className="flex gap-5 w-full max-w-max">
-      <article className="overflow-auto pt-3 pl-2 pr-2 pb-3 border border-gray-40 rounded-t-lg w-full max-w-3xl h-32">
+      <article className="overflow-auto pt-3 pl-2 pr-2 pb-3 border border-gray-40 rounded-t-lg w-full max-w-[690px] h-32">
         <header className="flex w-full max-w-2xl pl-8">
           {months.map((month, index) => {
             const gapClass = calculateGapClass({ index, leftDaysInFirstMonth })
@@ -142,7 +155,9 @@ const ActivityLogGraph = ({ data }: ActivityLogGraphProps) => {
                       )
 
                     const formattedDate = currentDate.format('YYYY-MM-DD')
-                    const contents = dayDataMap[formattedDate]
+                    const dayData = dayDataMap[formattedDate]
+                    const contents = dayData?.contents.join(', ') ?? '없음'
+                    const displayContents = contents
 
                     return (
                       <Tooltip key={formattedDate}>
@@ -150,17 +165,17 @@ const ActivityLogGraph = ({ data }: ActivityLogGraphProps) => {
                           <td
                             className={cn(
                               'w-[10px] h-[10px] cursor-pointer  max-w-[10px] max-h-[10px]',
-                              getCellColorClass({ contents, date: currentDate }),
+                              getCellColorClass({ count: dayData?.count ?? 0 }),
                             )}
                             style={{ borderRadius: '2px' }}
-                            aria-label={`활동 내역: ${contents ?? '없음'}`}
+                            aria-label={`활동 내역: ${contents}`}
                           />
                         </TooltipTrigger>
                         <TooltipContent className="Tooltip">
-                          <section className="flex flex-col gap-1 bg-zinc-800 text-white p-2 rounded-[4px] w-max">
+                          <section className="flex flex-col gap-1 bg-zinc-800 text-white p-2 rounded-[4px] w-full max-w-44">
                             <span>{`Date: ${currentDate.format('YYYY.MM.DD')}`}</span>
                             <span className="whitespace-pre-wrap">
-                              {`활동 내역: ${contents ?? '없음'}`}
+                              {`활동 내역: ${displayContents}`}
                             </span>
                           </section>
                         </TooltipContent>

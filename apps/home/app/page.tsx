@@ -20,11 +20,8 @@ const REPOSITORY_ITEMS: RepositoryItem[] = [
 ]
 
 const sampleData = [
-  { date: '2024-01-01', contents: '첫 번째 활동 내역' },
-  { date: '2024-01-02', contents: '두 번째 활동 내역' },
-  { date: '2024-01-03', contents: '세 번째 활동 내역' },
-  { date: '2024-01-07', contents: '세 번째 활동 내역' },
-  { date: '2024-01-15', contents: '네 번째 활동 내역 \n 모르겠어!' },
+  { startDate: '2024-01-01', endDate: '2024-06-04', contents: '첫 번째 활동 내역' },
+  { startDate: '2024-01-01', endDate: '2024-03-31', contents: '두 번째 활동 내역' },
 ]
 
 export default function Page(): JSX.Element {
