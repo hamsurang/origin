@@ -18,7 +18,9 @@ interface ActivityLogGraphProps {
 const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 const getCellColorClass = ({ count }: { count: number }) => {
-  if (count === 0) return 'bg-gray-200'
+  if (count === 0) {
+    return 'bg-gray-200'
+  }
   const colorClasses = ['bg-green-200', 'bg-green-400', 'bg-green-600', 'bg-green-800']
   const colorIndex = Math.min(count, colorClasses.length) - 1
   return colorClasses[colorIndex]
@@ -52,7 +54,9 @@ const calculateGapClass = ({
   leftDaysInFirstMonth,
 }: { index: number; leftDaysInFirstMonth: number }) => {
   const baseMargin = 'mr-[30.5px]'
-  if (index !== 0) return baseMargin
+  if (index !== 0) {
+    return baseMargin
+  }
 
   const weeksInFirstMonth = Math.floor(leftDaysInFirstMonth / 7)
   const reducedMargin = ['mr-0', 'mr-2.5', 'mr-5', baseMargin][weeksInFirstMonth - 1] || baseMargin
@@ -146,13 +150,14 @@ const ActivityLogGraph = ({ data }: ActivityLogGraphProps) => {
                     if (
                       dayIndex >= totalDays ||
                       (selectedYear && currentDate.year() < selectedYear)
-                    )
+                    ) {
                       return (
                         <td
                           key={dayIndex}
                           className="w-[10px] h-[10px]  max-w-[10px] max-h-[10px]"
                         />
                       )
+                    }
 
                     const formattedDate = currentDate.format('YYYY-MM-DD')
                     const dayData = dayDataMap[formattedDate]

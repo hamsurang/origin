@@ -1,6 +1,7 @@
 import { ActivityLogGraph, People, Repository } from '@/_shared'
 import { Button } from '@hamsurang/ui'
 import type { RepositoryItem } from './_shared/components'
+import type { ActivityLogGraphDataType } from './_shared/components/ActivityGraph/ActivityLogGraph'
 
 const REPOSITORY_ITEMS: RepositoryItem[] = [
   {
@@ -19,7 +20,7 @@ const REPOSITORY_ITEMS: RepositoryItem[] = [
   },
 ]
 
-const sampleData = [
+const sampleData: ActivityLogGraphDataType[] = [
   { startDate: '2024-01-01', endDate: '2024-06-04', contents: '첫 번째 활동 내역' },
   { startDate: '2024-01-01', endDate: '2024-03-31', contents: '두 번째 활동 내역' },
 ]
