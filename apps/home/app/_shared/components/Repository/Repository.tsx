@@ -1,3 +1,4 @@
+import { Repo } from '@hamsurang/icon'
 import Link from 'next/link'
 
 export interface RepositoryItem {
@@ -18,7 +19,8 @@ export const Repository = ({ items }: RepositoryProps) => {
       {items.map((item) => (
         <li key={item.id} className="w-full md:w-1/2 p-2">
           <article className="p-4 h-full border rounded-lg flex flex-col justify-between">
-            <div className="flex items-center pb-2">
+            <div className="flex items-center pb-2 gap-1">
+              <Repo />
               <Link
                 href={item.url}
                 className="font-bold text-blue-500 break-all"
@@ -26,7 +28,7 @@ export const Repository = ({ items }: RepositoryProps) => {
               >
                 {item.title}
               </Link>
-              <span className="bg-gray-200 text-gray-700 text-xs font-semibold ml-2 px-2.5 py-0.5 rounded">
+              <span className="bg-gray-200 text-gray-700 text-xs font-semibold ml-1 px-2.5 py-0.5 rounded">
                 {item.category}
               </span>
             </div>
