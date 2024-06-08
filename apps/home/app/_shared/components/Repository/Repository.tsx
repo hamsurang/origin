@@ -1,4 +1,4 @@
-import { Repo } from '@hamsurang/icon'
+import { Book, Github, Globe, Link } from '@hamsurang/icon'
 
 type Category = 'Blog' | 'Github' | 'Social' | 'Others'
 export type RepositoryItem = {
@@ -20,7 +20,7 @@ export const Repository = ({ items }: RepositoryProps) => {
         <li key={item.id} className="w-full md:w-1/2 p-2">
           <article className="p-4 h-full border rounded-lg flex flex-col justify-between">
             <div className="flex items-center pb-2 gap-2">
-              <Repo />
+              {categoryIconMap[item.category]}
               <a
                 href={item.url}
                 rel="noreferrer"
@@ -40,4 +40,11 @@ export const Repository = ({ items }: RepositoryProps) => {
       ))}
     </ul>
   )
+}
+
+const categoryIconMap: { [key in Category]: JSX.Element } = {
+  Blog: <Book />,
+  Github: <Github />,
+  Social: <Globe />,
+  Others: <Link />,
 }

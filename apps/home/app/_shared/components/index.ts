@@ -1,2 +1,2 @@
 export { People } from './People'
-export { Repository } from './Repository'
+export { Repository, type RepositoryItem, type RepositoryProps } from './Repository'

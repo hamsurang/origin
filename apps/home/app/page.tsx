@@ -1,11 +1,12 @@
 import { People, Repository } from '@/_shared'
 import { Button } from '@hamsurang/ui'
+import type { RepositoryItem } from './_shared/components'
 
-const REPOSITORY_ITEMS = [
+const REPOSITORY_ITEMS: RepositoryItem[] = [
   {
     id: 1,
     title: '퉁이리의 링크드인',
-    category: 'SNS',
+    category: 'Social',
     description: '저에게 일촌을 신청해주세요!',
     url: 'https://www.linkedin.com/in/tooo1',
   },
