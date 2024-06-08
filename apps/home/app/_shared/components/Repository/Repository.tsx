@@ -1,5 +1,4 @@
 import { Repo } from '@hamsurang/icon'
-import Link from 'next/link'
 
 export interface RepositoryItem {
   id: number
@@ -15,19 +14,21 @@ export interface RepositoryProps {
 
 export const Repository = ({ items }: RepositoryProps) => {
   return (
-    <ol className="flex flex-wrap p-4">
+    <ul className="flex flex-wrap p-4">
       {items.map((item) => (
         <li key={item.id} className="w-full md:w-1/2 p-2">
           <article className="p-4 h-full border rounded-lg flex flex-col justify-between">
             <div className="flex items-center pb-2 gap-2">
               <Repo />
-              <Link
+              <a
                 href={item.url}
-                className="font-bold text-blue-500 break-all"
+                rel="noreferrer"
+                target="_blank"
+                className="font-bold text-blue-500 break-all hover:underline"
                 aria-label={item.title}
               >
                 {item.title}
-              </Link>
+              </a>
               <span className="border border-gray-300 text-gray-500 text-xs font-medium px-1.5 py-0.5 rounded-full">
                 {item.category}
               </span>
@@ -36,6 +37,6 @@ export const Repository = ({ items }: RepositoryProps) => {
           </article>
         </li>
       ))}
-    </ol>
+    </ul>
   )
 }
