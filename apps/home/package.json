@@ -10,16 +10,18 @@
     "format": "biome format ./app --write"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.26.15",
+    "@hamsurang/icon": "workspace:*",
     "@hamsurang/ui": "workspace:*",
+    "framer-motion": "^11.2.4",
     "next": "^14.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "framer-motion": "^11.2.4",
-    "@floating-ui/react": "^0.26.15",
     "react-use": "^17.5.0"
   },
   "devDependencies": {
     "@hamsurang/typescript-config": "workspace:*",
+    "@svgr/webpack": "^8.1.0",
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",

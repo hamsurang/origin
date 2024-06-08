@@ -66,6 +66,9 @@ importers:
       '@floating-ui/react':
         specifier: ^0.26.15
         version: 0.26.15(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@hamsurang/icon':
+        specifier: workspace:*
+        version: link:../../packages/icon
       '@hamsurang/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -88,6 +91,9 @@ importers:
       '@hamsurang/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
+      '@svgr/webpack':
+        specifier: ^8.1.0
+        version: 8.1.0(typescript@5.5.0-beta)
       '@types/node':
         specifier: ^20.11.24
         version: 20.11.24
