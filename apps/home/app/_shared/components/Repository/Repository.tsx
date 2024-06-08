@@ -1,14 +1,15 @@
 import { Repo } from '@hamsurang/icon'
 
-export interface RepositoryItem {
+type Category = 'Blog' | 'Github' | 'Social' | 'Others'
+export type RepositoryItem = {
   id: number
   title: string
-  category: string
+  category: Category
   description: string
   url: string
 }
 
-export interface RepositoryProps {
+export type RepositoryProps = {
   items: RepositoryItem[]
 }
 
