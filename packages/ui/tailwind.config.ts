@@ -19,6 +19,10 @@ const config = {
         '2xl': '1400px',
       },
     },
+    screens: {
+      mobile: { max: '760px' },
+      tablet: { max: '1000px' },
+    },
     extend: {
       colors: {
         border: 'hsl(var(--border))',

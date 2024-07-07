@@ -1,6 +1,8 @@
 export { default as Book } from './book.svg'
 export { default as Code } from './code.svg'
+export { default as Email } from './email.svg'
 export { default as Github } from './github.svg'
 export { default as Globe } from './globe.svg'
 export { default as HamsurangLogo } from './hamsurang-logo.svg'
 export { default as Link } from './link.svg'
+export { default as People } from './people.svg'
