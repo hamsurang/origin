@@ -19,6 +19,9 @@ const config = {
         '2xl': '1400px',
       },
     },
+    screens: {
+      tablet: { max: '1023px' },
+    },
     extend: {
       colors: {
         border: 'hsl(var(--border))',
