@@ -8,7 +8,6 @@
     "./postcss.config": "./postcss.config.js",
     "./tailwind.config": "./tailwind.config.ts"
   },
-
   "scripts": {
     "lint": "biome lint ./src",
     "format": "biome format ./src --write"
@@ -24,12 +23,13 @@
     "tailwindcss": "^3.4.3"
   },
   "dependencies": {
-    "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-avatar": "^1.0.4",
+    "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.378.0",
     "tailwind-merge": "^2.3.0",
+    "tailwind-scrollbar-hide": "^1.1.7",
     "tailwindcss-animate": "^1.0.7"
   }
 }
