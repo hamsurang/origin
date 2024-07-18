@@ -3,6 +3,7 @@
 import { FloatingArrow, arrow, autoUpdate, useFloating } from '@floating-ui/react'
 import { Avatar, AvatarFallback, AvatarImage } from '@hamsurang/ui'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 import { useTimeout } from 'react-use'
 import { HAMSURANG_PEOPLE } from './People.constants'
@@ -17,7 +18,14 @@ export const People = () => {
     ],
     whileElementsMounted: autoUpdate,
   })
+  const { push } = useRouter()
   const [isReady] = useTimeout(500)
+
+  const onClickPeople = (username: string) => {
+    const to = `/people?username=${username}` as const
+
+    push(to)
+  }
 
   return (
     <div className="relative mb-3 py-3 border-top">
@@ -36,15 +44,13 @@ export const People = () => {
 
       <div ref={refs.setPositionReference} className="flex flex-wrap mt-3 gap-1">
         {HAMSURANG_PEOPLE.map(({ name, username }) => (
-          <a href={`https://github.com/${username}`} target="_blank" rel="noreferrer" key={name}>
-            <Avatar>
-              <AvatarImage
-                src={`https://github.com/${username}.png?size=70`}
-                alt={`${username}의 프로필`}
-              />
-              <AvatarFallback />
-            </Avatar>
-          </a>
+          <Avatar onClick={() => onClickPeople(username)} key={name} className="cursor-pointer">
+            <AvatarImage
+              src={`https://github.com/${username}.png?size=70`}
+              alt={`${username}의 프로필`}
+            />
+            <AvatarFallback />
+          </Avatar>
         ))}
       </div>
 
