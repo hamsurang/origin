@@ -162,7 +162,9 @@ export const TooltipContent = forwardRef<
   const context = useTooltipContext()
   const ref = useMergeRefs([context.refs.setFloating, propRef])
 
-  if (!context.open) return null
+  if (!context.open) {
+    return null
+  }
 
   if (!children || !isValidElement(children)) {
     return null

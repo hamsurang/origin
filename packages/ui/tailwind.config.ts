@@ -20,7 +20,8 @@ const config = {
       },
     },
     screens: {
-      tablet: { max: '1023px' },
+      mobile: { max: '760px' },
+      tablet: { max: '1000px' },
     },
     extend: {
       colors: {
