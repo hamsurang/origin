@@ -33,7 +33,6 @@ export default function Page(): JSX.Element {
           username="hamsurang"
           email="hamsurang@gmail.com"
           description="프론트엔드의 거대한 산을 등반하자"
-          followers={11}
         />
         <People />
       </aside>

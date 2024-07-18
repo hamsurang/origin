@@ -1,4 +1,4 @@
-import { Email, People } from '@hamsurang/icon'
+import { Email } from '@hamsurang/icon'
 import { Avatar, AvatarFallback, AvatarImage } from '@hamsurang/ui'
 
 type ProfileProps = {
@@ -6,10 +6,9 @@ type ProfileProps = {
   username: string
   email: string
   description?: string
-  followers?: number
 }
 
-export const Profile = ({ name, username, description, email, followers }: ProfileProps) => {
+export const Profile = ({ name, username, description, email }: ProfileProps) => {
   return (
     <div>
       <div className="flex flex-col mobile:flex-row mobile:items-center mobile:gap-4 mobile:pb-4">
@@ -29,14 +28,6 @@ export const Profile = ({ name, username, description, email, followers }: Profi
       </div>
 
       <div className="flex gap-4 text-gray-500 mobile:flex-col mobile:gap-2 mobile:text-sm">
-        {followers && (
-          <span className="flex items-center gap-1">
-            <People />
-            <span className="font-semibold text-black">{followers}</span>
-            <span>Followers</span>
-          </span>
-        )}
-
         <span className="flex items-center gap-1">
           <Email />
           <a className="hover:underline" href={`mailto:${email}`}>

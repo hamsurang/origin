@@ -21,14 +21,18 @@ export const People = () => {
 
   return (
     <div className="relative mb-3 py-3 border-top">
-      <a
-        className="font-semibold hover:underline"
-        href="https://github.com/orgs/hamsurang/people"
-        target="_blank"
-        rel="noreferrer"
-      >
-        People
-      </a>
+      <span className="flex gap-1">
+        <a
+          className="font-semibold hover:underline"
+          href="https://github.com/orgs/hamsurang/people"
+          target="_blank"
+          rel="noreferrer"
+        >
+          People
+        </a>
+
+        <span className="text-gray-600">{HAMSURANG_PEOPLE.length}</span>
+      </span>
 
       <div ref={refs.setPositionReference} className="flex flex-wrap mt-3 gap-1">
         {HAMSURANG_PEOPLE.map(({ name, username }) => (
