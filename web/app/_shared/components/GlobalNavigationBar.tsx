@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation'
 export const GlobalNavigationBar = () => {
   return (
     <nav className="flex gap-4">
-      <LinkButton href="/">
+      <LinkButton href="/home">
         <Code />
         <span>홈</span>
       </LinkButton>
@@ -29,13 +29,13 @@ const LinkButton = ({
 }) => {
   const pathname = usePathname()
 
+  const isActive = pathname.startsWith(href)
+
   return (
     <Link
       className={cn(
         'flex gap-2 justify-center items-center border-b-4 px-2 py-1',
-        href === pathname
-          ? 'border-primary text-primary'
-          : 'border-transparent text-muted-foreground',
+        isActive ? 'border-primary text-primary' : 'border-transparent text-muted-foreground',
       )}
       href={href}
     >
