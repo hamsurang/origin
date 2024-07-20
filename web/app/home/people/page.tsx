@@ -8,11 +8,7 @@ export default function Page({
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
-  const username = searchParams.username
-
-  // useEffect(() => {
-  //   window.location.href = `${URL.HOME}/people?username=${username}`
-  // }, [username])
+  const { username } = searchParams
 
   if (!username) {
     return notFound()
