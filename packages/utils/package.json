@@ -11,8 +11,6 @@
   },
   "devDependencies": {
     "@hamsurang/typescript-config": "workspace:*",
-    "@hamsurang/constants": "workspace:*",
-    "@types/node": "workspace:*",
-    "typescript": "workspace:*"
+    "@hamsurang/constants": "workspace:*"
   }
 }
