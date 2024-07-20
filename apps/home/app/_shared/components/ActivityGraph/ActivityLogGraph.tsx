@@ -6,18 +6,16 @@ import type { ActivityLogGraphProps } from './ActivityLogGraph.types'
 import * as Compounds from './compounds'
 
 const getDayDataMap = ({ logs }: ActivityLogGraphProps) => {
-  return logs.reduce<Record<string, { count: number; contents: string[] }>>((acc, data) => {
-    const startDate = dayjs(data.startDate)
-    const endDate = dayjs(data.endDate)
-    let currentDate = startDate
+  return logs.reduce<Record<string, { contents: string[] }>>((acc, log) => {
+    const endDate = dayjs(log.endDate)
+    let currentDate = dayjs(log.startDate)
 
     while (currentDate.isBefore(endDate) || currentDate.isSame(endDate, 'day')) {
       const date = currentDate.format('YYYY-MM-DD')
       if (!acc[date]) {
-        acc[date] = { count: 0, contents: [] }
+        acc[date] = { contents: [] }
       }
-      acc[date].count += 1
-      acc[date].contents.push(data.contents)
+      acc[date].contents.push(log.contents)
       currentDate = currentDate.add(1, 'day')
     }
 

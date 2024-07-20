@@ -16,7 +16,7 @@ const getCellColorClass = ({ count }: { count: number }) => {
 export const ActivityLogGraphTable = ({
   dayDataMap,
 }: {
-  dayDataMap: Record<string, { count: number; contents: string[] }>
+  dayDataMap: Record<string, { contents: string[] }>
 }) => {
   const context = useActivityLogGraphYear()
   const [startDate, endDate] = getDateRange(context.selectedYear)
@@ -51,7 +51,7 @@ export const ActivityLogGraphTable = ({
                       <td
                         className={cn(
                           'w-[10px] h-[10px] cursor-pointer  max-w-[10px] max-h-[10px]',
-                          getCellColorClass({ count: dayData?.count ?? 0 }),
+                          getCellColorClass({ count: dayData?.contents.length ?? 0 }),
                         )}
                         style={{ borderRadius: '2px' }}
                         aria-label={`활동 내역: ${contents}`}
