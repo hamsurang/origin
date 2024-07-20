@@ -1,7 +1,6 @@
-import { cn } from '@hamsurang/ui'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, cn } from '@hamsurang/ui'
 import { useActivityLogGraphYear } from '../ActivityLogGraph.provider'
 import { getDateRange } from '../ActivityLogGraph.utils'
-import { Tooltip, TooltipContent, TooltipTrigger } from './ActivityLogGraph.Tooltip'
 
 const colorClasses = ['bg-green-200', 'bg-green-400', 'bg-green-600', 'bg-green-800']
 
@@ -46,24 +45,26 @@ export const ActivityLogGraphTable = ({
               const displayContents = contents
 
               return (
-                <Tooltip key={formattedDate}>
-                  <TooltipTrigger>
-                    <td
-                      className={cn(
-                        'w-[10px] h-[10px] cursor-pointer  max-w-[10px] max-h-[10px]',
-                        getCellColorClass({ count: dayData?.count ?? 0 }),
-                      )}
-                      style={{ borderRadius: '2px' }}
-                      aria-label={`활동 내역: ${contents}`}
-                    />
-                  </TooltipTrigger>
-                  <TooltipContent className="Tooltip">
-                    <section className="flex flex-col gap-1 bg-zinc-800 text-white p-2 rounded-[4px] w-full max-w-44">
-                      <span>{`Date: ${currentDate.format('YYYY.MM.DD')}`}</span>
-                      <span className="whitespace-pre-wrap">{`활동 내역: ${displayContents}`}</span>
-                    </section>
-                  </TooltipContent>
-                </Tooltip>
+                <TooltipProvider key={formattedDate}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <td
+                        className={cn(
+                          'w-[10px] h-[10px] cursor-pointer  max-w-[10px] max-h-[10px]',
+                          getCellColorClass({ count: dayData?.count ?? 0 }),
+                        )}
+                        style={{ borderRadius: '2px' }}
+                        aria-label={`활동 내역: ${contents}`}
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent asChild>
+                      <section className="flex flex-col gap-1 bg-zinc-800 text-white p-2 rounded-[4px] w-full max-w-44">
+                        <span>{`Date: ${currentDate.format('YYYY.MM.DD')}`}</span>
+                        <span className="whitespace-pre-wrap">{`활동 내역: ${displayContents}`}</span>
+                      </section>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               )
             })}
           </tr>
