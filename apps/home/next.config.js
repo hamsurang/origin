@@ -3,6 +3,7 @@ module.exports = {
   transpilePackages: ['@hamsurang/ui', '@hamsurang/icon'],
   experimental: {
     typedRoutes: true,
+    missingSuspenseWithCSRBailout: false,
   },
   webpack(config) {
     const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'))
