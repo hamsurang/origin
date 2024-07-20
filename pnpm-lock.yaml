@@ -27,8 +27,8 @@ importers:
         specifier: ^2.0.7
         version: 2.0.7
       typescript:
-        specifier: 5.5.0-beta
-        version: 5.5.0-beta
+        specifier: ^5.4.5
+        version: 5.5.3
 
   apps/activity:
     dependencies:
@@ -65,10 +65,7 @@ importers:
         version: 8.4.38
       tailwindcss:
         specifier: ^3.4.3
-        version: 3.4.3(ts-node@10.9.1(@types/node@20.13.0)(typescript@4.9.5))
-      typescript:
-        specifier: '*'
-        version: 4.9.5
+        version: 3.4.3(ts-node@10.9.1(@types/node@20.13.0)(typescript@5.5.3))
 
   apps/home:
     dependencies:
@@ -108,7 +105,7 @@ importers:
         version: link:../../packages/typescript-config
       '@svgr/webpack':
         specifier: ^8.1.0
-        version: 8.1.0(typescript@4.9.5)
+        version: 8.1.0(typescript@5.5.3)
       '@types/node':
         specifier: '*'
         version: 20.13.0
@@ -126,22 +123,13 @@ importers:
         version: 8.4.38
       tailwindcss:
         specifier: ^3.4.3
-        version: 3.4.3(ts-node@10.9.1(@types/node@20.13.0)(typescript@4.9.5))
-      typescript:
-        specifier: '*'
-        version: 4.9.5
+        version: 3.4.3(ts-node@10.9.1(@types/node@20.13.0)(typescript@5.5.3))
 
   packages/constants:
     devDependencies:
       '@hamsurang/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
-      '@types/node':
-        specifier: '*'
-        version: 20.13.0
-      typescript:
-        specifier: '*'
-        version: 4.9.5
 
   packages/icon:
     devDependencies:
@@ -179,14 +167,11 @@ importers:
         version: 1.1.7
       tailwindcss-animate:
         specifier: ^1.0.7
-        version: 1.0.7(tailwindcss@3.4.3(ts-node@10.9.1(@types/node@20.13.0)(typescript@4.9.5)))
+        version: 1.0.7(tailwindcss@3.4.3(ts-node@10.9.1(@types/node@20.13.0)(typescript@5.5.3)))
     devDependencies:
       '@hamsurang/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
-      '@types/node':
-        specifier: '*'
-        version: 20.13.0
       '@types/react':
         specifier: ^18.2.61
         version: 18.2.61
@@ -204,10 +189,7 @@ importers:
         version: 18.2.0
       tailwindcss:
         specifier: ^3.4.3
-        version: 3.4.3(ts-node@10.9.1(@types/node@20.13.0)(typescript@4.9.5))
-      typescript:
-        specifier: '*'
-        version: 4.9.5
+        version: 3.4.3(ts-node@10.9.1(@types/node@20.13.0)(typescript@5.5.3))
 
   packages/utils:
     devDependencies:
@@ -217,12 +199,6 @@ importers:
       '@hamsurang/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
-      '@types/node':
-        specifier: '*'
-        version: 20.13.0
-      typescript:
-        specifier: '*'
-        version: 4.9.5
 
   web:
     dependencies:
@@ -262,10 +238,7 @@ importers:
         version: link:../packages/typescript-config
       '@svgr/webpack':
         specifier: ^8.1.0
-        version: 8.1.0(typescript@4.9.5)
-      '@types/node':
-        specifier: '*'
-        version: 20.13.0
+        version: 8.1.0(typescript@5.5.3)
       '@types/react':
         specifier: ^18.2.61
         version: 18.2.61
@@ -280,10 +253,7 @@ importers:
         version: 8.4.38
       tailwindcss:
         specifier: ^3.4.3
-        version: 3.4.3(ts-node@10.9.1(@types/node@20.13.0)(typescript@4.9.5))
-      typescript:
-        specifier: '*'
-        version: 4.9.5
+        version: 3.4.3(ts-node@10.9.1(@types/node@20.13.0)(typescript@5.5.3))
 
 packages:
 
@@ -2429,13 +2399,8 @@ packages:
     resolution: {integrity: sha512-76iNWZpmKAKjj+yL0Wtcu2LpDIM5Nz7JS3fHOZPYS0AKuC2boJ24276VAiK4PKwbpBB//TYKDpSLuQ6cfR49pg==}
     hasBin: true
 
-  typescript@4.9.5:
-    resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
-    engines: {node: '>=4.2.0'}
-    hasBin: true
-
-  typescript@5.5.0-beta:
-    resolution: {integrity: sha512-FRg3e/aQg3olEG3ff8YjHOERsO4IM0m4qGrsE4UMvILaq4TdDZ6gQX4+2Rq9SjTpfSe/ebwiHcsjm/7FfWWQ6Q==}
+  typescript@5.5.3:
+    resolution: {integrity: sha512-/hreyEujaB0w76zKo6717l3L0o/qEUtRgdvUBvlkhoWeOVMjMuHNHk0BRBzikzuGDqNmPQbg5ifMEqsHLiIUcQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -3691,12 +3656,12 @@ snapshots:
       '@svgr/babel-plugin-transform-react-native-svg': 8.1.0(@babel/core@7.24.5)
       '@svgr/babel-plugin-transform-svg-component': 8.0.0(@babel/core@7.24.5)
 
-  '@svgr/core@8.1.0(typescript@4.9.5)':
+  '@svgr/core@8.1.0(typescript@5.5.3)':
     dependencies:
       '@babel/core': 7.24.5
       '@svgr/babel-preset': 8.1.0(@babel/core@7.24.5)
       camelcase: 6.3.0
-      cosmiconfig: 8.3.6(typescript@4.9.5)
+      cosmiconfig: 8.3.6(typescript@5.5.3)
       snake-case: 3.0.4
     transitivePeerDependencies:
       - supports-color
@@ -3707,35 +3672,35 @@ snapshots:
       '@babel/types': 7.24.5
       entities: 4.5.0
 
-  '@svgr/plugin-jsx@8.1.0(@svgr/core@8.1.0(typescript@4.9.5))':
+  '@svgr/plugin-jsx@8.1.0(@svgr/core@8.1.0(typescript@5.5.3))':
     dependencies:
       '@babel/core': 7.24.5
       '@svgr/babel-preset': 8.1.0(@babel/core@7.24.5)
-      '@svgr/core': 8.1.0(typescript@4.9.5)
+      '@svgr/core': 8.1.0(typescript@5.5.3)
       '@svgr/hast-util-to-babel-ast': 8.0.0
       svg-parser: 2.0.4
     transitivePeerDependencies:
       - supports-color
 
-  '@svgr/plugin-svgo@8.1.0(@svgr/core@8.1.0(typescript@4.9.5))(typescript@4.9.5)':
+  '@svgr/plugin-svgo@8.1.0(@svgr/core@8.1.0(typescript@5.5.3))(typescript@5.5.3)':
     dependencies:
-      '@svgr/core': 8.1.0(typescript@4.9.5)
-      cosmiconfig: 8.3.6(typescript@4.9.5)
+      '@svgr/core': 8.1.0(typescript@5.5.3)
+      cosmiconfig: 8.3.6(typescript@5.5.3)
       deepmerge: 4.3.1
       svgo: 3.3.2
     transitivePeerDependencies:
       - typescript
 
-  '@svgr/webpack@8.1.0(typescript@4.9.5)':
+  '@svgr/webpack@8.1.0(typescript@5.5.3)':
     dependencies:
       '@babel/core': 7.24.5
       '@babel/plugin-transform-react-constant-elements': 7.24.1(@babel/core@7.24.5)
       '@babel/preset-env': 7.24.5(@babel/core@7.24.5)
       '@babel/preset-react': 7.24.1(@babel/core@7.24.5)
       '@babel/preset-typescript': 7.24.1(@babel/core@7.24.5)
-      '@svgr/core': 8.1.0(typescript@4.9.5)
-      '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(typescript@4.9.5))
-      '@svgr/plugin-svgo': 8.1.0(@svgr/core@8.1.0(typescript@4.9.5))(typescript@4.9.5)
+      '@svgr/core': 8.1.0(typescript@5.5.3)
+      '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(typescript@5.5.3))
+      '@svgr/plugin-svgo': 8.1.0(@svgr/core@8.1.0(typescript@5.5.3))(typescript@5.5.3)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -3935,14 +3900,14 @@ snapshots:
     dependencies:
       browserslist: 4.23.0
 
-  cosmiconfig@8.3.6(typescript@4.9.5):
+  cosmiconfig@8.3.6(typescript@5.5.3):
     dependencies:
       import-fresh: 3.3.0
       js-yaml: 4.1.0
       parse-json: 5.2.0
       path-type: 4.0.0
     optionalDependencies:
-      typescript: 4.9.5
+      typescript: 5.5.3
 
   create-require@1.1.1:
     optional: true
@@ -4344,13 +4309,13 @@ snapshots:
       camelcase-css: 2.0.1
       postcss: 8.4.38
 
-  postcss-load-config@4.0.2(postcss@8.4.38)(ts-node@10.9.1(@types/node@20.13.0)(typescript@4.9.5)):
+  postcss-load-config@4.0.2(postcss@8.4.38)(ts-node@10.9.1(@types/node@20.13.0)(typescript@5.5.3)):
     dependencies:
       lilconfig: 3.1.1
       yaml: 2.4.2
     optionalDependencies:
       postcss: 8.4.38
-      ts-node: 10.9.1(@types/node@20.13.0)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@20.13.0)(typescript@5.5.3)
 
   postcss-nested@6.0.1(postcss@8.4.38):
     dependencies:
@@ -4578,11 +4543,11 @@ snapshots:
 
   tailwind-scrollbar-hide@1.1.7: {}
 
-  tailwindcss-animate@1.0.7(tailwindcss@3.4.3(ts-node@10.9.1(@types/node@20.13.0)(typescript@4.9.5))):
+  tailwindcss-animate@1.0.7(tailwindcss@3.4.3(ts-node@10.9.1(@types/node@20.13.0)(typescript@5.5.3))):
     dependencies:
-      tailwindcss: 3.4.3(ts-node@10.9.1(@types/node@20.13.0)(typescript@4.9.5))
+      tailwindcss: 3.4.3(ts-node@10.9.1(@types/node@20.13.0)(typescript@5.5.3))
 
-  tailwindcss@3.4.3(ts-node@10.9.1(@types/node@20.13.0)(typescript@4.9.5)):
+  tailwindcss@3.4.3(ts-node@10.9.1(@types/node@20.13.0)(typescript@5.5.3)):
     dependencies:
       '@alloc/quick-lru': 5.2.0
       arg: 5.0.2
@@ -4601,7 +4566,7 @@ snapshots:
       postcss: 8.4.38
       postcss-import: 15.1.0(postcss@8.4.38)
       postcss-js: 4.0.1(postcss@8.4.38)
-      postcss-load-config: 4.0.2(postcss@8.4.38)(ts-node@10.9.1(@types/node@20.13.0)(typescript@4.9.5))
+      postcss-load-config: 4.0.2(postcss@8.4.38)(ts-node@10.9.1(@types/node@20.13.0)(typescript@5.5.3))
       postcss-nested: 6.0.1(postcss@8.4.38)
       postcss-selector-parser: 6.0.16
       resolve: 1.22.8
@@ -4631,7 +4596,7 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  ts-node@10.9.1(@types/node@20.13.0)(typescript@4.9.5):
+  ts-node@10.9.1(@types/node@20.13.0)(typescript@5.5.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.9
@@ -4645,7 +4610,7 @@ snapshots:
       create-require: 1.1.1
       diff: 4.0.2
       make-error: 1.3.6
-      typescript: 4.9.5
+      typescript: 5.5.3
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     optional: true
@@ -4679,9 +4644,7 @@ snapshots:
       turbo-windows-64: 2.0.7
       turbo-windows-arm64: 2.0.7
 
-  typescript@4.9.5: {}
-
-  typescript@5.5.0-beta: {}
+  typescript@5.5.3: {}
 
   undici-types@5.26.5: {}
 

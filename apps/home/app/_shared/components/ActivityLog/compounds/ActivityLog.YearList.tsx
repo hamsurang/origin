@@ -1,10 +1,6 @@
 import { Button, cn } from '@hamsurang/ui'
 import dayjs from 'dayjs'
-import { useActivityLogGraphYear } from '../ActivityLogGraph.provider'
-
-const getButtonBgColor = ({ isSelected }: { isSelected: boolean }) => {
-  return isSelected ? 'bg-blue-700 text-white hover:bg-blue-300' : ''
-}
+import { useActivityLogYear } from '../ActivityLog.provider'
 
 export const getYearButtonArray = () => {
   const thisYear = dayjs().startOf('year')
@@ -17,9 +13,9 @@ export const getYearButtonArray = () => {
   }))
 }
 
-export const ActivityLogGraphYearList = () => {
+export const ActivityLogYearList = () => {
   const yearButtonArray = getYearButtonArray()
-  const context = useActivityLogGraphYear()
+  const context = useActivityLogYear()
 
   return (
     <div className="flex-col flex gap-2 h-40 overflow-auto w-40 tablet:hidden">

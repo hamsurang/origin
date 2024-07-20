@@ -1,11 +1,12 @@
 'use client'
 
 import dayjs from 'dayjs'
-import { ActivityLogGraphProvider } from './ActivityLogGraph.provider'
-import type { ActivityLogGraphProps } from './ActivityLogGraph.types'
+import { memo } from 'react'
+import { ActivityLogProvider } from './ActivityLog.provider'
+import type { ActivityLogProps } from './ActivityLog.types'
 import * as Compounds from './compounds'
 
-const getDayDataMap = ({ logs }: ActivityLogGraphProps) => {
+const getMergedActivityLog = ({ logs }: ActivityLogProps) => {
   return logs.reduce<Record<string, { contents: string[] }>>((acc, log) => {
     const endDate = dayjs(log.endDate)
     let currentDate = dayjs(log.startDate)
@@ -23,11 +24,11 @@ const getDayDataMap = ({ logs }: ActivityLogGraphProps) => {
   }, {})
 }
 
-export const ActivityLogGraph = ({ logs }: ActivityLogGraphProps) => {
-  const dayDataMap = getDayDataMap({ logs })
+export const ActivityLog = memo(({ logs }: ActivityLogProps) => {
+  const mergedActivityLog = getMergedActivityLog({ logs })
 
   return (
-    <ActivityLogGraphProvider>
+    <ActivityLogProvider>
       <section className="flex gap-5 w-full max-w-max">
         <article className="overflow-auto pt-3 pl-2 pr-2 pb-3 border border-gray-40 rounded-t-lg w-full max-w-[690px] h-32">
           <Compounds.MonthList />
@@ -35,12 +36,12 @@ export const ActivityLogGraph = ({ logs }: ActivityLogGraphProps) => {
           <div className="flex gap-2">
             <Compounds.WeekList />
 
-            <Compounds.Table dayDataMap={dayDataMap} />
+            <Compounds.Table activityLog={mergedActivityLog} />
           </div>
         </article>
 
         <Compounds.YearList />
       </section>
-    </ActivityLogGraphProvider>
+    </ActivityLogProvider>
   )
-}
+})

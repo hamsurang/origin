@@ -7,7 +7,7 @@ const getSrOnlyClass = ({ weekDay }: { weekDay: string }) => {
 
 const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
-export const ActivityLogGraphWeekList = () => {
+export const ActivityLogWeekList = () => {
   return (
     <aside className="flex flex-col justify-evenly">
       {weekDays.map((weekDay) => (

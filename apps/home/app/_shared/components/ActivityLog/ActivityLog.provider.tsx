@@ -1,6 +1,6 @@
 import { type PropsWithChildren, createContext, useContext, useMemo, useState } from 'react'
 
-const ActivityLogGraphYearContext = createContext<
+const ActivityLogYearContext = createContext<
   | {
       selectedYear: number | undefined
       setSelectedYear: (year: number) => void
@@ -8,7 +8,7 @@ const ActivityLogGraphYearContext = createContext<
   | undefined
 >(undefined)
 
-export const ActivityLogGraphProvider = ({ children }: PropsWithChildren) => {
+export const ActivityLogProvider = ({ children }: PropsWithChildren) => {
   const [selectedYear, setSelectedYear] = useState<number | undefined>(undefined)
 
   const yearContext = useMemo(
@@ -20,17 +20,17 @@ export const ActivityLogGraphProvider = ({ children }: PropsWithChildren) => {
   )
 
   return (
-    <ActivityLogGraphYearContext.Provider value={yearContext}>
+    <ActivityLogYearContext.Provider value={yearContext}>
       {children}
-    </ActivityLogGraphYearContext.Provider>
+    </ActivityLogYearContext.Provider>
   )
 }
 
-export const useActivityLogGraphYear = () => {
-  const context = useContext(ActivityLogGraphYearContext)
+export const useActivityLogYear = () => {
+  const context = useContext(ActivityLogYearContext)
 
   if (context == null) {
-    throw new Error('ActivityLogGraph components must be wrapped in <ActivityLogGraphProvider />')
+    throw new Error('ActivityLog components must be wrapped in <ActivityLogProvider />')
   }
 
   return context

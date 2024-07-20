@@ -10,8 +10,6 @@
     "format": "biome format ./src --write"
   },
   "devDependencies": {
-    "@hamsurang/typescript-config": "workspace:*",
-    "@types/node": "*",
-    "typescript": "*"
+    "@hamsurang/typescript-config": "workspace:*"
   }
 }

@@ -1,6 +1,6 @@
 import type { Dayjs } from 'dayjs'
-import { useActivityLogGraphYear } from '../ActivityLogGraph.provider'
-import { getDateRange } from '../ActivityLogGraph.utils'
+import { useActivityLogYear } from '../ActivityLog.provider'
+import { getDateRange } from '../ActivityLog.utils'
 
 const calculateGapClass = ({
   index,
@@ -39,8 +39,8 @@ const getMonthsInRange = ({
   return months
 }
 
-export const ActivityLogGraphMonthList = () => {
-  const context = useActivityLogGraphYear()
+export const ActivityLogMonthList = () => {
+  const context = useActivityLogYear()
   const [startDate, endDate] = getDateRange(context.selectedYear)
 
   const months = getMonthsInRange({ startDate, endDate, selectedYear: context.selectedYear })
