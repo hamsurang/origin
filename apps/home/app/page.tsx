@@ -23,7 +23,7 @@ const sampleLogs: ActivityLog[] = [
   { startDate: '2024-01-01', endDate: '2024-03-31', contents: '두 번째 활동 내역' },
 ]
 
-export default function Page(): JSX.Element {
+export default function Page() {
   return (
     <main className="flex gap-2 mobile:flex-col px-4 mt-2 max-w-[1200px] mx-auto">
       <aside className="mobile:w-full w-[296px]">
