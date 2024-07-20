@@ -1,0 +1,17 @@
+{
+  "name": "@hamsurang/constants",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "biome lint ./src",
+    "format": "biome format ./src --write"
+  },
+  "devDependencies": {
+    "@hamsurang/typescript-config": "workspace:*",
+    "@types/node": "workspace:*",
+    "typescript": "workspace:*"
+  }
+}
