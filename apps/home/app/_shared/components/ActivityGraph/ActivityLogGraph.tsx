@@ -5,8 +5,8 @@ import { ActivityLogGraphProvider } from './ActivityLogGraph.provider'
 import type { ActivityLogGraphProps } from './ActivityLogGraph.types'
 import * as Compounds from './compounds'
 
-const getDayDataMap = ({ data }: ActivityLogGraphProps) => {
-  return data.reduce<Record<string, { count: number; contents: string[] }>>((acc, data) => {
+const getDayDataMap = ({ logs }: ActivityLogGraphProps) => {
+  return logs.reduce<Record<string, { count: number; contents: string[] }>>((acc, data) => {
     const startDate = dayjs(data.startDate)
     const endDate = dayjs(data.endDate)
     let currentDate = startDate
@@ -25,8 +25,8 @@ const getDayDataMap = ({ data }: ActivityLogGraphProps) => {
   }, {})
 }
 
-export const ActivityLogGraph = ({ data }: ActivityLogGraphProps) => {
-  const dayDataMap = getDayDataMap({ data })
+export const ActivityLogGraph = ({ logs }: ActivityLogGraphProps) => {
+  const dayDataMap = getDayDataMap({ logs })
 
   return (
     <ActivityLogGraphProvider>

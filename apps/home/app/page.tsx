@@ -1,6 +1,5 @@
 import { ActivityLogGraph, People, Profile, Repository } from '@/_shared'
-import type { RepositoryItem } from './_shared/components'
-import type { ActivityLogGraphDataType } from './_shared/components/ActivityGraph/ActivityLogGraph'
+import type { ActivityLog, RepositoryItem } from './_shared/components'
 
 const REPOSITORY_ITEMS: RepositoryItem[] = [
   {
@@ -19,7 +18,7 @@ const REPOSITORY_ITEMS: RepositoryItem[] = [
   },
 ]
 
-const sampleData: ActivityLogGraphDataType[] = [
+const sampleLogs: ActivityLog[] = [
   { startDate: '2024-01-01', endDate: '2024-06-04', contents: '첫 번째 활동 내역' },
   { startDate: '2024-01-01', endDate: '2024-03-31', contents: '두 번째 활동 내역' },
 ]
@@ -39,7 +38,7 @@ export default function Page(): JSX.Element {
 
       <section className="flex-1">
         <Repository items={REPOSITORY_ITEMS} />
-        <ActivityLogGraph data={sampleData} />
+        <ActivityLogGraph logs={sampleLogs} />
       </section>
     </main>
   )
