@@ -4,7 +4,7 @@ import { getDateRange } from '../ActivityLog.utils'
 
 const colorClasses = ['bg-green-200', 'bg-green-400', 'bg-green-600', 'bg-green-800']
 
-const getCellColorClass = ({ count }: { count: number }) => {
+const getCellColorClass = (count: number) => {
   return colorClasses[Math.min(count, colorClasses.length) - 1]
 }
 
@@ -66,7 +66,7 @@ export const ActivityLogTable = ({
                       <td
                         className={cn(
                           'w-[10px] h-[10px] cursor-pointer  max-w-[10px] max-h-[10px] rounded-[2px]',
-                          getCellColorClass({ count: dayData.contents.length ?? 0 }),
+                          getCellColorClass(dayData.contents.length ?? 0),
                         )}
                         aria-label={`활동 내역: ${contents}`}
                       />
