@@ -4,6 +4,7 @@ import { Book, Code } from '@hamsurang/icon'
 import { cn } from '@hamsurang/ui'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import type { PropsWithChildren } from 'react'
 
 export const GlobalNavigationBar = () => {
   return (
@@ -23,10 +24,9 @@ export const GlobalNavigationBar = () => {
 const LinkButton = ({
   href,
   children,
-}: {
+}: PropsWithChildren<{
   href: __next_route_internal_types__.RouteImpl<string>
-  children: React.ReactNode
-}) => {
+}>) => {
   const pathname = usePathname()
 
   return (

@@ -1,6 +1,7 @@
 import '@hamsurang/ui/globals.css'
 
 import { Inter } from 'next/font/google'
+import type { PropsWithChildren } from 'react'
 import { SideNav } from './_shared'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -24,11 +25,7 @@ const NAV_ITEMS = [
   },
 ]
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="ko">
       <body className={inter.className}>

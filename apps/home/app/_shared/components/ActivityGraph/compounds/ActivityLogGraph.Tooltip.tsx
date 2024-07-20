@@ -13,11 +13,8 @@ import {
   useMergeRefs,
   useRole,
 } from '@floating-ui/react'
+import type { HTMLProps, PropsWithChildren, ReactElement, Ref } from 'react'
 import {
-  type HTMLProps,
-  type ReactElement,
-  type ReactNode,
-  type Ref,
   cloneElement,
   createContext,
   forwardRef,
@@ -111,7 +108,7 @@ export const useTooltipContext = () => {
   return context
 }
 
-export function Tooltip({ children, ...options }: { children: ReactNode } & TooltipOptions) {
+export function Tooltip({ children, ...options }: PropsWithChildren<TooltipOptions>) {
   const tooltip = useTooltip(options)
   return <TooltipContext.Provider value={tooltip}>{children}</TooltipContext.Provider>
 }
@@ -155,34 +152,33 @@ export const TooltipTrigger = forwardRef<
   )
 })
 
-export const TooltipContent = forwardRef<
-  HTMLElement,
-  { children: ReactNode } & HTMLProps<HTMLElement>
->(function TooltipContent({ children, ...props }, propRef) {
-  const context = useTooltipContext()
-  const ref = useMergeRefs([context.refs.setFloating, propRef])
+export const TooltipContent = forwardRef<HTMLElement, PropsWithChildren<HTMLProps<HTMLElement>>>(
+  function TooltipContent({ children, ...props }, propRef) {
+    const context = useTooltipContext()
+    const ref = useMergeRefs([context.refs.setFloating, propRef])
 
-  if (!context.open) {
-    return null
-  }
+    if (!context.open) {
+      return null
+    }
 
-  if (!children || !isValidElement(children)) {
-    return null
-  }
+    if (!children || !isValidElement(children)) {
+      return null
+    }
 
-  const childrenElement: ReactElement = children
+    const childrenElement: ReactElement = children
 
-  return (
-    <FloatingPortal>
-      {cloneElement(childrenElement, {
-        ref,
-        style: {
-          ...context.floatingStyles,
-          ...childrenElement.props.style,
-        },
-        ...context.getFloatingProps(props),
-        ...childrenElement.props,
-      })}
-    </FloatingPortal>
-  )
-})
+    return (
+      <FloatingPortal>
+        {cloneElement(childrenElement, {
+          ref,
+          style: {
+            ...context.floatingStyles,
+            ...childrenElement.props.style,
+          },
+          ...context.getFloatingProps(props),
+          ...childrenElement.props,
+        })}
+      </FloatingPortal>
+    )
+  },
+)
