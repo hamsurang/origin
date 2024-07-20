@@ -14,8 +14,8 @@
   },
   "devDependencies": {
     "@hamsurang/typescript-config": "workspace:*",
-    "typescript": "*",
-    "@types/node": "*",
+    "@types/node": "workspace:*",
+    "typescript": "workspace:*",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
     "autoprefixer": "^10.4.19",
