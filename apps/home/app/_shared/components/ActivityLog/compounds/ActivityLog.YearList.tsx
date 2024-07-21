@@ -2,15 +2,19 @@ import { Button, cn } from '@hamsurang/ui'
 import dayjs from 'dayjs'
 import { useActivityLogYear } from '../ActivityLog.provider'
 
-export const getYearButtonArray = () => {
-  const thisYear = dayjs().startOf('year')
+const START_YEAR = 2023
 
-  const maxYear = thisYear.year()
-  const yearDiff = maxYear - 2023
-  return Array.from({ length: yearDiff + 1 }).map((_, index) => ({
-    id: maxYear - index,
-    year: maxYear - index,
-  }))
+export const getYearButtonArray = () => {
+  const thisYear = dayjs().startOf('year').year()
+
+  const yearDiff = thisYear - START_YEAR + 1
+  return Array.from({ length: yearDiff }).map((_, index) => {
+    const year = thisYear - index
+    return {
+      id: year,
+      year,
+    }
+  })
 }
 
 export const ActivityLogYearList = () => {

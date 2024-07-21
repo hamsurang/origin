@@ -1,24 +1,19 @@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, cn } from '@hamsurang/ui'
 import type { Dayjs } from 'dayjs'
 import { useActivityLogYear } from '../ActivityLog.provider'
-import { getDateRange } from '../ActivityLog.utils'
 
 export const ActivityLogTableCell = ({
-  weekIndex,
-  dayOfWeek,
+  dayIndex,
   dayData,
   totalDays,
+  currentDate,
 }: {
-  weekIndex: number
-  dayOfWeek: number
+  dayIndex: number
   dayData: { contents: string[] } | undefined
   totalDays: number
+  currentDate: Dayjs
 }) => {
   const context = useActivityLogYear()
-  const [startDate] = getDateRange()
-  const dayIndex = weekIndex * 7 + dayOfWeek
-  const currentDate = startDate.add(dayIndex, 'day')
-  const formattedDate = currentDate.format('YYYY-MM-DD')
 
   const isOutOfRange =
     dayIndex >= totalDays || (context.selectedYear && currentDate.year() < context.selectedYear)
@@ -28,10 +23,10 @@ export const ActivityLogTableCell = ({
   }
 
   if (!dayData) {
-    return <Empty key={formattedDate} currentDate={currentDate} />
+    return <Empty currentDate={currentDate} />
   }
 
-  return <Content key={formattedDate} currentDate={currentDate} dayData={dayData} />
+  return <Content currentDate={currentDate} dayData={dayData} />
 }
 
 const colorClasses = ['bg-green-200', 'bg-green-400', 'bg-green-600', 'bg-green-800']

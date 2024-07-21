@@ -25,9 +25,9 @@ export const ActivityLogTable = ({
                 <ActivityLogTableCell
                   key={formattedDate}
                   dayData={activityLog[formattedDate]}
-                  dayOfWeek={dayOfWeek}
+                  dayIndex={dayIndex}
                   totalDays={totalDays}
-                  weekIndex={weekIndex}
+                  currentDate={currentDate}
                 />
               )
             })}
