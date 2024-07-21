@@ -12,8 +12,8 @@ const calculateGapClass = ({
   }
 
   const weeksInFirstMonth = Math.floor(leftDaysInFirstMonth / 7)
-  const reducedMargin = ['mr-0', 'mr-2.5', 'mr-5', baseMargin][weeksInFirstMonth - 1] || baseMargin
-  return reducedMargin
+  const gapClasses = ['mr-0', 'mr-2.5', 'mr-5', baseMargin]
+  return gapClasses[weeksInFirstMonth - 1] || baseMargin
 }
 
 const getMonthsInRange = ({
