@@ -4,8 +4,8 @@ import { getDateRange } from '../ActivityLog.utils'
 
 const colorClasses = ['bg-green-200', 'bg-green-400', 'bg-green-600', 'bg-green-800']
 
-const getCellColorClass = (count: number) => {
-  return colorClasses[Math.min(count, colorClasses.length) - 1]
+const getCellColorClass = (activityCount: number) => {
+  return colorClasses[Math.min(activityCount, colorClasses.length) - 1]
 }
 
 export const ActivityLogTable = ({
