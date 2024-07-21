@@ -73,8 +73,8 @@ export const ActivityLogTable = ({
                     </TooltipTrigger>
                     <TooltipContent asChild>
                       <section className="flex flex-col gap-1 bg-zinc-800 text-white p-2 rounded-[4px] w-full max-w-44">
-                        <span>{`Date: ${currentDate.format('YYYY.MM.DD')}`}</span>
-                        <span className="whitespace-pre-wrap">{`활동 내역: ${contents}`}</span>
+                        <span>{currentDate.format('YYYY.MM.DD')}</span>
+                        <span className="whitespace-pre-wrap">{contents}</span>
                       </section>
                     </TooltipContent>
                   </Tooltip>
