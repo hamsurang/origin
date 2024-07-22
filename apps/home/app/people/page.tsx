@@ -18,8 +18,6 @@ export default function Page({
 
   return (
     <div className="w-full">
-      {searchParams.username}
-
       <MBTIOverview {...PEOPLE_MBTI_INFO_MAP[username as keyof typeof PEOPLE_MBTI_INFO_MAP]} />
     </div>
   )
