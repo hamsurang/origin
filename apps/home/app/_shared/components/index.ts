@@ -1,4 +1,4 @@
-export { ActivityLogGraph } from './ActivityGraph/ActivityLogGraph'
+export * from './ActivityLog'
 export * from './MBTIOverview'
 export { People } from './People'
 export { Profile } from './Profile'

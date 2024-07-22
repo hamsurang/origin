@@ -4,6 +4,7 @@ import '@hamsurang/ui/globals.css'
 import { postMessageToParent } from '@hamsurang/utils'
 import { Inter } from 'next/font/google'
 import { usePathname, useSearchParams } from 'next/navigation'
+import type { PropsWithChildren } from 'react'
 import { useEffect } from 'react'
 import { People, Profile } from './_shared'
 
@@ -12,10 +13,9 @@ const inter = Inter({ subsets: ['latin'] })
 export default function RootLayout({
   children,
   readme,
-}: {
-  children: React.ReactNode
+}: PropsWithChildren<{
   readme: React.ReactNode
-}): JSX.Element {
+}>): JSX.Element {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 

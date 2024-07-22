@@ -1,5 +1,4 @@
-import type { RepositoryItem } from './_shared'
-import type { ActivityLogGraphDataType } from './_shared/components/ActivityGraph/ActivityLogGraph'
+import type { ActivityLogProps, RepositoryItem } from './_shared'
 
 export const REPOSITORY_ITEMS: RepositoryItem[] = [
   {
@@ -36,7 +35,7 @@ export const REPOSITORY_ITEMS: RepositoryItem[] = [
   },
 ]
 
-export const sampleData: ActivityLogGraphDataType[] = [
+export const sampleData: ActivityLogProps['logs'] = [
   { startDate: '2024-01-01', endDate: '2024-06-04', contents: '첫 번째 활동 내역' },
   { startDate: '2024-01-01', endDate: '2024-03-31', contents: '두 번째 활동 내역' },
 ]

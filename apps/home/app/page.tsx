@@ -1,13 +1,11 @@
-import { ActivityLogGraph } from '@/_shared'
-import { RepositoryList } from './_shared/components/Repository/Repository.list'
+import { ActivityLog, RepositoryList } from '@/_shared'
 import { REPOSITORY_ITEMS, sampleData } from './home.constants'
 
-export default function Page(): JSX.Element {
+export default function Page() {
   return (
-    <section className="flex flex-col gap-4 flex-1">
+    <section className="flex-1">
       <RepositoryList items={REPOSITORY_ITEMS} />
-
-      <ActivityLogGraph data={sampleData} />
+      <ActivityLog logs={sampleData} />
     </section>
   )
 }
