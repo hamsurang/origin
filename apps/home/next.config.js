@@ -1,5 +1,8 @@
+const withMDX = require('@next/mdx')()
+
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'mdx'],
   transpilePackages: ['@hamsurang/ui', '@hamsurang/icon'],
   experimental: {
     typedRoutes: true,
@@ -27,3 +30,5 @@ module.exports = {
     return config
   },
 }
+
+module.exports = withMDX(nextConfig)
