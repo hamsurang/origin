@@ -2,7 +2,7 @@ const withMDX = require('@next/mdx')()
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'mdx'],
+  pageExtensions: ['ts', 'tsx', 'mdx'],
   transpilePackages: ['@hamsurang/ui', '@hamsurang/icon'],
   experimental: {
     typedRoutes: true,
