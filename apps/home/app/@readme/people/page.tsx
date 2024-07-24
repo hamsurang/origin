@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { Mdx } from '@/_shared'
+import { MDX } from '@/_shared'
 import { ReadmeBox } from '../_shared'
 
 export default async function Page({
@@ -16,7 +16,7 @@ export default async function Page({
 
     return (
       <ReadmeBox>
-        <Mdx fileText={readme} />
+        <MDX fileText={readme} />
       </ReadmeBox>
     )
   } catch (e) {

@@ -1,7 +1,7 @@
 import { cn } from '@hamsurang/ui'
 import type { HTMLAttributes, ImgHTMLAttributes } from 'react'
 
-export const MdxStylingComponents = {
+export const MDXStylingComponents = {
   h1: ({ className, ...props }: HTMLAttributes<HTMLHeadingElement>) => (
     <h1 className={cn('mt-2 scroll-m-20 text-4xl font-bold', className)} {...props} />
   ),

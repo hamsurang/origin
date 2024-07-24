@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { Mdx } from '@/_shared'
+import { MDX } from '@/_shared'
 import { ReadmeBox } from './_shared'
 
 export default function Page() {
@@ -9,7 +9,7 @@ export default function Page() {
 
   return (
     <ReadmeBox>
-      <Mdx fileText={mainReadme} />
+      <MDX fileText={mainReadme} />
     </ReadmeBox>
   )
 }
