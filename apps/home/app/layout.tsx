@@ -42,7 +42,7 @@ export default function RootLayout({
             <People />
           </aside>
 
-          <section className="flex flex-col gap-4 flex-grow flex-1">
+          <section className="flex flex-col gap-4 flex-grow">
             {readme}
             {children}
           </section>
