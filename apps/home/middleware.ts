@@ -6,8 +6,6 @@ export function middleware(request: NextRequest) {
   const { searchParams, origin } = request.nextUrl
   const username = searchParams.get('username')
 
-  console.log(searchParams)
-
   if (!username || !PEOPLE_MBTI_INFO_MAP[username as keyof typeof PEOPLE_MBTI_INFO_MAP]) {
     return NextResponse.redirect(new URL('/', origin))
   }
