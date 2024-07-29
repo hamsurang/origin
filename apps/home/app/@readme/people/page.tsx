@@ -8,13 +8,8 @@ export default async function Page({
   searchParams: { username: string }
 }) {
   const { username } = searchParams
+  const filePath = path.join(process.cwd(), 'app/@readme/_shared/content', `${username}.mdx`)
+  const readme = fs.readFileSync(filePath, 'utf8')
 
-  try {
-    const filePath = path.join(process.cwd(), 'app/@readme/_shared/content', `${username}.mdx`)
-    const readme = fs.readFileSync(filePath, 'utf8')
-
-    return <Readme text={readme} />
-  } catch (e) {
-    console.error(e)
-  }
+  return <Readme text={readme} />
 }
