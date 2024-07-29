@@ -1,7 +1,6 @@
 'use client'
 
 import { URL } from '@hamsurang/constants'
-import { notFound } from 'next/navigation'
 
 export default function Page({
   searchParams,
@@ -9,10 +8,6 @@ export default function Page({
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
   const { username } = searchParams
-
-  if (!username) {
-    return notFound()
-  }
 
   return (
     <iframe
