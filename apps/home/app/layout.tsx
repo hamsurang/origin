@@ -6,15 +6,17 @@ import { Inter } from 'next/font/google'
 import { usePathname, useSearchParams } from 'next/navigation'
 import type { PropsWithChildren } from 'react'
 import { useEffect } from 'react'
-import { People, Profile } from './_shared'
+import { People } from './_shared'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function RootLayout({
   children,
   readme,
+  profile,
 }: PropsWithChildren<{
   readme: React.ReactNode
+  profile: React.ReactNode
 }>): JSX.Element {
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -33,12 +35,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <main className="flex gap-6 mobile:flex-col px-4 mt-2 max-w-[1200px] mx-auto">
           <aside className="mobile:w-full w-[296px]">
-            <Profile
-              name="함수랑산악회"
-              username="hamsurang"
-              email="hamsurang@gmail.com"
-              description="프론트엔드의 거대한 산을 등반하자"
-            />
+            {profile}
             <People />
           </aside>
 

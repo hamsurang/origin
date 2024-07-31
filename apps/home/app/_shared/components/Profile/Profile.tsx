@@ -1,10 +1,10 @@
 import { Email } from '@hamsurang/icon'
 import { Avatar, AvatarFallback, AvatarImage } from '@hamsurang/ui'
 
-type ProfileProps = {
-  name: string
+export type ProfileProps = {
+  name?: string
   username: string
-  email: string
+  email?: string
   description?: string
 }
 
@@ -21,20 +21,22 @@ export const Profile = ({ name, username, description, email }: ProfileProps) =>
         </Avatar>
 
         <div className="flex flex-col py-4 mobile:flex-grow mobile:py-0">
-          <span className="text-3xl font-semibold mobile:text-lg">{name}</span>
+          {name && <span className="text-3xl font-semibold mobile:text-lg">{name}</span>}
           <span className="text-gray-500">{username}</span>
           {description && <p>{description}</p>}
         </div>
       </div>
 
-      <div className="flex gap-4 text-gray-500 mobile:flex-col mobile:gap-2 mobile:text-sm">
-        <span className="flex items-center gap-1">
-          <Email />
-          <a className="hover:underline" href={`mailto:${email}`}>
-            {email}
-          </a>
-        </span>
-      </div>
+      {email && (
+        <div className="flex gap-4 text-gray-500 mobile:flex-col mobile:gap-2 mobile:text-sm">
+          <span className="flex items-center gap-1">
+            <Email />
+            <a className="hover:underline" href={`mailto:${email}`}>
+              {email}
+            </a>
+          </span>
+        </div>
+      )}
     </div>
   )
 }
