@@ -1,4 +1,4 @@
-import { Profile } from '../_shared'
+import { Profile } from '../../_shared'
 
 export default function Page() {
   return (

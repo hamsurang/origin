@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { Profile } from '../../_shared'
+import { Profile } from '../../../_shared'
 import { PROFILE_INFO } from './people.constants'
 
 export default function Page() {

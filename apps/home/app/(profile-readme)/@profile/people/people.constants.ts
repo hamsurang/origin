@@ -1,5 +1,5 @@
+import type { PEOPLE_MBTI_INFO_MAP } from '@/(profile-readme)/people/people.constants'
 import type { ProfileProps } from '@/_shared/components/Profile/Profile'
-import type { PEOPLE_MBTI_INFO_MAP } from '@/people/people.constants'
 
 export const PROFILE_INFO = {
   'minsoo-web': {
