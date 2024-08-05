@@ -1,10 +1,10 @@
-import fs from 'node:fs'
+import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import { Readme } from '@/_shared'
 
-export default function Page() {
+export default async function Page() {
   const filePath = path.join(process.cwd(), 'public', 'content/main.mdx')
-  const mainReadme = fs.readFileSync(filePath, 'utf8')
+  const mainReadme = await fs.readFile(filePath, 'utf8')
 
   return <Readme text={mainReadme} />
 }
