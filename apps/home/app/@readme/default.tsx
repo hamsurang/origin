@@ -4,7 +4,7 @@ import { Readme } from '@/_shared'
 
 export default async function Page() {
   const filePath = path.join(process.cwd(), 'public', 'content/main.mdx')
-  const mainReadme = await fs.readFile(filePath, 'utf8')
+  const mainReadme = await fs.readFile(filePath, { encoding: 'utf8' })
 
   return <Readme text={mainReadme} />
 }

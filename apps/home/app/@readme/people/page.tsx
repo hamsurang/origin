@@ -9,7 +9,7 @@ export default async function Page({
 }) {
   const { username } = searchParams
   const filePath = path.join(process.cwd(), 'public', `content/${username}.mdx`)
-  const readme = await fs.readFile(filePath, 'utf8')
+  const readme = await fs.readFile(filePath, { encoding: 'utf8' })
 
   return <Readme text={readme} />
 }
