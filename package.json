@@ -11,6 +11,7 @@
     "dev:activity": "turbo dev --filter=activity",
     "dev:home": "turbo dev --filter=home",
     "dev:web": "turbo dev",
+    "start": "turbo start",
     "lint": "turbo lint",
     "format": "turbo format",
     "prepare": "husky",
