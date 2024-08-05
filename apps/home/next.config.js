@@ -1,5 +1,4 @@
 const withMDX = require('@next/mdx')()
-const path = require('node:path')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -8,7 +7,6 @@ const nextConfig = {
   experimental: {
     typedRoutes: true,
     missingSuspenseWithCSRBailout: false,
-    outputFileTracingRoot: path.join(__dirname, '../../'),
   },
   webpack(config) {
     const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'))
