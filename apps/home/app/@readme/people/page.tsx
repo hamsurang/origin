@@ -8,7 +8,7 @@ export default async function Page({
   searchParams: { username: string }
 }) {
   const { username } = searchParams
-  const filePath = path.join(process.cwd(), `./contents/${username}.mdx`)
+  const filePath = path.join(process.cwd(), `./app/@readme/shared/content/${username}.mdx`)
   const readme = await fs.readFile(filePath, { encoding: 'utf8' })
 
   return <Readme text={readme} />
