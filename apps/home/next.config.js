@@ -8,7 +8,7 @@ const nextConfig = {
     typedRoutes: true,
     missingSuspenseWithCSRBailout: false,
     outputFileTracingIncludes: {
-      '/contents': ['./contents/**/*'],
+      '/*': ['./contents/**/*'],
     },
   },
   webpack(config) {
