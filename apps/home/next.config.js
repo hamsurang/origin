@@ -6,9 +6,8 @@ const nextConfig = {
   transpilePackages: ['@hamsurang/ui', '@hamsurang/icon'],
   experimental: {
     typedRoutes: true,
-    missingSuspenseWithCSRBailout: false,
     outputFileTracingIncludes: {
-      '/people': ['./app/@readme/_shared/content/**/*'],
+      '/people': ['./app/(profile-readme)/@readme/_shared/content/**/*'],
     },
   },
   webpack(config) {
