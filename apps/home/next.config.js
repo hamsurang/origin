@@ -6,6 +6,10 @@ const nextConfig = {
   transpilePackages: ['@hamsurang/ui', '@hamsurang/icon'],
   experimental: {
     typedRoutes: true,
+    missingSuspenseWithCSRBailout: false,
+    outputFileTracingIncludes: {
+      '/people': ['./app/@readme/_shared/content/**/*'],
+    },
   },
   webpack(config) {
     const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'))
