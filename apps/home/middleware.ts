@@ -1,6 +1,6 @@
-import { PEOPLE_MBTI_INFO_MAP } from '@/people/people.constants'
-import { NextResponse } from 'next/server'
+import { PEOPLE_MBTI_INFO_MAP } from '@/(profile-readme)/people/people.constants'
 import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
 
 export function middleware(request: NextRequest) {
   const { searchParams, origin } = request.nextUrl

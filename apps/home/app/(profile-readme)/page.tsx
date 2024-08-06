@@ -1,5 +1,5 @@
 import { ActivityLog, RepositoryList } from '@/_shared'
-import { REPOSITORY_ITEMS, sampleData } from './home.constants'
+import { REPOSITORY_ITEMS, sampleData } from '../home.constants'
 
 export default function Page() {
   return (

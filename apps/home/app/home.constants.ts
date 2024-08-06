@@ -18,7 +18,7 @@ export const REPOSITORY_ITEMS: RepositoryItem[] = [
     url: 'https://hamsurang.notion.site/fc592575d8374a64bda88b6639cadaf1',
   },
   {
-    id: 2,
+    id: 3,
     title: '함수랑마라톤',
     category: 'Repo',
     tag: '정규활동',
@@ -26,7 +26,7 @@ export const REPOSITORY_ITEMS: RepositoryItem[] = [
     url: 'https://hamsurang.notion.site/4d15bc3cb2b54e6ca804871be3fccabc',
   },
   {
-    id: 2,
+    id: 4,
     title: '함수랑학예회',
     category: 'Repo',
     tag: '대외활동',
