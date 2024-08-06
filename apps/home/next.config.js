@@ -8,7 +8,7 @@ const nextConfig = {
     typedRoutes: true,
     missingSuspenseWithCSRBailout: false,
     outputFileTracingIncludes: {
-      '/people': ['./app/@readme/shared/content/**/*'],
+      '/people': ['./app/@readme/_shared/content/**/*'],
     },
   },
   webpack(config) {
