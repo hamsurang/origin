@@ -19,7 +19,6 @@ export default function PeopleLayout({
 
   useEffect(() => {
     const fullRoute = `/home${pathname}?${searchParams}`
-    console.log(fullRoute)
 
     postMessageToParent({
       type: 'routeChange',
