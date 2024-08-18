@@ -16,10 +16,10 @@ export default function RootLayout({ children }: PropsWithChildren): JSX.Element
       onMessageHandler(event, router)
     }
 
-    window.addEventListener('message', handleIncomingMessage)
+    addEventListener('message', handleIncomingMessage)
 
     return () => {
-      window.removeEventListener('message', handleIncomingMessage)
+      removeEventListener('message', handleIncomingMessage)
     }
   }, [router])
 
