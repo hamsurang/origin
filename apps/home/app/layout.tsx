@@ -1,7 +1,7 @@
 'use client'
 
 import '@hamsurang/ui/globals.css'
-import { onMessageHandler } from '@hamsurang/utils'
+import { isValidEventOrigin } from '@hamsurang/utils'
 import { Inter } from 'next/font/google'
 import { useRouter } from 'next/navigation'
 import { type PropsWithChildren, Suspense, useEffect } from 'react'
@@ -13,7 +13,16 @@ export default function RootLayout({ children }: PropsWithChildren): JSX.Element
 
   useEffect(() => {
     const handleIncomingMessage = (event: MessageEvent) => {
-      onMessageHandler(event, router)
+      if (!isValidEventOrigin(event.origin)) {
+        return
+      }
+
+      const { data } = event
+
+      if (data.type === 'navigate' && router) {
+        router.push(data.route)
+        router.refresh()
+      }
     }
 
     addEventListener('message', handleIncomingMessage)

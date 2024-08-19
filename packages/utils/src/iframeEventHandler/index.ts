@@ -1,6 +1,5 @@
 import { URL } from '@hamsurang/constants'
 import type {
-  AppRouterInstance,
   ChildrenTitle,
   MessageData,
   MessageDataToChildren,
@@ -16,7 +15,7 @@ const getChildIframe = (title: ChildrenTitle) => {
   return child?.contentWindow
 }
 
-export const onMessageHandler = (event: MessageEvent<MessageData>, router?: AppRouterInstance) => {
+export const onMessageHandler = (event: MessageEvent<MessageData>) => {
   if (!isValidEventOrigin(event.origin)) {
     return
   }
@@ -25,11 +24,6 @@ export const onMessageHandler = (event: MessageEvent<MessageData>, router?: AppR
 
   if (data.type === 'routeChange') {
     history.replaceState({}, '', data.route)
-  }
-
-  if (data.type === 'navigate' && router) {
-    router.push(data.route)
-    router.refresh()
   }
 }
 
