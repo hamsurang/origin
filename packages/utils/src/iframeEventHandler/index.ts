@@ -15,18 +15,6 @@ const getChildIframe = (title: ChildrenTitle) => {
   return child?.contentWindow
 }
 
-export const onMessageHandler = (event: MessageEvent<MessageData>) => {
-  if (!isValidEventOrigin(event.origin)) {
-    return
-  }
-
-  const { data } = event
-
-  if (data.type === 'routeChange') {
-    history.replaceState({}, '', data.route)
-  }
-}
-
 const postMessage = (data: MessageData) => {
   switch (data.type) {
     case 'routeChange':

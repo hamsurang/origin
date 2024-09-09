@@ -12,12 +12,10 @@ export default function RootLayout({ children }: PropsWithChildren): JSX.Element
   const router = useRouter()
 
   useEffect(() => {
-    const handleIncomingMessage = (event: MessageEvent) => {
-      if (!isValidEventOrigin(event.origin)) {
+    const handleIncomingMessage = ({ origin, data }: MessageEvent) => {
+      if (!isValidEventOrigin(origin)) {
         return
       }
-
-      const { data } = event
 
       if (data.type === 'navigate' && router) {
         router.push(data.route)
