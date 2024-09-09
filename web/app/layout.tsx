@@ -1,7 +1,7 @@
 'use client'
 
 import '@hamsurang/ui/globals.css'
-import { onMessageHandler } from '@hamsurang/utils'
+import { type MessageData, isValidEventOrigin } from '@hamsurang/utils'
 import { Inter } from 'next/font/google'
 import type { PropsWithChildren } from 'react'
 import { useEffect } from 'react'
@@ -11,10 +11,20 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function RootLayout({ children }: PropsWithChildren): JSX.Element {
   useEffect(() => {
-    addEventListener('message', onMessageHandler)
+    const handleIncomingMessage = ({ origin, data }: MessageEvent<MessageData>) => {
+      if (!isValidEventOrigin(origin)) {
+        return
+      }
+
+      if (data.type === 'routeChange') {
+        history.replaceState({}, '', data.route)
+      }
+    }
+
+    addEventListener('message', handleIncomingMessage)
 
     return () => {
-      removeEventListener('message', onMessageHandler)
+      removeEventListener('message', handleIncomingMessage)
     }
   }, [])
 
