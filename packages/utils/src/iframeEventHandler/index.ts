@@ -37,7 +37,7 @@ const postMessage = (data: MessageData) => {
       break
 
     default:
-      break
+      throw new Error('Invalid message type')
   }
 }
 
