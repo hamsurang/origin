@@ -39,6 +39,7 @@ export const PROFILE_INFO = {
   sonsurim: {
     name: 'Sonny',
     username: 'sonsurim',
+    email: 'surim014@naver.com',
   },
   sungh0lim: {
     name: '임성호 (삼바)',
