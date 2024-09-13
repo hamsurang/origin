@@ -16,8 +16,13 @@ export const MBTIGraph = ({
   const pointString = points.map((point) => `${point.x},${point.y}`).join(' ')
 
   return (
-    <div className="flex items-center justify-center w-[50%]">
-      <svg width="300" height="300" viewBox="0 0 100 100" className="radar-chart">
+    <div className="flex items-center justify-center w-[50%] mobile:w-full mobile:justify-start mobile:p-1">
+      <svg
+        width="300"
+        height="300"
+        viewBox="0 0 100 100"
+        className="radar-chart mobile:w-[50%] mobile:aspect-1 mobile:h-[auto]"
+      >
         <title>MBTI Graph</title>
         <line
           strokeWidth="0.7"
@@ -53,7 +58,7 @@ export const MBTIGraph = ({
             cx={point.x}
             cy={point.y}
             r="1"
-            className="fill-white stroke-primary"
+            className="fill-white stroke-primary mobile:hidden"
             strokeWidth={0.7}
           />
         ))}
@@ -71,17 +76,29 @@ export const MBTIGraph = ({
               textAnchor="middle"
               dominantBaseline="middle"
               fontSize="3"
+              className="mobile:hidden"
             >
-              <tspan x={x} dy="0" fontSize={4}>
+              <tspan x={x} dy={index === 0 ? '-1' : '0'} fontSize="4">
                 {value}
               </tspan>
-              <tspan x={x} dy="4">
+              <tspan x={x} dy={index === 0 ? '3' : '4'}>
                 {percent} %
               </tspan>
             </text>
           )
         })}
       </svg>
+
+      <div className="hidden mobile:block mobile:w-[50%] mobile:pl-5">
+        <ul className="flex flex-col gap-2">
+          {mbtiInfos.map(({ value, percent }) => (
+            <li key={value} className="flex items-center gap-2">
+              <span className="text-primary">{value}</span>
+              <span>{percent} %</span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   )
 }

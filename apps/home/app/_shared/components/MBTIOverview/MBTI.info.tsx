@@ -11,8 +11,8 @@ export const MBTIInfo = ({
   const Svg = MBTISvg[mbti]
 
   return (
-    <section className="flex flex-col items-center justify-center w-[50%]">
-      <div className="size-[200px]">
+    <section className="flex flex-col items-center justify-center w-[50%] mobile:flex-row mobile:w-full mobile:items-center mobile:p-5">
+      <div className="size-[200px] mobile:size-[50%]">
         <Svg />
       </div>
 

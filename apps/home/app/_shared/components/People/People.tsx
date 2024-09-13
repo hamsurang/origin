@@ -54,7 +54,7 @@ export const People = () => {
           <motion.div
             ref={refs.setFloating}
             style={floatingStyles}
-            className="relative bg-black text-white p-4"
+            className="relative bg-black text-white p-4 mobile:hidden"
             initial={{ top: 0, opacity: 0 }}
             variants={{
               spring: {

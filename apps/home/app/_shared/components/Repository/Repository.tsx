@@ -3,7 +3,7 @@ import type { Category, RepositoryItem } from './Repository.types'
 
 export const Repository = (item: RepositoryItem) => {
   return (
-    <li key={item.id} className="w-[49%] md:w-1/2">
+    <li key={item.id} className="w-full">
       <article className="p-4 h-full border rounded-lg flex flex-col justify-between">
         <div className="flex items-center pb-2 gap-2">
           {categoryIconMap[item.category]}
