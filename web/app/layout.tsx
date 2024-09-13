@@ -1,6 +1,7 @@
 'use client'
 
 import '@hamsurang/ui/globals.css'
+import { cn } from '@hamsurang/ui'
 import { type MessageData, isValidEventOrigin } from '@hamsurang/utils'
 import { Inter } from 'next/font/google'
 import type { PropsWithChildren } from 'react'
@@ -30,7 +31,7 @@ export default function RootLayout({ children }: PropsWithChildren): JSX.Element
 
   return (
     <html lang="ko">
-      <body className={inter.className}>
+      <body className={cn(inter.className, 'mobile:pb-5')}>
         <Header />
         {children}
       </body>
