@@ -1,4 +1,4 @@
-import { DEFAULT_NAV_ITEM_ID, NAV_ITEMS_INFO } from '@/_shared'
+import { DEFAULT_NAV_ITEM_ID, NAV_ITEMS_INFO } from '@/_shared/constants/nav/nav.constants'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
