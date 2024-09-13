@@ -1,11 +1,11 @@
 import { ActivityLog, RepositoryList } from '@/_shared'
-import { REPOSITORY_ITEMS, sampleData } from '../home.constants'
+import { ACTIVITY_LOGS, REPOSITORY_ITEMS } from '../home.constants'
 
 export default function Page() {
   return (
-    <section className="flex-1">
+    <section className="flex flex-col flex-1 gap-4">
       <RepositoryList items={REPOSITORY_ITEMS} />
-      <ActivityLog logs={sampleData} />
+      <ActivityLog logs={ACTIVITY_LOGS} />
     </section>
   )
 }

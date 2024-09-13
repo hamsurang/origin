@@ -9,9 +9,9 @@ export const MBTIOverview = (props: MBTIProps) => {
   const mbti = mbtiInfos.map(({ value }) => value).join('') as MBTI
 
   return (
-    <div className="flex w-full items-center gap-2 border-slate-200 border-2 h-[400px] rounded-lg">
+    <div className="flex w-full items-center gap-2 border-slate-200 border-2 h-[400px] rounded-lg mobile:flex mobile:flex-col mobile:h-[auto]">
       <MBTIInfo mbti={mbti} />
-      <div className="h-[100%] w-[2px] bg-slate-200" />
+      <div className="h-[100%] w-[2px] bg-slate-200 mobile:w-full mobile:h-[2px]" />
       <MBTIGraph mbtiInfos={mbtiInfos} />
     </div>
   )

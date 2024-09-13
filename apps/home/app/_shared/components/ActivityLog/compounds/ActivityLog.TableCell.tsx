@@ -67,7 +67,7 @@ const Content = ({
   currentDate: Dayjs
   dayData: { contents: string[] }
 }) => {
-  const contents = dayData.contents.join(', ')
+  const contents = dayData.contents.join(',\n')
 
   return (
     <TooltipProvider>
