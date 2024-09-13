@@ -24,17 +24,17 @@ export const GlobalNavigationBar = () => {
         <span>홈</span>
       </LinkButton>
       <LinkButton
-        href="/activity"
+        href="/wiki"
         onClick={() =>
           postMessageToChildren({
             type: 'navigate',
             route: '/',
-            title: 'activity',
+            title: 'wiki',
           })
         }
       >
         <Book />
-        <span>활동</span>
+        <span>위키</span>
       </LinkButton>
     </nav>
   )

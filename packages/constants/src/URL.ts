@@ -4,7 +4,7 @@ const HOME_URL =
 const ROOT_URL =
   process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://hamsurang.com'
 
-const ACTIVITY_URL =
+const WIKI_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3001'
     : 'https://activity.hamsurang.com'
@@ -12,5 +12,5 @@ const ACTIVITY_URL =
 export const URL = {
   HOME: HOME_URL,
   ROOT: ROOT_URL,
-  ACTIVITY: ACTIVITY_URL,
+  WIKI: WIKI_URL,
 }

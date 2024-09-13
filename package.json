@@ -4,11 +4,11 @@
   "scripts": {
     "clean:branch": "git fetch --prune && git branch | grep -v '^*' | xargs git branch -D",
     "clean:cache": "turbo clean",
-    "build:activity": "turbo build --filter=activity",
+    "build:wiki": "turbo build --filter=wiki",
     "build:home": "turbo build --filter=home",
     "build:web": "turbo build --filter=web",
     "build:all": "turbo build",
-    "dev:activity": "turbo dev --filter=activity",
+    "dev:wiki": "turbo dev --filter=wiki",
     "dev:home": "turbo dev --filter=home",
     "dev:web": "turbo dev",
     "start": "turbo start",

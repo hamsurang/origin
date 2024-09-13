@@ -1,4 +1,4 @@
-export type ChildrenTitle = 'home' | 'activity'
+export type ChildrenTitle = 'home' | 'wiki'
 
 export type MessageDataToParent = {
   type: 'routeChange'
