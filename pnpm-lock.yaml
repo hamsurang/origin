@@ -30,7 +30,7 @@ importers:
         specifier: ^5.4.5
         version: 5.5.3
 
-  apps/activity:
+  apps/wiki:
     dependencies:
       '@hamsurang/ui':
         specifier: workspace:*
