@@ -39,3 +39,36 @@ export const sampleData: ActivityLogProps['logs'] = [
   { startDate: '2024-01-01', endDate: '2024-06-04', contents: '첫 번째 활동 내역' },
   { startDate: '2024-01-01', endDate: '2024-03-31', contents: '두 번째 활동 내역' },
 ]
+
+export const ACTIVITY_LOGS: ActivityLogProps['logs'] = [
+  {
+    startDate: '2023-07-13',
+    endDate: '2023-09-21',
+    contents: '쏙쏙쑥쑥 1기',
+  },
+  {
+    startDate: '2023-10-25',
+    endDate: '2023-12-27',
+    contents: '쏙쏙쑥쑥 2기',
+  },
+  {
+    startDate: '2023-06-01',
+    endDate: '2024-07-04',
+    contents: '함수랑크리틱 V1',
+  },
+  {
+    startDate: '2024-06-09',
+    endDate: '2024-06-09',
+    contents: '함수랑마라톤',
+  },
+  {
+    startDate: '2024-06-22',
+    endDate: '2024-06-22',
+    contents: '함수랑학예회',
+  },
+  {
+    startDate: '2024-06-28',
+    endDate: '2024-06-28',
+    contents: '2분기정기모임',
+  },
+]

@@ -3,7 +3,7 @@ import type { RepositoryProps } from './Repository.types'
 
 export const RepositoryList = ({ items }: RepositoryProps) => {
   return (
-    <ul className="flex flex-wrap gap-2">
+    <ul className="grid grid-cols-2 gap-2 mobile:grid-cols-1">
       {items.map((item) => (
         <Repository key={item.id} {...item} />
       ))}
