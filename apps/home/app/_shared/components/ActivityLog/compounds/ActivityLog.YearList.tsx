@@ -26,7 +26,7 @@ export const ActivityLogYearList = () => {
       {yearButtonArray.map((button) => (
         <Button
           className={cn(
-            'bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground w-28 flex justify-start',
+            'w-full bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground flex justify-start',
             button.year === context.selectedYear ? 'bg-blue-700 text-white hover:bg-blue-300' : '',
           )}
           key={button.id}
