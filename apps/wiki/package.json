@@ -11,12 +11,18 @@
   },
   "dependencies": {
     "@hamsurang/ui": "workspace:*",
+    "@hamsurang/utils": "workspace:*",
+    "@mdx-js/loader": "^3.0.1",
+    "@mdx-js/react": "^3.0.1",
+    "@next/mdx": "^14.2.5",
     "next": "^14.1.1",
+    "next-mdx-remote": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@hamsurang/typescript-config": "workspace:*",
+    "@types/mdx": "^2.0.13",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
     "autoprefixer": "^10.4.19",
