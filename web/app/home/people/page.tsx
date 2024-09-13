@@ -1,5 +1,6 @@
 'use client'
 
+import { IFRAME_STYLE } from '@/_shared/constants/styles'
 import { URL } from '@hamsurang/constants'
 
 export default function Page({
@@ -10,10 +11,6 @@ export default function Page({
   const { username } = searchParams
 
   return (
-    <iframe
-      src={`${URL.HOME}/people?username=${username}`}
-      style={{ width: '100%', height: '100vh' }}
-      title="home"
-    />
+    <iframe src={`${URL.HOME}/people?username=${username}`} style={IFRAME_STYLE} title="home" />
   )
 }
