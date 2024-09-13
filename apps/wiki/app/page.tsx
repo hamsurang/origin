@@ -1,9 +1,5 @@
-import { Button } from '@hamsurang/ui'
+import { DEFAULT_NAV_ITEM_ID, Docs } from './_shared'
 
 export default function Page() {
-  return (
-    <main>
-      <Button>Button</Button>
-    </main>
-  )
+  return <Docs id={DEFAULT_NAV_ITEM_ID} />
 }

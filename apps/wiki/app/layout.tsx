@@ -1,36 +1,44 @@
+'use client'
+
 import '@hamsurang/ui/globals.css'
 
+import { isValidEventOrigin } from '@hamsurang/utils'
 import { Inter } from 'next/font/google'
-import type { PropsWithChildren } from 'react'
-import { SideNav } from './_shared'
+import { useRouter } from 'next/navigation'
+import { type PropsWithChildren, useEffect } from 'react'
+import { NAV_ITEMS, SideNav } from './_shared'
 
 const inter = Inter({ subsets: ['latin'] })
 
-const NAV_ITEMS = [
-  {
-    id: 1,
-    title: '정규활동',
-    subItems: [
-      { id: 1, name: '함수랑마라톤', url: '/hamsurang/origin/wiki/함수랑마라톤' },
-      { id: 2, name: '함수랑학예회', url: '/hamsurang/origin/wiki/함수랑학예회' },
-    ],
-  },
-  {
-    id: 2,
-    title: '디스코드',
-    subItems: [
-      { id: 3, name: '함수랑크리틱', url: '/hamsurang/origin/wiki/함수랑크리틱' },
-      { id: 4, name: '함수랑상영회', url: '/hamsurang/origin/wiki/함수랑상영회' },
-    ],
-  },
-]
+export default function RootLayout({ children }: PropsWithChildren): JSX.Element {
+  const router = useRouter()
 
-export default function RootLayout({ children }: PropsWithChildren) {
+  useEffect(() => {
+    const handleIncomingMessage = ({ origin, data }: MessageEvent) => {
+      if (!isValidEventOrigin(origin)) {
+        return
+      }
+
+      if (data.type === 'navigate' && router) {
+        router.push(data.route)
+        router.refresh()
+      }
+    }
+
+    addEventListener('message', handleIncomingMessage)
+
+    return () => {
+      removeEventListener('message', handleIncomingMessage)
+    }
+  }, [router])
+
   return (
     <html lang="ko">
       <body className={inter.className}>
-        {children}
-        <SideNav items={NAV_ITEMS} />
+        <main className="flex gap-6 mobile:flex-col px-4 max-w-[1200px] mx-auto">
+          {children}
+          <SideNav items={NAV_ITEMS} />
+        </main>
       </body>
     </html>
   )
