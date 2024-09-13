@@ -21,7 +21,10 @@ const postMessage = (data: MessageData) => {
       parent.postMessage({ type: data.type, route: data.route }, URL.ROOT)
       break
     case 'navigate':
-      getChildIframe(data.title)?.postMessage({ type: data.type, route: data.route }, URL.HOME)
+      getChildIframe(data.title)?.postMessage(
+        { type: data.type, route: data.route },
+        data.targetOrigin,
+      )
       break
 
     default:
