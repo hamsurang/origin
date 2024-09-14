@@ -21,9 +21,6 @@ export const SideNav = ({ items }: SideNavProps) => {
       details.open = !details.open
       details.toggleAttribute('open')
     }
-
-    svg?.classList.toggle('rotate-0')
-    svg?.classList.toggle('-rotate-90')
   }
 
   return (
@@ -43,7 +40,7 @@ export const SideNav = ({ items }: SideNavProps) => {
         <ul className="p-0 list-none">
           {items.map((item) => (
             <li key={item.id} className="border-b">
-              <details onClick={toggleDetails} onKeyUp={toggleDetails} open>
+              <details onClick={toggleDetails} onKeyUp={toggleDetails} open className="group">
                 <summary className="cursor-pointer flex items-center p-2">
                   <button type="button" className="p-1 bg-transparent transition-transform">
                     <svg
@@ -51,7 +48,7 @@ export const SideNav = ({ items }: SideNavProps) => {
                       height="16"
                       viewBox="0 0 16 16"
                       width="16"
-                      className="-rotate-90"
+                      className="group-open:rotate-0 -rotate-90"
                     >
                       <path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z" />
                     </svg>
