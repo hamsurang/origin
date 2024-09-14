@@ -1,5 +1,3 @@
-'use client'
-
 import { IFRAME_STYLE } from '@/_shared/constants/styles'
 import { URL } from '@hamsurang/constants'
 
