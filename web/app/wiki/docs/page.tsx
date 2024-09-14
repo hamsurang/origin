@@ -1,5 +1,4 @@
-'use client'
-
+import { IFRAME_STYLE } from '@/_shared/constants/styles'
 import { URL } from '@hamsurang/constants'
 
 export default function Page({
@@ -9,11 +8,5 @@ export default function Page({
 }) {
   const { id } = searchParams
 
-  return (
-    <iframe
-      src={`${URL.WIKI}/docs?id=${id}`}
-      style={{ width: '100%', height: '100vh' }}
-      title="wiki"
-    />
-  )
+  return <iframe src={`${URL.WIKI}/docs?id=${id}`} style={IFRAME_STYLE} title="wiki" />
 }
