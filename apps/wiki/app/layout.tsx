@@ -2,9 +2,9 @@
 
 import '@hamsurang/ui/globals.css'
 
-import { isValidEventOrigin } from '@hamsurang/utils'
+import { isValidEventOrigin, postMessageToParent } from '@hamsurang/utils'
 import { Inter } from 'next/font/google'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { type PropsWithChildren, Suspense, useEffect } from 'react'
 import { NAV_ITEMS, SideNav } from './_shared'
 
@@ -12,6 +12,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function RootLayout({ children }: PropsWithChildren): JSX.Element {
   const router = useRouter()
+  const searchParams = useSearchParams()
 
   useEffect(() => {
     const handleIncomingMessage = ({ origin, data }: MessageEvent) => {
@@ -31,6 +32,15 @@ export default function RootLayout({ children }: PropsWithChildren): JSX.Element
       removeEventListener('message', handleIncomingMessage)
     }
   }, [router])
+
+  useEffect(() => {
+    const fullRoute = `/wiki?${searchParams}`
+
+    postMessageToParent({
+      type: 'routeChange',
+      route: fullRoute,
+    })
+  }, [searchParams])
 
   return (
     <html lang="ko">

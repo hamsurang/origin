@@ -15,7 +15,6 @@ export const SideNav = ({ items }: SideNavProps) => {
     e: React.MouseEvent<HTMLDetailsElement> | React.KeyboardEvent<HTMLDetailsElement>,
   ) => {
     const details = e.currentTarget
-    const svg = details.querySelector('svg')
 
     if (details) {
       details.open = !details.open
@@ -55,7 +54,7 @@ export const SideNav = ({ items }: SideNavProps) => {
                   </button>
                   <span className="ml-2 text-sm font-bold text-blue-500 truncate">
                     <Link
-                      href={item.url}
+                      href={`?id=${item.id}`}
                       className={cn(
                         'text-gray-700 hover:text-blue-500 hover:underline',
                         !docsId || docsId === item.id ? 'text-primary' : 'text-gray-700',
@@ -69,7 +68,7 @@ export const SideNav = ({ items }: SideNavProps) => {
                   {item.subItems.map((subItem) => (
                     <li key={subItem.id} className="py-1 text-sm">
                       <Link
-                        href={subItem.url}
+                        href={`?id=${subItem.id}`}
                         className={cn(
                           'text-gray-700 hover:text-blue-500 hover:underline',
                           docsId === subItem.id ? 'text-primary' : 'text-gray-700',

@@ -1,5 +1,7 @@
-import { DEFAULT_NAV_ITEM_ID, Docs } from './_shared'
+import { DEFAULT_NAV_ITEM_ID, Docs, type NAV_ITEMS_INFO } from '@/_shared'
 
-export default function Page() {
-  return <Docs id={DEFAULT_NAV_ITEM_ID} />
+export default function Page({
+  searchParams,
+}: { searchParams: Record<'id', keyof typeof NAV_ITEMS_INFO> }) {
+  return <Docs id={searchParams.id || DEFAULT_NAV_ITEM_ID} />
 }

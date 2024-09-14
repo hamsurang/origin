@@ -6,6 +6,7 @@ const nextConfig = {
   transpilePackages: ['@hamsurang/ui'],
   experimental: {
     typedRoutes: true,
+    missingSuspenseWithCSRBailout: false,
   },
 }
 module.exports = withMDX(nextConfig)

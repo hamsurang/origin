@@ -7,14 +7,14 @@ export function middleware(request: NextRequest) {
   const docsId = searchParams.get('id')
 
   if (!docsId) {
-    return NextResponse.redirect(new URL(`/docs?id=${DEFAULT_NAV_ITEM_ID}`, origin))
+    return NextResponse.redirect(new URL(`?id=${DEFAULT_NAV_ITEM_ID}`, origin))
   }
 
   if (!Object.keys(NAV_ITEMS_INFO).find((id) => id === docsId)) {
-    return NextResponse.redirect(new URL(`/docs?id=${DEFAULT_NAV_ITEM_ID}`, origin))
+    return NextResponse.redirect(new URL(`?id=${DEFAULT_NAV_ITEM_ID}`, origin))
   }
 }
 
 export const config = {
-  matcher: ['/docs'],
+  matcher: ['/'],
 }
