@@ -1,0 +1,4 @@
+summary::-webkit-details-marker {
+    /* Hides marker on Safari */
+    display: none;
+}
