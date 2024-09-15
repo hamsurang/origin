@@ -1,7 +1,7 @@
 export type NavItem = { id: string; name: string }
 export type NavItems = (NavItem & { subItems: NavItem[] })[]
 
-export const NAV_ITEMS: NavItems = [
+export const NAV_ITEMS = [
   {
     id: 'main-activity',
     name: '정규활동',
@@ -13,4 +13,4 @@ export const NAV_ITEMS: NavItems = [
   },
 ] as const
 
-export const DEFAULT_NAV_ITEM_ID = 'main-activity'
+export const DEFAULT_NAV_ITEM_ID = NAV_ITEMS[0].id
