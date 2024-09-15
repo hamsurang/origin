@@ -1,31 +1,16 @@
-export const NAV_ITEMS_INFO = {
-  'main-activity': {
+export type NavItem = { id: string; name: string }
+export type NavItems = (NavItem & { subItems: NavItem[] })[]
+
+export const NAV_ITEMS: NavItems = [
+  {
     id: 'main-activity',
     name: '정규활동',
-  },
-  'hamsurang‐critique': {
-    id: 'hamsurang‐critique',
-    name: '함수랑크리틱',
-  },
-  'hamsurang-festival': {
-    id: 'hamsurang-festival',
-    name: '함수랑학예회',
-  },
-  'hamsurang‐marathon': {
-    id: 'hamsurang‐marathon',
-    name: '함수랑마라톤',
-  },
-} as const
-
-export const NAV_ITEMS = [
-  {
-    ...NAV_ITEMS_INFO['main-activity'],
     subItems: [
-      NAV_ITEMS_INFO['hamsurang‐critique'],
-      NAV_ITEMS_INFO['hamsurang-festival'],
-      NAV_ITEMS_INFO['hamsurang‐marathon'],
+      { id: 'hamsurang‐critique', name: '함수랑크리틱' },
+      { id: 'hamsurang-festival', name: '함수랑학예회' },
+      { id: 'hamsurang‐marathon', name: '함수랑마라톤' },
     ],
   },
 ] as const
 
-export const DEFAULT_NAV_ITEM_ID = NAV_ITEMS_INFO['main-activity'].id
+export const DEFAULT_NAV_ITEM_ID = 'main-activity'
