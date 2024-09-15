@@ -8,5 +8,6 @@ export type MessageDataToChildren = {
   title: ChildrenTitle
   type: 'navigate'
   route: string
+  targetOrigin: string
 }
 export type MessageData = MessageDataToParent | MessageDataToChildren

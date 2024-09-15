@@ -1,14 +1,17 @@
-import { cn } from '@hamsurang/ui'
 import type { HTMLAttributes, ImgHTMLAttributes } from 'react'
+import { cn } from '../lib/utils'
 
 export const MDXStylingComponents = {
   h1: ({ className, ...props }: HTMLAttributes<HTMLHeadingElement>) => (
-    <h1 className={cn('mt-2 scroll-m-20 text-4xl font-bold', className)} {...props} />
+    <h1
+      className={cn('mt-2 scroll-m-20 border-b pb-3 text-3xl font-semibold', className)}
+      {...props}
+    />
   ),
   h2: ({ className, ...props }: HTMLAttributes<HTMLHeadingElement>) => (
     <h2
       className={cn(
-        'mt-10 scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight first:mt-0',
+        'mt-10 scroll-m-20 mb-[16px] border-b pb-2 text-2xl font-semibold tracking-tight first:mt-0',
         className,
       )}
       {...props}
@@ -39,10 +42,13 @@ export const MDXStylingComponents = {
     />
   ),
   a: ({ className, ...props }: HTMLAttributes<HTMLAnchorElement>) => (
-    <a className={cn('font-medium underline underline-offset-4', className)} {...props} />
+    <a className={cn('text-[#0969da] underline underline-offset-4', className)} {...props} />
   ),
   p: ({ className, ...props }: HTMLAttributes<HTMLParagraphElement>) => (
-    <p className={cn('text-base leading-7 [&:not(:first-child)]:mt-5', className)} {...props} />
+    <p
+      className={cn('text-base leading-[24px] [&:not(:first-child)]:mt-5 mb-[16px]', className)}
+      {...props}
+    />
   ),
   ul: ({ className, ...props }: HTMLAttributes<HTMLUListElement>) => (
     <ul className={cn('my-6 ml-6 list-disc', className)} {...props} />
@@ -54,7 +60,10 @@ export const MDXStylingComponents = {
     <li className={cn('mt-2', className)} {...props} />
   ),
   blockquote: ({ className, ...props }: HTMLAttributes<HTMLElement>) => (
-    <blockquote className={cn('mt-6 border-l-2 pl-6 italic', className)} {...props} />
+    <blockquote
+      className={cn('mt-6 pl-4 text-[#59636e] border-l-4 border-[#d1d9e0]', className)}
+      {...props}
+    />
   ),
   img: ({ className, alt, ...props }: ImgHTMLAttributes<HTMLImageElement>) => (
     // biome-ignore lint/a11y/useAltText: <explanation>
@@ -95,5 +104,8 @@ export const MDXStylingComponents = {
       )}
       {...props}
     />
+  ),
+  details: ({ className, ...props }: HTMLAttributes<HTMLDetailsElement>) => (
+    <details className={cn('cursor-pointer', className)} {...props} />
   ),
 }

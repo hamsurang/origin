@@ -1,5 +1,6 @@
 'use client'
 
+import { URL } from '@hamsurang/constants'
 import { Book, Code } from '@hamsurang/icon'
 import { cn } from '@hamsurang/ui'
 import { postMessageToChildren } from '@hamsurang/utils'
@@ -9,7 +10,7 @@ import type { MouseEventHandler, PropsWithChildren } from 'react'
 
 export const GlobalNavigationBar = () => {
   return (
-    <nav className="flex gap-4">
+    <nav className="flex gap-4 mb-[24px]">
       <LinkButton
         href="/home"
         onClick={() =>
@@ -17,6 +18,7 @@ export const GlobalNavigationBar = () => {
             type: 'navigate',
             route: '/',
             title: 'home',
+            targetOrigin: URL.HOME,
           })
         }
       >
@@ -30,6 +32,7 @@ export const GlobalNavigationBar = () => {
             type: 'navigate',
             route: '/',
             title: 'wiki',
+            targetOrigin: URL.WIKI,
           })
         }
       >
