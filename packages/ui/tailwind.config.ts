@@ -26,7 +26,9 @@ const config = {
     extend: {
       height: {
         'iframe-height': 'calc(100vh - 84px)',
-        'iframe-height-mobile': 'calc(100vh - 108px)',
+      },
+      padding: {
+        'iframe-padding': '1.5rem',
       },
       colors: {
         border: 'hsl(var(--border))',

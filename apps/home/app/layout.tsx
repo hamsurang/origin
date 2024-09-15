@@ -33,7 +33,9 @@ export default function RootLayout({ children }: PropsWithChildren): JSX.Element
   return (
     <html lang="ko">
       <body className={inter.className}>
-        <Suspense>{children}</Suspense>
+        <main className="pt-iframe-padding">
+          <Suspense>{children}</Suspense>
+        </main>
       </body>
     </html>
   )

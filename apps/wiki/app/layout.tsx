@@ -45,7 +45,7 @@ export default function RootLayout({ children }: PropsWithChildren): JSX.Element
   return (
     <html lang="ko">
       <body className={inter.className}>
-        <main className="flex gap-6 mobile:flex-col px-4 max-w-[1200px] mx-auto">
+        <main className="flex gap-6 mobile:flex-col px-4 max-w-[1200px] mx-auto pt-iframe-padding">
           <Suspense>
             {children}
             <SideNav items={NAV_ITEMS} />

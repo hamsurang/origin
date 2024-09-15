@@ -10,7 +10,7 @@ import type { MouseEventHandler, PropsWithChildren } from 'react'
 
 export const GlobalNavigationBar = () => {
   return (
-    <nav className="flex gap-4 mb-[24px]">
+    <nav className="flex gap-4">
       <LinkButton
         href="/home"
         onClick={() =>
