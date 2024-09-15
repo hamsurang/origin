@@ -1,9 +1,1 @@
-import type { CSSProperties } from 'react'
-
-const GLOBAL_NAVBAR_HEIGHT = '84px'
-
-export const IFRAME_STYLE: CSSProperties = {
-  width: '100%',
-  height: `calc(100vh - ${GLOBAL_NAVBAR_HEIGHT})`,
-  paddingBottom: '1rem',
-}
+export const IFRAME_CLASS_NAME = 'w-full h-iframe-height pb-1 mobile:h-iframe-height-mobile'

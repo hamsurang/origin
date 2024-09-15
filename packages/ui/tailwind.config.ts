@@ -24,6 +24,10 @@ const config = {
       tablet: { max: '1000px' },
     },
     extend: {
+      height: {
+        'iframe-height': 'calc(100vh - 84px)',
+        'iframe-height-mobile': 'calc(100vh - 108px)',
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

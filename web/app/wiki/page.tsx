@@ -1,4 +1,4 @@
-import { IFRAME_STYLE } from '@/_shared/constants/styles'
+import { IFRAME_CLASS_NAME } from '@/_shared/constants/styles'
 import { URL } from '@hamsurang/constants'
 
 export default function Page({
@@ -8,5 +8,5 @@ export default function Page({
 }) {
   const id = searchParams.id || 'main-activity'
 
-  return <iframe src={`${URL.WIKI}?id=${id}`} style={IFRAME_STYLE} title="wiki" />
+  return <iframe src={`${URL.WIKI}?id=${id}`} className={IFRAME_CLASS_NAME} title="wiki" />
 }

@@ -1,4 +1,4 @@
-import { IFRAME_STYLE } from '@/_shared/constants/styles'
+import { IFRAME_CLASS_NAME } from '@/_shared/constants/styles'
 import { URL } from '@hamsurang/constants'
 
 export default function Page({
@@ -9,6 +9,10 @@ export default function Page({
   const { username } = searchParams
 
   return (
-    <iframe src={`${URL.HOME}/people?username=${username}`} style={IFRAME_STYLE} title="home" />
+    <iframe
+      className={IFRAME_CLASS_NAME}
+      src={`${URL.HOME}/people?username=${username}`}
+      title="home"
+    />
   )
 }
