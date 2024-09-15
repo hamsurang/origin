@@ -11,17 +11,6 @@ export const SideNav = ({ items }: SideNavProps) => {
   const { get } = useSearchParams()
   const docsId = get('id')
 
-  const toggleDetails = (
-    e: React.MouseEvent<HTMLDetailsElement> | React.KeyboardEvent<HTMLDetailsElement>,
-  ) => {
-    const details = e.currentTarget
-
-    if (details) {
-      details.open = !details.open
-      details.toggleAttribute('open')
-    }
-  }
-
   return (
     <nav className="p-4 w-[296px] mobile:w-full">
       <section className="shadow-sm border rounded-lg">
@@ -39,7 +28,7 @@ export const SideNav = ({ items }: SideNavProps) => {
         <ul className="p-0 list-none">
           {items.map((item) => (
             <li key={item.id} className="border-b">
-              <details onClick={toggleDetails} onKeyUp={toggleDetails} open className="group">
+              <details className="group">
                 <summary className="cursor-pointer flex items-center p-2">
                   <button type="button" className="p-1 bg-transparent transition-transform">
                     <svg
