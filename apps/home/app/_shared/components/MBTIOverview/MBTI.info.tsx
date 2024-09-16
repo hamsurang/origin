@@ -95,6 +95,6 @@ const MBTIInfoMap = {
   },
   ESFP: {
     alias: '연예인',
-    description: '즉흥적이고 넘치는 에너지와 열정으로 주변 사람을 즐겁게 하는 연예인입니다.',
+    description: '즉흥적이고 넘치는 에너지와 열정으로\n주변 사람을 즐겁게 하는 연예인입니다.',
   },
 }
