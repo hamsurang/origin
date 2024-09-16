@@ -1,3 +1,5 @@
+'use client'
+
 import type { NAV_ITEMS } from '@/_shared/constants'
 import { cn } from '@hamsurang/ui'
 import Link from 'next/link'
