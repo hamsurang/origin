@@ -50,10 +50,10 @@ export const PEOPLE_MBTI_INFO_MAP = {
     생활_양식: { value: 'J', percent: 100 },
   },
   minchodang: {
-    에너지_방향: { value: 'E', percent: 100 },
-    인식_기능: { value: 'N', percent: 100 },
-    판단_기능: { value: 'F', percent: 100 },
-    생활_양식: { value: 'J', percent: 100 },
+    에너지_방향: { value: 'I', percent: 60 },
+    인식_기능: { value: 'N', percent: 70 },
+    판단_기능: { value: 'F', percent: 70 },
+    생활_양식: { value: 'J', percent: 80 },
   },
   sungh0lim: {
     에너지_방향: { value: 'E', percent: 100 },
