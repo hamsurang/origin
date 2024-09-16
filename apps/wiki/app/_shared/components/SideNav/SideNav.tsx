@@ -1,18 +1,13 @@
-'use client'
-
 import type { NAV_ITEMS } from '@/_shared/constants'
 import { cn } from '@hamsurang/ui'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
 
 export interface SideNavProps {
   items: typeof NAV_ITEMS
+  docsId: string | null
 }
 
-export const SideNav = ({ items }: SideNavProps) => {
-  const { get } = useSearchParams()
-  const docsId = get('id')
-
+export const SideNav = ({ docsId, items }: SideNavProps) => {
   return (
     <nav className="p-4 w-[296px] mobile:w-full">
       <section className="shadow-sm border rounded-lg">
