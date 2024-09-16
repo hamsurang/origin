@@ -13,6 +13,7 @@ const inter = Inter({ subsets: ['latin'] })
 export default function RootLayout({ children }: PropsWithChildren): JSX.Element {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const docId = searchParams.get('id')
 
   useEffect(() => {
     const handleIncomingMessage = ({ origin, data }: MessageEvent) => {
@@ -48,7 +49,7 @@ export default function RootLayout({ children }: PropsWithChildren): JSX.Element
         <main className="flex gap-6 mobile:flex-col px-4 max-w-[1200px] mx-auto pt-iframe-padding">
           <Suspense>
             {children}
-            <SideNav items={NAV_ITEMS} />
+            <SideNav items={NAV_ITEMS} docsId={docId} />
           </Suspense>
         </main>
       </body>
