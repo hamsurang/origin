@@ -1,37 +1,22 @@
-'use client'
-
 import '@hamsurang/ui/globals.css'
-import { type MessageData, isValidEventOrigin } from '@hamsurang/utils'
+import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import type { PropsWithChildren } from 'react'
-import { useEffect } from 'react'
-import { Header } from './_shared/components/Header'
+import { EventListener, Header } from './_shared/components'
 
 const inter = Inter({ subsets: ['latin'] })
 
+export const metadata: Metadata = {
+  title: '함수랑산악회',
+  description: '함수랑산악회의 공식 홈페이지입니다.',
+}
+
 export default function RootLayout({ children }: PropsWithChildren): JSX.Element {
-  useEffect(() => {
-    const handleIncomingMessage = ({ origin, data }: MessageEvent<MessageData>) => {
-      if (!isValidEventOrigin(origin)) {
-        return
-      }
-
-      if (data.type === 'routeChange') {
-        history.replaceState({}, '', data.route)
-      }
-    }
-
-    addEventListener('message', handleIncomingMessage)
-
-    return () => {
-      removeEventListener('message', handleIncomingMessage)
-    }
-  }, [])
-
   return (
     <html lang="ko">
       <body className={inter.className}>
         <Header />
+        <EventListener />
         {children}
       </body>
     </html>
