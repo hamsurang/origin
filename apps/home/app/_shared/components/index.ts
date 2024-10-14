@@ -1,6 +1,7 @@
 export * from './ActivityLog'
+export { BannerBox } from './BannerBox'
 export * from './MBTIOverview'
 export { People } from './People'
 export { Profile } from './Profile'
-export * from './Repository'
 export * from './Readme'
+export * from './Repository'
