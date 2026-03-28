@@ -12,7 +12,13 @@ export default async function Page({
     process.cwd(),
     `./app/(profile-readme)/@readme/_shared/content/${username}.mdx`,
   )
-  const readme = await fs.readFile(filePath, { encoding: 'utf8' })
+
+  let readme: string
+  try {
+    readme = await fs.readFile(filePath, { encoding: 'utf8' })
+  } catch {
+    return <p className="text-gray-500 text-center py-8">아직 README가 작성되지 않았습니다.</p>
+  }
 
   return <Readme text={readme} />
 }

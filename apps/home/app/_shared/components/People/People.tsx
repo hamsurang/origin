@@ -37,7 +37,7 @@ export const People = () => {
 
       <div ref={refs.setPositionReference} className="flex flex-wrap mt-3 gap-1">
         {HAMSURANG_PEOPLE.map(({ name, username }) => (
-          <Link href={`/people?username=${username}`} key={name}>
+          <Link href={`/people?username=${username}`} key={username}>
             <Avatar className="cursor-pointer">
               <AvatarImage
                 src={`https://github.com/${username}.png?size=70`}

@@ -7,10 +7,15 @@ export default function Page({
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
   const username = searchParams.username
+  const mbtiData = PEOPLE_MBTI_INFO_MAP[username as keyof typeof PEOPLE_MBTI_INFO_MAP]
 
   return (
     <div className="w-full">
-      <MBTIOverview {...PEOPLE_MBTI_INFO_MAP[username as keyof typeof PEOPLE_MBTI_INFO_MAP]} />
+      {mbtiData ? (
+        <MBTIOverview {...mbtiData} />
+      ) : (
+        <p className="text-gray-500 text-center py-8">아직 MBTI가 등록되지 않았습니다.</p>
+      )}
     </div>
   )
 }
