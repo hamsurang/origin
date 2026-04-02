@@ -6,17 +6,51 @@ import { ActivityLogProvider } from './ActivityLog.provider'
 import type { ActivityLogProps } from './ActivityLog.types'
 import * as Compounds from './compounds'
 
+const DAY_OF_WEEK_MAP: Record<string, number> = {
+  Sun: 0,
+  Mon: 1,
+  Tue: 2,
+  Wed: 3,
+  Thu: 4,
+  Fri: 5,
+  Sat: 6,
+}
+
+export type MergedContentItem = {
+  text: string
+  url?: string
+}
+
 const getMergedActivityLog = ({ logs }: ActivityLogProps) => {
-  return logs.reduce<Record<string, { contents: string[] }>>((acc, log) => {
+  return logs.reduce<Record<string, { contents: MergedContentItem[] }>>((acc, log) => {
     const endDate = dayjs(log.endDate)
-    let currentDate = dayjs(log.startDate)
+    const startDate = dayjs(log.startDate)
+    let currentDate = startDate
 
     while (currentDate.isBefore(endDate) || currentDate.isSame(endDate, 'day')) {
+      if (log.loop) {
+        const dayNums = log.loop.daysOfWeek.map((d) => DAY_OF_WEEK_MAP[d])
+        const interval = log.loop.weekInterval ?? 1
+
+        if (
+          !dayNums.includes(currentDate.day()) ||
+          currentDate.diff(startDate, 'week') % interval !== 0
+        ) {
+          currentDate = currentDate.add(1, 'day')
+          continue
+        }
+      }
+
       const date = currentDate.format('YYYY-MM-DD')
       if (!acc[date]) {
         acc[date] = { contents: [] }
       }
-      acc[date].contents.push(log.contents)
+
+      const dateLink = log.links?.[date as keyof typeof log.links]
+      acc[date].contents.push({
+        text: dateLink?.label ?? log.contents,
+        url: dateLink?.url ?? log.url,
+      })
       currentDate = currentDate.add(1, 'day')
     }
 
