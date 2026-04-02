@@ -71,4 +71,73 @@ export const ACTIVITY_LOGS: ActivityLogProps['logs'] = [
     endDate: '2024-06-28',
     contents: '2분기정기모임',
   },
+  {
+    startDate: '2026-01-26',
+    endDate: '2026-01-26',
+    contents: '1기 OT',
+  },
+  {
+    startDate: '2026-01-30',
+    endDate: '2026-01-30',
+    contents: '1기 오프라인 만남',
+  },
+  {
+    startDate: '2026-01-30',
+    endDate: '2026-04-24',
+    contents: '1기 활동',
+  },
+  {
+    startDate: '2026-02-05',
+    endDate: '2026-04-24',
+    contents: '함수랑크리틱 V2',
+    url: 'https://hamsurang.notion.site/critique',
+    loop: { daysOfWeek: ['Thu'] },
+    links: {
+      '2026-02-05': {
+        url: 'https://hamsurang.notion.site/AI-2fd45f0c788b808a9f59ca6998240da9',
+        label: '크리틱 - AI와 함께 성장',
+      },
+      '2026-02-19': {
+        url: 'https://hamsurang.notion.site/30a45f0c788b803ca417c19b772d3b2e',
+        label: '크리틱 - 최고의 엔지니어 공통 특성',
+      },
+      '2026-02-26': {
+        url: 'https://hamsurang.notion.site/30d45f0c788b8014af65fe5b642113e5',
+        label: '크리틱 - 문제를 잘 정의한다는 것',
+      },
+      '2026-03-12': {
+        url: 'https://hamsurang.notion.site/31345f0c788b8013a6e9fa0973bb4d1c',
+        label: '크리틱 - 개라밸',
+      },
+      '2026-03-19': {
+        url: 'https://hamsurang.notion.site/30e45f0c788b8080bd84e0a65d7527e2',
+        label: '크리틱 - 여러분의 고민',
+      },
+    },
+  },
+  {
+    startDate: '2026-02-27',
+    endDate: '2026-02-27',
+    contents: '2월 정규모임 (중간 발표회)',
+  },
+  {
+    startDate: '2026-03-07',
+    endDate: '2026-03-07',
+    contents: '함수랑마라톤 with OB',
+  },
+  {
+    startDate: '2026-04-15',
+    endDate: '2026-04-15',
+    contents: '함수랑테크콘서트 - 생산성 높이는 앱',
+  },
+  {
+    startDate: '2026-04-17',
+    endDate: '2026-04-17',
+    contents: '함수랑테크콘서트 - Medication Error',
+  },
+  {
+    startDate: '2026-03-29',
+    endDate: '2026-03-29',
+    contents: '3월 정규모임 (오프라인 크리틱)',
+  },
 ]

@@ -1,3 +1,4 @@
+import type { MergedContentItem } from '../ActivityLog'
 import { useActivityLogYear } from '../ActivityLog.provider'
 import { getDateRange } from '../ActivityLog.utils'
 import { ActivityLogTableCell } from './ActivityLog.TableCell'
@@ -5,7 +6,7 @@ import { ActivityLogTableCell } from './ActivityLog.TableCell'
 export const ActivityLogTable = ({
   activityLog,
 }: {
-  activityLog: Record<string, { contents: string[] }>
+  activityLog: Record<string, { contents: MergedContentItem[] }>
 }) => {
   const context = useActivityLogYear()
   const [startDate, endDate] = getDateRange(context.selectedYear)
