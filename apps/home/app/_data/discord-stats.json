@@ -1,0 +1,71 @@
+{
+  "guildId": "0000000000",
+  "lastUpdated": "2026-04-03T15:00:00Z",
+  "daily": [
+    {
+      "date": "2026-03-01",
+      "messages": 28,
+      "participants": 12,
+      "contributors": [
+        { "id": "1001", "username": "minsoo-web", "avatar": null, "messages": 8 },
+        { "id": "1002", "username": "oilater", "avatar": null, "messages": 6 },
+        { "id": "1003", "username": "dev-seongjoo", "avatar": null, "messages": 5 },
+        { "id": "1004", "username": "se-zero", "avatar": null, "messages": 4 },
+        { "id": "1005", "username": "kim-jieun", "avatar": null, "messages": 3 },
+        { "id": "1006", "username": "lee-hyun", "avatar": null, "messages": 2 }
+      ]
+    },
+    {
+      "date": "2026-03-02",
+      "messages": 35,
+      "participants": 14,
+      "contributors": [
+        { "id": "1002", "username": "oilater", "avatar": null, "messages": 10 },
+        { "id": "1003", "username": "dev-seongjoo", "avatar": null, "messages": 8 },
+        { "id": "1001", "username": "minsoo-web", "avatar": null, "messages": 7 },
+        { "id": "1006", "username": "lee-hyun", "avatar": null, "messages": 5 },
+        { "id": "1005", "username": "kim-jieun", "avatar": null, "messages": 3 },
+        { "id": "1007", "username": "park-junho", "avatar": null, "messages": 2 }
+      ]
+    },
+    {
+      "date": "2026-03-03",
+      "messages": 22,
+      "participants": 10,
+      "contributors": [
+        { "id": "1004", "username": "se-zero", "avatar": null, "messages": 7 },
+        { "id": "1001", "username": "minsoo-web", "avatar": null, "messages": 5 },
+        { "id": "1007", "username": "park-junho", "avatar": null, "messages": 4 },
+        { "id": "1002", "username": "oilater", "avatar": null, "messages": 3 },
+        { "id": "1003", "username": "dev-seongjoo", "avatar": null, "messages": 2 },
+        { "id": "1006", "username": "lee-hyun", "avatar": null, "messages": 1 }
+      ]
+    },
+    {
+      "date": "2026-03-04",
+      "messages": 41,
+      "participants": 16,
+      "contributors": [
+        { "id": "1001", "username": "minsoo-web", "avatar": null, "messages": 12 },
+        { "id": "1005", "username": "kim-jieun", "avatar": null, "messages": 9 },
+        { "id": "1002", "username": "oilater", "avatar": null, "messages": 7 },
+        { "id": "1007", "username": "park-junho", "avatar": null, "messages": 6 },
+        { "id": "1004", "username": "se-zero", "avatar": null, "messages": 4 },
+        { "id": "1003", "username": "dev-seongjoo", "avatar": null, "messages": 3 }
+      ]
+    },
+    {
+      "date": "2026-03-05",
+      "messages": 19,
+      "participants": 9,
+      "contributors": [
+        { "id": "1003", "username": "dev-seongjoo", "avatar": null, "messages": 6 },
+        { "id": "1006", "username": "lee-hyun", "avatar": null, "messages": 5 },
+        { "id": "1004", "username": "se-zero", "avatar": null, "messages": 4 },
+        { "id": "1007", "username": "park-junho", "avatar": null, "messages": 2 },
+        { "id": "1005", "username": "kim-jieun", "avatar": null, "messages": 1 },
+        { "id": "1001", "username": "minsoo-web", "avatar": null, "messages": 1 }
+      ]
+    }
+  ]
+}
