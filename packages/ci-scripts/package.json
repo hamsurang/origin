@@ -1,0 +1,20 @@
+{
+  "name": "@hamsurang/ci-scripts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "collect-discord-stats": "tsx src/collect-discord-stats.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome lint ./src",
+    "format": "biome format ./src --write"
+  },
+  "devDependencies": {
+    "@hamsurang/typescript-config": "workspace:*",
+    "tsx": "^4.19.0",
+    "typescript": "^5.4.5",
+    "vitest": "^3.1.1"
+  }
+}
