@@ -1,10 +1,14 @@
 import { DiscordInsights } from '@/_shared'
-import discordStats from '../_data/discord-stats.json'
+import { getDiscordStats } from '../lib/discord/get-stats'
 
-export default function InsightsPage() {
+export const revalidate = 86400
+
+export default async function InsightsPage() {
+  const stats = await getDiscordStats()
+
   return (
     <section className="flex flex-col flex-1 gap-2 px-2">
-      <DiscordInsights stats={discordStats} />
+      <DiscordInsights aggregatedStats={stats} />
     </section>
   )
 }

@@ -1,13 +1,25 @@
-import type { DiscordChannel, DiscordMessage } from './types.js'
+import type { DiscordChannel, DiscordMessage } from './types'
 
 const DISCORD_API = 'https://discord.com/api/v10'
+const TEXT_CHANNEL_TYPES = new Set([0, 5, 15])
 
-export const TEXT_CHANNEL_TYPES = new Set([0, 5, 15])
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
-export async function discordFetch<T>(path: string, token: string, retries = 5): Promise<T> {
+let lastRequestTime = 0
+const MIN_REQUEST_INTERVAL = 1200
+
+async function discordFetch<T>(path: string, token: string, retries = 5): Promise<T> {
+  const now = Date.now()
+  const elapsed = now - lastRequestTime
+  if (elapsed < MIN_REQUEST_INTERVAL) {
+    await sleep(MIN_REQUEST_INTERVAL - elapsed)
+  }
+  lastRequestTime = Date.now()
+
   const url = `${DISCORD_API}${path}`
   const res = await fetch(url, {
     headers: { Authorization: `Bot ${token}` },
+    cache: 'no-store',
   })
 
   if (res.status === 429) {
@@ -16,7 +28,7 @@ export async function discordFetch<T>(path: string, token: string, retries = 5):
     }
     const retryAfter = Number(res.headers.get('retry-after') || '5')
     console.warn(`Rate limited, waiting ${retryAfter}s...`)
-    await new Promise((r) => setTimeout(r, retryAfter * 1000))
+    await sleep(retryAfter * 1000)
     return discordFetch(path, token, retries - 1)
   }
 

@@ -1,8 +1,0 @@
-{
-  "extends": "@hamsurang/typescript-config/base.json",
-  "compilerOptions": {
-    "outDir": "dist",
-    "noEmit": true
-  },
-  "include": ["src"]
-}
