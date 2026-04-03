@@ -30,13 +30,7 @@ export const DiscordInsights = memo(({ stats }: DiscordInsightsProps) => {
       <span className="text-sm font-semibold mb-2 block">Contributors</span>
       <div className="border border-gray-200 rounded-md overflow-hidden">
         {aggregated.rankedContributors.map((contributor, i) => (
-          <ContributorRow
-            key={contributor.id}
-            rank={i + 1}
-            contributor={contributor}
-            barHeight={32}
-            avatarSize={28}
-          />
+          <ContributorRow key={contributor.id} rank={i + 1} contributor={contributor} size="md" />
         ))}
       </div>
     </div>

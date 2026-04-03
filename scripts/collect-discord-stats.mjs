@@ -15,17 +15,20 @@ if (!BOT_TOKEN || !GUILD_ID) {
   process.exit(1)
 }
 
-async function discordFetch(path) {
+async function discordFetch(path, retries = 5) {
   const url = `${DISCORD_API}${path}`
   const res = await fetch(url, {
     headers: { Authorization: `Bot ${BOT_TOKEN}` },
   })
 
   if (res.status === 429) {
+    if (retries <= 0) {
+      throw new Error(`Rate limit exceeded after max retries for ${path}`)
+    }
     const retryAfter = Number(res.headers.get('retry-after') || '5')
     console.warn(`Rate limited, waiting ${retryAfter}s...`)
     await new Promise((r) => setTimeout(r, retryAfter * 1000))
-    return discordFetch(path)
+    return discordFetch(path, retries - 1)
   }
 
   if (!res.ok) {

@@ -44,13 +44,7 @@ export const DiscordActivity = memo(({ stats }: DiscordActivityProps) => {
       {/* Top 3 contributors */}
       <div className="border-t border-gray-200">
         {top3.map((contributor, i) => (
-          <ContributorRow
-            key={contributor.id}
-            rank={i + 1}
-            contributor={contributor}
-            barHeight={28}
-            avatarSize={24}
-          />
+          <ContributorRow key={contributor.id} rank={i + 1} contributor={contributor} />
         ))}
 
         <div className="py-2 text-center bg-gray-50">
