@@ -41,21 +41,21 @@ function snowflakeFromTimestamp(timestamp) {
 
 async function fetchChannelMessages(channelId, afterSnowflake) {
   const messages = []
-  let lastId = afterSnowflake
+  let beforeId = null
 
   while (true) {
-    const batch = await discordFetch(
-      `/channels/${channelId}/messages?after=${lastId}&limit=100`
-    )
+    const path = beforeId
+      ? `/channels/${channelId}/messages?after=${afterSnowflake}&before=${beforeId}&limit=100`
+      : `/channels/${channelId}/messages?after=${afterSnowflake}&limit=100`
 
+    const batch = await discordFetch(path)
     if (batch.length === 0) break
 
     messages.push(...batch)
-
     if (batch.length < 100) break
 
-    // Messages are returned newest-first, so the smallest ID is last
-    lastId = batch[batch.length - 1].id
+    // Newest-first: last element is the oldest, use as `before` cursor for next page
+    beforeId = batch[batch.length - 1].id
   }
 
   return messages
