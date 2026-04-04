@@ -178,7 +178,7 @@ async function fetchDiscordStats(): Promise<AggregatedStats> {
       )
 
       for (const { date, data } of cached) {
-        if (data && date !== today) {
+        if (data) {
           dayStats.push(data)
         } else {
           missingDates.push(date)
@@ -222,9 +222,14 @@ async function fetchDiscordStats(): Promise<AggregatedStats> {
         const stats = aggregateMessagesToDay(allMessages, date)
         dayStats.push(stats)
 
-        // Cache past days in KV (not today — still accumulating)
-        if (redisClient && date !== today) {
-          await redisClient.set(`discord-stats:${date}`, stats)
+        if (redisClient) {
+          if (date === today) {
+            // Today's data: cache with 1h TTL (still accumulating)
+            await redisClient.set(`discord-stats:${date}`, stats, { ex: 3600 })
+          } else {
+            // Past days: cache permanently
+            await redisClient.set(`discord-stats:${date}`, stats)
+          }
         }
       }
     }
