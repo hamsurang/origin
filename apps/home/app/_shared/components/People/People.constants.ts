@@ -23,7 +23,7 @@ export const HAMSURANG_PEOPLE = [
   {
     name: '양예진',
     username: 'yejineee',
-    discordId: '868508931029356565',
+    discordId: '1138608243183194272',
   },
   {
     name: '박민수',
@@ -33,6 +33,7 @@ export const HAMSURANG_PEOPLE = [
   {
     name: '이현재',
     username: '2-NOW',
+    discordId: '436539809863958528',
   },
   {
     name: '김채림',
@@ -56,6 +57,7 @@ export const HAMSURANG_PEOPLE = [
   {
     name: '심미진',
     username: 'azure-553',
+    discordId: '868508931029356565',
   },
   {
     name: '박상민',
@@ -65,7 +67,7 @@ export const HAMSURANG_PEOPLE = [
   {
     name: '이종경',
     username: 'jong-kyung',
-    discordId: '1012956460059217991',
+    discordId: '376660388445552650',
   },
   {
     name: '정소현',
@@ -110,15 +112,17 @@ export const HAMSURANG_PEOPLE = [
   {
     name: '이준근',
     username: 'Jxxunnn',
+    discordId: '1012956460059217991',
   },
   {
     name: '이도윤',
     username: 'doyoonear',
-    discordId: '1138608243183194272',
+    discordId: '735847057721655346',
   },
   {
     name: '백보성',
     username: 'BO-LIKE-CHICKEN',
+    discordId: '955438861499109426',
   },
   {
     name: '김수빈',
