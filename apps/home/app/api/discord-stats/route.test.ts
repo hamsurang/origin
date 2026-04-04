@@ -189,5 +189,62 @@ describe('GET /api/discord-stats', () => {
       expect(res.status).toBe(200)
       expect(res.headers.get('Cache-Control')).toContain('s-maxage=300')
     })
+
+    it('skips KV caching when a channel fetch fails (rate limit resilience)', async () => {
+      const mockPipeline = { set: vi.fn(), exec: vi.fn().mockResolvedValue([]) }
+      const mockRedis = {
+        mget: vi.fn().mockResolvedValue([null]),
+        pipeline: vi.fn().mockReturnValue(mockPipeline),
+      }
+      mockedGetRedis.mockResolvedValue(mockRedis as never)
+      mockedFetchGuildChannels.mockResolvedValue([
+        { id: 'ch1', name: 'chat', type: 0 },
+        { id: 'ch2', name: 'share', type: 0 },
+      ])
+      // First channel succeeds, second fails (rate limit)
+      mockedFetchChannelMessages
+        .mockResolvedValueOnce([
+          {
+            id: 'msg1',
+            timestamp: '2026-04-01T10:00:00.000Z',
+            author: { id: 'u1', username: 'Alice', avatar: null },
+          },
+        ])
+        .mockRejectedValueOnce(new Error('Rate limit exceeded'))
+
+      const req = makeRequest('dates=2026-04-01')
+      const res = await GET(req)
+
+      expect(res.status).toBe(200)
+      const body = await res.json()
+      // Data is still returned (partial)
+      expect(body[0].messages).toBe(1)
+      // But KV pipeline should NOT have been called
+      expect(mockPipeline.exec).not.toHaveBeenCalled()
+    })
+
+    it('caches to KV when all channels succeed', async () => {
+      const mockPipeline = { set: vi.fn(), exec: vi.fn().mockResolvedValue([]) }
+      const mockRedis = {
+        mget: vi.fn().mockResolvedValue([null]),
+        pipeline: vi.fn().mockReturnValue(mockPipeline),
+      }
+      mockedGetRedis.mockResolvedValue(mockRedis as never)
+      mockedFetchGuildChannels.mockResolvedValue([{ id: 'ch1', name: 'chat', type: 0 }])
+      mockedFetchChannelMessages.mockResolvedValue([
+        {
+          id: 'msg1',
+          timestamp: '2026-04-01T10:00:00.000Z',
+          author: { id: 'u1', username: 'Alice', avatar: null },
+        },
+      ])
+
+      const req = makeRequest('dates=2026-04-01')
+      const res = await GET(req)
+
+      expect(res.status).toBe(200)
+      // KV pipeline should have been called (no errors)
+      expect(mockPipeline.exec).toHaveBeenCalled()
+    })
   })
 })
