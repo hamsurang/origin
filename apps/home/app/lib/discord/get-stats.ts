@@ -99,4 +99,3 @@ export const getDiscordStats = cache(fetchDiscordStatsResult)
 
 // Exported for Route Handler reuse
 export { getDateRange, getRedis }
-export type { CachedDayStats }

@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import type { CachedDayStats } from '../../_shared/components/DiscordActivity/DiscordActivity.types'
+import { aggregateMessagesToDay } from '../../lib/discord/aggregate'
 import { fetchChannelMessages, fetchGuildChannels } from '../../lib/discord/api'
 import { getDateRange, getRedis } from '../../lib/discord/get-stats'
 import { snowflakeFromTimestamp } from '../../lib/discord/snowflake'
@@ -9,46 +10,6 @@ export const runtime = 'edge'
 
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/
 const MAX_DATES = 30
-
-function aggregateMessagesToDay(messages: DiscordMessage[], date: string): CachedDayStats {
-  const contributorMap = new Map<
-    string,
-    { username: string; avatar: string | null; messages: number }
-  >()
-
-  for (const msg of messages) {
-    if (msg.author.bot) {
-      continue
-    }
-    const msgDate = msg.timestamp.split('T')[0]
-    if (msgDate !== date) {
-      continue
-    }
-
-    const existing = contributorMap.get(msg.author.id)
-    if (existing) {
-      existing.messages += 1
-      existing.username = msg.author.username
-      existing.avatar = msg.author.avatar
-    } else {
-      contributorMap.set(msg.author.id, {
-        username: msg.author.username,
-        avatar: msg.author.avatar,
-        messages: 1,
-      })
-    }
-  }
-
-  const contributors = Array.from(contributorMap.entries())
-    .map(([id, data]) => ({ id, ...data }))
-    .sort((a, b) => b.messages - a.messages)
-
-  return {
-    date,
-    messages: contributors.reduce((sum, c) => sum + c.messages, 0),
-    contributors,
-  }
-}
 
 export async function GET(request: NextRequest) {
   const token = process.env.DISCORD_BOT_TOKEN

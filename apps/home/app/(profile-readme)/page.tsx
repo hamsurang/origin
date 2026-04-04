@@ -8,9 +8,7 @@ export const revalidate = 3600
 
 async function DiscordActivitySection() {
   const { stats, missingDates } = await getDiscordStats()
-  const allDates = stats.dailyTotals.map((d) => d.date)
-
-  return <DiscordActivity initialStats={stats} missingDates={missingDates} allDates={allDates} />
+  return <DiscordActivity initialStats={stats} missingDates={missingDates} />
 }
 
 export default function Page() {

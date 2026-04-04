@@ -6,9 +6,7 @@ export const revalidate = 3600
 
 async function DiscordInsightsSection() {
   const { stats, missingDates } = await getDiscordStats()
-  const allDates = stats.dailyTotals.map((d) => d.date)
-
-  return <DiscordInsights initialStats={stats} missingDates={missingDates} allDates={allDates} />
+  return <DiscordInsights initialStats={stats} missingDates={missingDates} />
 }
 
 export default function InsightsPage() {
