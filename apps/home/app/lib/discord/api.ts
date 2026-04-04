@@ -1,3 +1,5 @@
+import 'server-only'
+
 import type { DiscordChannel, DiscordMessage } from './types'
 
 const DISCORD_API = 'https://discord.com/api/v10'
@@ -43,9 +45,12 @@ async function discordFetch<T>(path: string, token: string, retries = 5): Promis
     if (retries <= 0) {
       throw new Error(`Rate limit exceeded after max retries for ${path}`)
     }
-    const retryAfter = Number(res.headers.get('retry-after') || '5')
-    console.warn(`Rate limited, waiting ${retryAfter}s...`)
+    const retryAfter = Math.ceil(Number(res.headers.get('retry-after') || '5'))
+    console.warn(
+      `[discord-api] Rate limited on ${path}, waiting ${retryAfter}s (${retries} retries left)`,
+    )
     await sleep(retryAfter * 1000)
+    lastRequestTime = Date.now()
     return discordFetch(path, token, retries - 1)
   }
 

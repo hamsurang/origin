@@ -4,11 +4,13 @@ import { DiscordActivitySkeleton } from '../_shared/components/DiscordActivity/D
 import { getDiscordStats } from '../lib/discord/get-stats'
 import { ACTIVITY_LOGS, REPOSITORY_ITEMS } from '../home.constants'
 
-export const revalidate = 86400
+export const revalidate = 3600
 
 async function DiscordActivitySection() {
-  const stats = await getDiscordStats()
-  return <DiscordActivity aggregatedStats={stats} />
+  const { stats, missingDates } = await getDiscordStats()
+  const allDates = stats.dailyTotals.map((d) => d.date)
+
+  return <DiscordActivity initialStats={stats} missingDates={missingDates} allDates={allDates} />
 }
 
 export default function Page() {

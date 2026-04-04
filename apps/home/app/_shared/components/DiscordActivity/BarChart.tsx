@@ -28,7 +28,7 @@ function getBarColor(value: number, max: number): string {
 }
 
 function formatDate(dateStr: string): string {
-  return dateStr.slice(5) // "2026-03-27" → "03-27"
+  return dateStr.slice(5)
 }
 
 export const BarChart = ({ data, height, className }: BarChartProps) => {
@@ -46,7 +46,7 @@ export const BarChart = ({ data, height, className }: BarChartProps) => {
               <Tooltip key={d.date}>
                 <TooltipTrigger asChild>
                   <div
-                    className="flex-1 min-w-[2px] rounded-t-[1px] cursor-pointer"
+                    className="flex-1 min-w-[2px] rounded-t-[1px] cursor-pointer transition-[height,background-color] duration-500 ease-out"
                     style={{
                       height: `${barHeight}%`,
                       backgroundColor: getBarColor(d.value, max),

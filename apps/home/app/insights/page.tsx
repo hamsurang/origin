@@ -2,11 +2,13 @@ import { Suspense } from 'react'
 import { DiscordInsights } from '@/_shared'
 import { getDiscordStats } from '../lib/discord/get-stats'
 
-export const revalidate = 86400
+export const revalidate = 3600
 
 async function DiscordInsightsSection() {
-  const stats = await getDiscordStats()
-  return <DiscordInsights aggregatedStats={stats} />
+  const { stats, missingDates } = await getDiscordStats()
+  const allDates = stats.dailyTotals.map((d) => d.date)
+
+  return <DiscordInsights initialStats={stats} missingDates={missingDates} allDates={allDates} />
 }
 
 export default function InsightsPage() {

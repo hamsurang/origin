@@ -33,3 +33,14 @@ export type AggregatedStats = {
   dailyTotals: { date: string; value: number }[]
   rankedContributors: RankedContributor[]
 }
+
+export type CachedDayStats = {
+  date: string
+  messages: number
+  contributors: { id: string; username: string; avatar: string | null; messages: number }[]
+}
+
+export type DiscordStatsResult = {
+  stats: AggregatedStats
+  missingDates: string[]
+}

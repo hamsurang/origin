@@ -1,0 +1,151 @@
+import { type NextRequest, NextResponse } from 'next/server'
+import type { CachedDayStats } from '../../_shared/components/DiscordActivity/DiscordActivity.types'
+import { fetchChannelMessages, fetchGuildChannels } from '../../lib/discord/api'
+import { getDateRange, getRedis } from '../../lib/discord/get-stats'
+import { snowflakeFromTimestamp } from '../../lib/discord/snowflake'
+import type { DiscordMessage } from '../../lib/discord/types'
+
+export const runtime = 'edge'
+
+const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/
+const MAX_DATES = 30
+
+function aggregateMessagesToDay(messages: DiscordMessage[], date: string): CachedDayStats {
+  const contributorMap = new Map<
+    string,
+    { username: string; avatar: string | null; messages: number }
+  >()
+
+  for (const msg of messages) {
+    if (msg.author.bot) {
+      continue
+    }
+    const msgDate = msg.timestamp.split('T')[0]
+    if (msgDate !== date) {
+      continue
+    }
+
+    const existing = contributorMap.get(msg.author.id)
+    if (existing) {
+      existing.messages += 1
+      existing.username = msg.author.username
+      existing.avatar = msg.author.avatar
+    } else {
+      contributorMap.set(msg.author.id, {
+        username: msg.author.username,
+        avatar: msg.author.avatar,
+        messages: 1,
+      })
+    }
+  }
+
+  const contributors = Array.from(contributorMap.entries())
+    .map(([id, data]) => ({ id, ...data }))
+    .sort((a, b) => b.messages - a.messages)
+
+  return {
+    date,
+    messages: contributors.reduce((sum, c) => sum + c.messages, 0),
+    contributors,
+  }
+}
+
+export async function GET(request: NextRequest) {
+  const token = process.env.DISCORD_BOT_TOKEN
+  const guildId = process.env.DISCORD_GUILD_ID
+
+  if (!token || !guildId) {
+    return NextResponse.json({ error: 'Server not configured' }, { status: 500 })
+  }
+
+  const datesParam = request.nextUrl.searchParams.get('dates')
+  if (!datesParam) {
+    return NextResponse.json({ error: 'Missing dates parameter' }, { status: 400 })
+  }
+
+  const requestedDates = datesParam.split(',')
+
+  // Validate dates
+  const validRange = new Set(getDateRange())
+  const validDates = requestedDates.filter((d) => DATE_REGEX.test(d) && validRange.has(d))
+
+  if (validDates.length === 0) {
+    return NextResponse.json({ error: 'No valid dates' }, { status: 400 })
+  }
+  if (validDates.length > MAX_DATES) {
+    return NextResponse.json({ error: 'Too many dates' }, { status: 400 })
+  }
+
+  try {
+    const redisClient = await getRedis()
+
+    // Check KV first — another request may have already populated these
+    const alreadyCached: CachedDayStats[] = []
+    const stillMissing: string[] = []
+
+    if (redisClient) {
+      const keys = validDates.map((d) => `discord-stats:${d}`)
+      const results = await redisClient.mget<(CachedDayStats | null)[]>(...keys)
+
+      for (let i = 0; i < validDates.length; i++) {
+        const data = results[i]
+        if (data) {
+          alreadyCached.push(data)
+        } else {
+          stillMissing.push(validDates[i] as string)
+        }
+      }
+    } else {
+      stillMissing.push(...validDates)
+    }
+
+    const fetchedDays: CachedDayStats[] = [...alreadyCached]
+
+    // Fetch only truly missing dates from Discord
+    if (stillMissing.length > 0) {
+      const startDate = stillMissing[0] as string
+      const startOfRange = new Date(`${startDate}T00:00:00Z`)
+      const afterSnowflake = snowflakeFromTimestamp(startOfRange.getTime())
+
+      const textChannels = await fetchGuildChannels(guildId, token)
+      const allMessages: DiscordMessage[] = []
+
+      for (const channel of textChannels) {
+        try {
+          const messages = await fetchChannelMessages(channel.id, afterSnowflake, token)
+          allMessages.push(...messages)
+        } catch (err) {
+          const message = err instanceof Error ? err.message : String(err)
+          console.warn(`[api/discord-stats] Skipping channel ${channel.name}: ${message}`)
+        }
+      }
+
+      const today = new Date().toISOString().split('T')[0] as string
+
+      // Aggregate and cache
+      if (redisClient) {
+        const pipeline = redisClient.pipeline()
+        for (const date of stillMissing) {
+          const stats = aggregateMessagesToDay(allMessages, date)
+          fetchedDays.push(stats)
+
+          if (date === today) {
+            pipeline.set(`discord-stats:${date}`, JSON.stringify(stats), { ex: 3600 })
+          } else {
+            pipeline.set(`discord-stats:${date}`, JSON.stringify(stats))
+          }
+        }
+        await pipeline.exec()
+      } else {
+        for (const date of stillMissing) {
+          fetchedDays.push(aggregateMessagesToDay(allMessages, date))
+        }
+      }
+    }
+
+    return NextResponse.json(fetchedDays)
+  } catch (error) {
+    console.error('[api/discord-stats] Error:', error)
+    return NextResponse.json({ error: 'Failed to fetch Discord stats' }, { status: 500 })
+  }
+}
