@@ -16,7 +16,7 @@ const discordIdToName = new Map(
 )
 
 const REVALIDATE_INTERVAL = 86400
-const DAYS_TO_FETCH = 7
+const DAYS_TO_FETCH = 30
 
 type CachedDayStats = {
   date: string
