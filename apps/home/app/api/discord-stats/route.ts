@@ -87,12 +87,14 @@ export async function GET(request: NextRequest) {
 
       const textChannels = await fetchGuildChannels(guildId, token)
       const allMessages: DiscordMessage[] = []
+      let hadChannelErrors = false
 
       for (const channel of textChannels) {
         try {
           const messages = await fetchChannelMessages(channel.id, afterSnowflake, token)
           allMessages.push(...messages)
         } catch (err) {
+          hadChannelErrors = true
           const message = err instanceof Error ? err.message : String(err)
           console.warn(`[api/discord-stats] Skipping channel ${channel.name}: ${message}`)
         }
@@ -100,11 +102,12 @@ export async function GET(request: NextRequest) {
 
       const today = new Date().toISOString().split('T')[0] as string
       const aggregated = aggregateAllDays(allMessages, stillMissing)
+      fetchedDays.push(...aggregated)
 
-      if (redisClient) {
+      // Only cache to KV if all channels succeeded — incomplete data should not be permanently cached
+      if (redisClient && !hadChannelErrors) {
         const pipeline = redisClient.pipeline()
         for (const stats of aggregated) {
-          fetchedDays.push(stats)
           if (stats.date === today) {
             pipeline.set(kvKey(stats.date), JSON.stringify(stats), { ex: 3600 })
           } else {
@@ -112,8 +115,10 @@ export async function GET(request: NextRequest) {
           }
         }
         await pipeline.exec()
-      } else {
-        fetchedDays.push(...aggregated)
+      } else if (hadChannelErrors) {
+        console.warn(
+          '[api/discord-stats] Skipping KV cache due to channel errors — will retry on next request',
+        )
       }
     }
 
