@@ -40,3 +40,23 @@ export function aggregateMessagesToDay(messages: DiscordMessage[], date: string)
     contributors,
   }
 }
+
+export function aggregateAllDays(messages: DiscordMessage[], dates: string[]): CachedDayStats[] {
+  const dateSet = new Set(dates)
+  const grouped = new Map<string, DiscordMessage[]>()
+
+  for (const msg of messages) {
+    if (msg.author.bot) {
+      continue
+    }
+    const msgDate = msg.timestamp.split('T')[0]
+    if (!msgDate || !dateSet.has(msgDate)) {
+      continue
+    }
+    const arr = grouped.get(msgDate) ?? []
+    arr.push(msg)
+    grouped.set(msgDate, arr)
+  }
+
+  return dates.map((date) => aggregateMessagesToDay(grouped.get(date) ?? [], date))
+}

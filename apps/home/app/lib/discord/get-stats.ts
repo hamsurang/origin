@@ -6,11 +6,16 @@ import type {
   DiscordStatsResult,
 } from '../../_shared/components/DiscordActivity/DiscordActivity.types'
 import { buildFromDayStats } from '../../_shared/components/DiscordActivity/DiscordActivity.utils'
-import { fetchChannelMessages, fetchGuildChannels } from './api'
-import { snowflakeFromTimestamp } from './snowflake'
-import type { DiscordMessage } from './types'
+import { HAMSURANG_PEOPLE } from '../../_shared/components/People/People.constants'
 
 const DAYS_TO_FETCH = 14
+const KV_PREFIX = process.env.VERCEL_ENV ?? 'dev'
+
+const discordIdToName = new Map(
+  HAMSURANG_PEOPLE.filter((p): p is typeof p & { discordId: string } => 'discordId' in p).map(
+    (p) => [p.discordId, p.name],
+  ),
+)
 
 function emptyResult(): DiscordStatsResult {
   return {
@@ -30,40 +35,48 @@ function getDateRange(): string[] {
   return dates
 }
 
+let redisClient: Awaited<ReturnType<typeof createRedis>> | null = null
+
+async function createRedis() {
+  const { Redis } = await import('@upstash/redis')
+  return new Redis({
+    url: process.env.KV_REST_API_URL ?? '',
+    token: process.env.KV_REST_API_TOKEN ?? '',
+  })
+}
+
 async function getRedis() {
+  if (redisClient) {
+    return redisClient
+  }
   try {
-    const { Redis } = await import('@upstash/redis')
-    const redis = new Redis({
-      url: process.env.KV_REST_API_URL ?? '',
-      token: process.env.KV_REST_API_TOKEN ?? '',
-    })
-    await redis.ping()
-    return redis
+    redisClient = await createRedis()
+    return redisClient
   } catch {
     return null
   }
 }
 
-async function fetchDiscordStatsResult(): Promise<DiscordStatsResult> {
-  const token = process.env.DISCORD_BOT_TOKEN
-  const guildId = process.env.DISCORD_GUILD_ID
+function kvKey(date: string): string {
+  return `discord-stats:${KV_PREFIX}:${date}`
+}
 
-  if (!token || !guildId) {
+async function fetchDiscordStatsResult(): Promise<DiscordStatsResult> {
+  if (!process.env.DISCORD_BOT_TOKEN || !process.env.DISCORD_GUILD_ID) {
     console.warn('[discord-stats] Missing DISCORD_BOT_TOKEN or DISCORD_GUILD_ID')
     return emptyResult()
   }
 
   try {
     const dates = getDateRange()
-    const redisClient = await getRedis()
+    const redis = await getRedis()
 
     const dayStats: CachedDayStats[] = []
     const missingDates: string[] = []
 
-    if (redisClient) {
-      // Single mget round-trip for all dates
-      const keys = dates.map((date) => `discord-stats:${date}`)
-      const results = await redisClient.mget<(CachedDayStats | null)[]>(...keys)
+    if (redis) {
+      const keys = dates.map(kvKey)
+      const results = await redis.mget<(CachedDayStats | null)[]>(...keys)
 
       for (let i = 0; i < dates.length; i++) {
         const date = dates[i] as string
@@ -84,8 +97,7 @@ async function fetchDiscordStatsResult(): Promise<DiscordStatsResult> {
       console.log('[discord-stats] KV not available, fetching all dates from Discord')
     }
 
-    // Build stats from cached data only — missing dates show as 0
-    const stats = buildFromDayStats(dayStats, dates)
+    const stats = buildFromDayStats(dayStats, dates, discordIdToName)
 
     return { stats, missingDates }
   } catch (error) {
@@ -94,8 +106,6 @@ async function fetchDiscordStatsResult(): Promise<DiscordStatsResult> {
   }
 }
 
-// Request-level deduplication (no unstable_cache — KV per-day cache is sufficient)
 export const getDiscordStats = cache(fetchDiscordStatsResult)
 
-// Exported for Route Handler reuse
-export { getDateRange, getRedis }
+export { getDateRange, getRedis, kvKey }

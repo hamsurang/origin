@@ -1,23 +1,3 @@
-export type DailyContributor = {
-  id: string
-  username: string
-  avatar: string | null
-  messages: number
-}
-
-export type DailyStats = {
-  date: string
-  messages: number
-  participants: number
-  contributors: DailyContributor[]
-}
-
-export type DiscordStats = {
-  guildId: string
-  lastUpdated: string
-  daily: DailyStats[]
-}
-
 export type RankedContributor = {
   id: string
   username: string

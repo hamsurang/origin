@@ -2,9 +2,9 @@ import { Ratelimit } from '@upstash/ratelimit'
 import { Redis } from '@upstash/redis'
 import { type NextRequest, NextResponse } from 'next/server'
 import type { CachedDayStats } from '../../_shared/components/DiscordActivity/DiscordActivity.types'
-import { aggregateMessagesToDay } from '../../lib/discord/aggregate'
+import { aggregateAllDays } from '../../lib/discord/aggregate'
 import { fetchChannelMessages, fetchGuildChannels } from '../../lib/discord/api'
-import { getDateRange, getRedis } from '../../lib/discord/get-stats'
+import { getDateRange, getRedis, kvKey } from '../../lib/discord/get-stats'
 import { snowflakeFromTimestamp } from '../../lib/discord/snowflake'
 import type { DiscordMessage } from '../../lib/discord/types'
 
@@ -24,7 +24,6 @@ function getRatelimit() {
 }
 
 export async function GET(request: NextRequest) {
-  // Rate limiting
   const limiter = getRatelimit()
   if (limiter) {
     const ip = request.headers.get('x-forwarded-for') ?? 'anonymous'
@@ -47,8 +46,6 @@ export async function GET(request: NextRequest) {
   }
 
   const requestedDates = datesParam.split(',')
-
-  // Validate dates
   const validRange = new Set(getDateRange())
   const validDates = requestedDates.filter((d) => DATE_REGEX.test(d) && validRange.has(d))
 
@@ -62,12 +59,11 @@ export async function GET(request: NextRequest) {
   try {
     const redisClient = await getRedis()
 
-    // Check KV first — another request may have already populated these
     const alreadyCached: CachedDayStats[] = []
     const stillMissing: string[] = []
 
     if (redisClient) {
-      const keys = validDates.map((d) => `discord-stats:${d}`)
+      const keys = validDates.map(kvKey)
       const results = await redisClient.mget<(CachedDayStats | null)[]>(...keys)
 
       for (let i = 0; i < validDates.length; i++) {
@@ -84,7 +80,6 @@ export async function GET(request: NextRequest) {
 
     const fetchedDays: CachedDayStats[] = [...alreadyCached]
 
-    // Fetch only truly missing dates from Discord
     if (stillMissing.length > 0) {
       const startDate = stillMissing[0] as string
       const startOfRange = new Date(`${startDate}T00:00:00Z`)
@@ -104,25 +99,21 @@ export async function GET(request: NextRequest) {
       }
 
       const today = new Date().toISOString().split('T')[0] as string
+      const aggregated = aggregateAllDays(allMessages, stillMissing)
 
-      // Aggregate and cache
       if (redisClient) {
         const pipeline = redisClient.pipeline()
-        for (const date of stillMissing) {
-          const stats = aggregateMessagesToDay(allMessages, date)
+        for (const stats of aggregated) {
           fetchedDays.push(stats)
-
-          if (date === today) {
-            pipeline.set(`discord-stats:${date}`, JSON.stringify(stats), { ex: 3600 })
+          if (stats.date === today) {
+            pipeline.set(kvKey(stats.date), JSON.stringify(stats), { ex: 3600 })
           } else {
-            pipeline.set(`discord-stats:${date}`, JSON.stringify(stats))
+            pipeline.set(kvKey(stats.date), JSON.stringify(stats))
           }
         }
         await pipeline.exec()
       } else {
-        for (const date of stillMissing) {
-          fetchedDays.push(aggregateMessagesToDay(allMessages, date))
-        }
+        fetchedDays.push(...aggregated)
       }
     }
 
