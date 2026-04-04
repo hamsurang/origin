@@ -137,12 +137,15 @@ function buildFromDayStats(days: CachedDayStats[], dates: string[]): AggregatedS
   }
 }
 
-async function getKv() {
+async function getRedis() {
   try {
-    const { kv } = await import('@vercel/kv')
-    // Test connection
-    await kv.ping()
-    return kv
+    const { Redis } = await import('@upstash/redis')
+    const redis = new Redis({
+      url: process.env.UPSTASH_REDIS_REST_URL ?? '',
+      token: process.env.UPSTASH_REDIS_REST_TOKEN ?? '',
+    })
+    await redis.ping()
+    return redis
   } catch {
     return null
   }
@@ -160,16 +163,16 @@ async function fetchDiscordStats(): Promise<AggregatedStats> {
   try {
     const dates = getLast7Days()
     const today = dates[dates.length - 1] as string
-    const kvClient = await getKv()
+    const redisClient = await getRedis()
 
     // Try loading each date from KV
     const dayStats: CachedDayStats[] = []
     const missingDates: string[] = []
 
-    if (kvClient) {
+    if (redisClient) {
       const cached = await Promise.all(
         dates.map(async (date) => {
-          const data = await kvClient.get<CachedDayStats>(`discord-stats:${date}`)
+          const data = await redisClient.get<CachedDayStats>(`discord-stats:${date}`)
           return { date, data }
         }),
       )
@@ -220,8 +223,8 @@ async function fetchDiscordStats(): Promise<AggregatedStats> {
         dayStats.push(stats)
 
         // Cache past days in KV (not today — still accumulating)
-        if (kvClient && date !== today) {
-          await kvClient.set(`discord-stats:${date}`, stats)
+        if (redisClient && date !== today) {
+          await redisClient.set(`discord-stats:${date}`, stats)
         }
       }
     }
