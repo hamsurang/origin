@@ -22,6 +22,9 @@ async function discordFetch<T>(path: string, token: string, retries = 5): Promis
     cache: 'no-store',
   })
 
+  // Read body as text first to avoid "Body has already been consumed" in Next.js
+  const text = await res.text()
+
   if (res.status === 429) {
     if (retries <= 0) {
       throw new Error(`Rate limit exceeded after max retries for ${path}`)
@@ -33,10 +36,10 @@ async function discordFetch<T>(path: string, token: string, retries = 5): Promis
   }
 
   if (!res.ok) {
-    throw new Error(`Discord API error: ${res.status} ${res.statusText} for ${path}`)
+    throw new Error(`Discord API error: ${res.status} for ${path}`)
   }
 
-  return res.json() as Promise<T>
+  return JSON.parse(text) as T
 }
 
 export async function fetchGuildChannels(

@@ -95,8 +95,10 @@ async function fetchDiscordStats(): Promise<AggregatedStats> {
   const token = process.env.DISCORD_BOT_TOKEN
   const guildId = process.env.DISCORD_GUILD_ID
 
+  console.log('[discord-stats] token exists:', !!token, 'guildId:', guildId ?? 'undefined')
+
   if (!token || !guildId) {
-    console.warn('Missing DISCORD_BOT_TOKEN or DISCORD_GUILD_ID')
+    console.warn('[discord-stats] Missing DISCORD_BOT_TOKEN or DISCORD_GUILD_ID')
     return emptyStats()
   }
 
