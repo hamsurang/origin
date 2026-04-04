@@ -1,6 +1,6 @@
 'use client'
 
-import { cn } from '@hamsurang/ui'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, cn } from '@hamsurang/ui'
 
 type BarChartProps = {
   data: { date: string; value: number }[]
@@ -27,25 +27,49 @@ function getBarColor(value: number, max: number): string {
   return GREEN_PALETTE[4]
 }
 
+function formatDate(dateStr: string): string {
+  return dateStr.slice(5) // "2026-03-27" → "03-27"
+}
+
 export const BarChart = ({ data, height, className }: BarChartProps) => {
   const max = Math.max(...data.map((d) => d.value), 1)
+  const firstDate = data.at(0)
+  const lastDate = data.at(-1)
 
   return (
-    <div className={cn('flex items-end gap-[1px]', className)} style={{ height }}>
-      {data.map((d) => {
-        const barHeight = d.value === 0 ? 0 : Math.max((d.value / max) * 100, 4)
-        return (
-          <div
-            key={d.date}
-            className="flex-1 min-w-[2px] rounded-t-[1px]"
-            style={{
-              height: `${barHeight}%`,
-              backgroundColor: getBarColor(d.value, max),
-            }}
-            title={`${d.date}: ${d.value} messages`}
-          />
-        )
-      })}
+    <div className={className}>
+      <TooltipProvider>
+        <div className="flex items-end gap-[1px]" style={{ height }}>
+          {data.map((d) => {
+            const barHeight = d.value === 0 ? 0 : Math.max((d.value / max) * 100, 4)
+            return (
+              <Tooltip key={d.date}>
+                <TooltipTrigger asChild>
+                  <div
+                    className="flex-1 min-w-[2px] rounded-t-[1px] cursor-pointer"
+                    style={{
+                      height: `${barHeight}%`,
+                      backgroundColor: getBarColor(d.value, max),
+                    }}
+                  />
+                </TooltipTrigger>
+                <TooltipContent asChild>
+                  <div className="bg-zinc-800 text-white px-2 py-1 rounded text-xs">
+                    <span className="font-medium">{d.date}</span>
+                    <span className="ml-1.5 text-gray-300">{d.value} messages</span>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+            )
+          })}
+        </div>
+      </TooltipProvider>
+      {firstDate && lastDate && (
+        <div className="flex justify-between text-[10px] text-gray-400 mt-1">
+          <span>{formatDate(firstDate.date)}</span>
+          <span>{formatDate(lastDate.date)}</span>
+        </div>
+      )}
     </div>
   )
 }

@@ -4,66 +4,111 @@ import type {
   AggregatedStats,
   RankedContributor,
 } from '../../_shared/components/DiscordActivity/DiscordActivity.types'
+import { HAMSURANG_PEOPLE } from '../../_shared/components/People/People.constants'
 import { fetchChannelMessages, fetchGuildChannels } from './api'
 import { snowflakeFromTimestamp } from './snowflake'
 import type { DiscordMessage } from './types'
 
-const REVALIDATE_INTERVAL = 86400 // 24 hours
+const discordIdToName = new Map(
+  HAMSURANG_PEOPLE.filter((p): p is typeof p & { discordId: string } => 'discordId' in p).map(
+    (p) => [p.discordId, p.name],
+  ),
+)
+
+const REVALIDATE_INTERVAL = 86400
 const DAYS_TO_FETCH = 7
+
+type CachedDayStats = {
+  date: string
+  messages: number
+  contributors: { id: string; username: string; avatar: string | null; messages: number }[]
+}
 
 function emptyStats(): AggregatedStats {
   return { totalMessages: 0, totalContributors: 0, dailyTotals: [], rankedContributors: [] }
 }
 
-function groupMessagesByDate(
-  messages: DiscordMessage[],
-  dates: string[],
-): Map<string, DiscordMessage[]> {
-  const groups = new Map<string, DiscordMessage[]>()
-  for (const date of dates) {
-    groups.set(date, [])
+function getLast7Days(): string[] {
+  const dates: string[] = []
+  const now = new Date()
+  for (let i = DAYS_TO_FETCH; i >= 1; i--) {
+    const d = new Date(now)
+    d.setUTCDate(d.getUTCDate() - i)
+    dates.push(d.toISOString().split('T')[0] as string)
   }
+  return dates
+}
+
+function aggregateMessagesToDay(messages: DiscordMessage[], date: string): CachedDayStats {
+  const contributorMap = new Map<
+    string,
+    { username: string; avatar: string | null; messages: number }
+  >()
 
   for (const msg of messages) {
     if (msg.author.bot) {
       continue
     }
-    const date = msg.timestamp.split('T')[0] as string
-    const group = groups.get(date)
-    if (group) {
-      group.push(msg)
+    const msgDate = msg.timestamp.split('T')[0]
+    if (msgDate !== date) {
+      continue
+    }
+
+    const existing = contributorMap.get(msg.author.id)
+    if (existing) {
+      existing.messages += 1
+      existing.username = msg.author.username
+      existing.avatar = msg.author.avatar
+    } else {
+      contributorMap.set(msg.author.id, {
+        username: msg.author.username,
+        avatar: msg.author.avatar,
+        messages: 1,
+      })
     }
   }
 
-  return groups
+  const contributors = Array.from(contributorMap.entries())
+    .map(([id, data]) => ({ id, ...data }))
+    .sort((a, b) => b.messages - a.messages)
+
+  return {
+    date,
+    messages: contributors.reduce((sum, c) => sum + c.messages, 0),
+    contributors,
+  }
 }
 
-function buildAggregatedStats(
-  messagesByDate: Map<string, DiscordMessage[]>,
-  dates: string[],
-): AggregatedStats {
-  const dailyTotals: { date: string; value: number }[] = []
+function buildFromDayStats(days: CachedDayStats[], dates: string[]): AggregatedStats {
+  const dayMap = new Map(days.map((d) => [d.date, d]))
+
+  const dailyTotals = dates.map((date) => ({
+    date,
+    value: dayMap.get(date)?.messages ?? 0,
+  }))
+
   const contributorMap = new Map<
     string,
     { username: string; avatar: string | null; totalMessages: number; daily: Map<string, number> }
   >()
 
-  for (const date of dates) {
-    const messages = messagesByDate.get(date) ?? []
-    dailyTotals.push({ date, value: messages.length })
-
-    for (const msg of messages) {
-      const { id, username, avatar } = msg.author
-      const existing = contributorMap.get(id)
+  for (const day of days) {
+    for (const c of day.contributors) {
+      const existing = contributorMap.get(c.id)
       if (existing) {
-        existing.totalMessages += 1
-        existing.daily.set(date, (existing.daily.get(date) ?? 0) + 1)
-        existing.username = username
-        existing.avatar = avatar
+        existing.totalMessages += c.messages
+        existing.daily.set(day.date, c.messages)
+        existing.username = c.username
+        existing.avatar = c.avatar
       } else {
         const daily = new Map<string, number>()
-        daily.set(date, 1)
-        contributorMap.set(id, { username, avatar, totalMessages: 1, daily })
+        daily.set(day.date, c.messages)
+        contributorMap.set(c.id, {
+          username: c.username,
+          avatar: c.avatar,
+          totalMessages: c.messages,
+          daily,
+        })
       }
     }
   }
@@ -80,6 +125,7 @@ function buildAggregatedStats(
         date,
         value: data.daily.get(date) ?? 0,
       })),
+      displayName: discordIdToName.get(id),
     }))
     .sort((a, b) => b.totalMessages - a.totalMessages)
 
@@ -91,11 +137,20 @@ function buildAggregatedStats(
   }
 }
 
+async function getKv() {
+  try {
+    const { kv } = await import('@vercel/kv')
+    // Test connection
+    await kv.ping()
+    return kv
+  } catch {
+    return null
+  }
+}
+
 async function fetchDiscordStats(): Promise<AggregatedStats> {
   const token = process.env.DISCORD_BOT_TOKEN
   const guildId = process.env.DISCORD_GUILD_ID
-
-  console.log('[discord-stats] token exists:', !!token, 'guildId:', guildId ?? 'undefined')
 
   if (!token || !guildId) {
     console.warn('[discord-stats] Missing DISCORD_BOT_TOKEN or DISCORD_GUILD_ID')
@@ -103,41 +158,77 @@ async function fetchDiscordStats(): Promise<AggregatedStats> {
   }
 
   try {
-    // Build date range for last 7 days
-    const dates: string[] = []
-    const now = new Date()
-    for (let i = DAYS_TO_FETCH; i >= 1; i--) {
-      const d = new Date(now)
-      d.setUTCDate(d.getUTCDate() - i)
-      dates.push(d.toISOString().split('T')[0] as string)
+    const dates = getLast7Days()
+    const today = dates[dates.length - 1] as string
+    const kvClient = await getKv()
+
+    // Try loading each date from KV
+    const dayStats: CachedDayStats[] = []
+    const missingDates: string[] = []
+
+    if (kvClient) {
+      const cached = await Promise.all(
+        dates.map(async (date) => {
+          const data = await kvClient.get<CachedDayStats>(`discord-stats:${date}`)
+          return { date, data }
+        }),
+      )
+
+      for (const { date, data } of cached) {
+        if (data && date !== today) {
+          dayStats.push(data)
+        } else {
+          missingDates.push(date)
+        }
+      }
+      console.log(
+        `[discord-stats] KV cache: ${dates.length - missingDates.length} hit, ${
+          missingDates.length
+        } miss`,
+      )
+    } else {
+      missingDates.push(...dates)
+      console.log('[discord-stats] KV not available, fetching all dates from Discord')
     }
 
-    const startOfRange = new Date(`${dates[0]}T00:00:00Z`)
-    const afterSnowflake = snowflakeFromTimestamp(startOfRange.getTime())
+    // Fetch missing dates from Discord
+    if (missingDates.length > 0) {
+      const startDate = missingDates[0] as string
+      const startOfRange = new Date(`${startDate}T00:00:00Z`)
+      const afterSnowflake = snowflakeFromTimestamp(startOfRange.getTime())
 
-    console.log(`Fetching Discord stats for ${dates[0]} ~ ${dates[dates.length - 1]}...`)
+      console.log(`[discord-stats] Fetching ${missingDates.length} days from Discord...`)
 
-    const textChannels = await fetchGuildChannels(guildId, token)
-    console.log(`Found ${textChannels.length} text channels`)
+      const textChannels = await fetchGuildChannels(guildId, token)
+      const allMessages: DiscordMessage[] = []
 
-    const allMessages: DiscordMessage[] = []
+      for (const channel of textChannels) {
+        try {
+          const messages = await fetchChannelMessages(channel.id, afterSnowflake, token)
+          allMessages.push(...messages)
+        } catch (err) {
+          const message = err instanceof Error ? err.message : String(err)
+          console.warn(`Skipping channel ${channel.name}: ${message}`)
+        }
+      }
 
-    for (const channel of textChannels) {
-      try {
-        const messages = await fetchChannelMessages(channel.id, afterSnowflake, token)
-        allMessages.push(...messages)
-      } catch (err) {
-        const message = err instanceof Error ? err.message : String(err)
-        console.warn(`Skipping channel ${channel.name}: ${message}`)
+      console.log(`[discord-stats] Collected ${allMessages.length} messages`)
+
+      // Aggregate per missing date and save to KV
+      for (const date of missingDates) {
+        const stats = aggregateMessagesToDay(allMessages, date)
+        dayStats.push(stats)
+
+        // Cache past days in KV (not today — still accumulating)
+        if (kvClient && date !== today) {
+          await kvClient.set(`discord-stats:${date}`, stats)
+        }
       }
     }
 
-    console.log(`Collected ${allMessages.length} messages`)
-
-    const messagesByDate = groupMessagesByDate(allMessages, dates)
-    return buildAggregatedStats(messagesByDate, dates)
+    return buildFromDayStats(dayStats, dates)
   } catch (error) {
-    console.error('Failed to fetch Discord stats:', error)
+    console.error('[discord-stats] Failed to fetch Discord stats:', error)
     return emptyStats()
   }
 }

@@ -3,6 +3,20 @@ import type { DiscordChannel, DiscordMessage } from './types'
 const DISCORD_API = 'https://discord.com/api/v10'
 const TEXT_CHANNEL_TYPES = new Set([0, 5, 15])
 
+// 활성 커뮤니티 채널만 조회 (운영진, webhook, moderator 등 제외)
+const CHANNEL_WHITELIST = new Set([
+  '1464184293625561135', // 함수랑-잡담해
+  '1464476958938103859', // 함수랑-공유해
+  '1464477161921712249', // 함수랑-기록해
+  '1481830676096352399', // 함수랑-일상공유해
+  '1464952191814205766', // 1기-잡담해
+  '1466797244195012648', // 1기-활동장
+  '1464477885833412768', // 훅벤져스
+  '1464656906445390051', // 함수랑-할거야
+  '1466793700939137065', // 함수랑-엑싯해
+  '1464477082611351644', // 함수랑-취미공유
+])
+
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
 let lastRequestTime = 0
@@ -47,7 +61,7 @@ export async function fetchGuildChannels(
   token: string,
 ): Promise<DiscordChannel[]> {
   const channels = await discordFetch<DiscordChannel[]>(`/guilds/${guildId}/channels`, token)
-  return channels.filter((c) => TEXT_CHANNEL_TYPES.has(c.type))
+  return channels.filter((c) => TEXT_CHANNEL_TYPES.has(c.type) && CHANNEL_WHITELIST.has(c.id))
 }
 
 export async function fetchChannelMessages(

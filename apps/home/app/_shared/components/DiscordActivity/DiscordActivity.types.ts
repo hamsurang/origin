@@ -24,6 +24,7 @@ export type RankedContributor = {
   avatar: string | null
   totalMessages: number
   dailyMessages: { date: string; value: number }[]
+  displayName?: string
 }
 
 export type AggregatedStats = {
