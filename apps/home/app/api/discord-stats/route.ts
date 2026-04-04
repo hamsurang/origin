@@ -1,3 +1,5 @@
+import { Ratelimit } from '@upstash/ratelimit'
+import { Redis } from '@upstash/redis'
 import { type NextRequest, NextResponse } from 'next/server'
 import type { CachedDayStats } from '../../_shared/components/DiscordActivity/DiscordActivity.types'
 import { aggregateMessagesToDay } from '../../lib/discord/aggregate'
@@ -6,12 +8,32 @@ import { getDateRange, getRedis } from '../../lib/discord/get-stats'
 import { snowflakeFromTimestamp } from '../../lib/discord/snowflake'
 import type { DiscordMessage } from '../../lib/discord/types'
 
-export const runtime = 'edge'
-
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/
 const MAX_DATES = 30
 
+function getRatelimit() {
+  const url = process.env.KV_REST_API_URL
+  const token = process.env.KV_REST_API_TOKEN
+  if (!url || !token) {
+    return null
+  }
+  return new Ratelimit({
+    redis: new Redis({ url, token }),
+    limiter: Ratelimit.slidingWindow(10, '1 m'),
+  })
+}
+
 export async function GET(request: NextRequest) {
+  // Rate limiting
+  const limiter = getRatelimit()
+  if (limiter) {
+    const ip = request.headers.get('x-forwarded-for') ?? 'anonymous'
+    const { success } = await limiter.limit(ip)
+    if (!success) {
+      return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
+    }
+  }
+
   const token = process.env.DISCORD_BOT_TOKEN
   const guildId = process.env.DISCORD_GUILD_ID
 
@@ -104,7 +126,9 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    return NextResponse.json(fetchedDays)
+    return NextResponse.json(fetchedDays, {
+      headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' },
+    })
   } catch (error) {
     console.error('[api/discord-stats] Error:', error)
     return NextResponse.json({ error: 'Failed to fetch Discord stats' }, { status: 500 })

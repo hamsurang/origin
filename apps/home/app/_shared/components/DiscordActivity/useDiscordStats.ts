@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState, useTransition } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from 'react'
 import type { AggregatedStats, CachedDayStats } from './DiscordActivity.types'
 import { buildFromDayStats } from './DiscordActivity.utils'
 
@@ -10,7 +10,10 @@ export function useDiscordStats(initialStats: AggregatedStats, missingDates: str
   const [, startTransition] = useTransition()
   const abortRef = useRef<AbortController | null>(null)
 
-  const allDates = initialStats.dailyTotals.map((d) => d.date)
+  const allDates = useMemo(
+    () => initialStats.dailyTotals.map((d) => d.date),
+    [initialStats.dailyTotals],
+  )
 
   const fetchMissing = useCallback(async () => {
     if (missingDates.length === 0) {
