@@ -9,7 +9,6 @@ import { buildFromDayStats } from '../../_shared/components/DiscordActivity/Disc
 import { HAMSURANG_PEOPLE } from '../../_shared/components/People/People.constants'
 
 const DAYS_TO_FETCH = 14
-const KV_PREFIX = process.env.VERCEL_ENV ?? 'dev'
 
 const discordIdToName = new Map(
   HAMSURANG_PEOPLE.filter((p): p is typeof p & { discordId: string } => 'discordId' in p).map(
@@ -58,7 +57,7 @@ async function getRedis() {
 }
 
 function kvKey(date: string): string {
-  return `discord-stats:${KV_PREFIX}:${date}`
+  return `discord-stats:${date}`
 }
 
 async function fetchDiscordStatsResult(): Promise<DiscordStatsResult> {
