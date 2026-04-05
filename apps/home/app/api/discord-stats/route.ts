@@ -26,7 +26,8 @@ function getRatelimit() {
 export async function GET(request: NextRequest) {
   const limiter = getRatelimit()
   if (limiter) {
-    const ip = request.headers.get('x-forwarded-for') ?? 'anonymous'
+    const ip =
+      request.ip ?? request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'anonymous'
     const { success } = await limiter.limit(ip)
     if (!success) {
       return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
@@ -111,7 +112,7 @@ export async function GET(request: NextRequest) {
           if (stats.date === today) {
             pipeline.set(kvKey(stats.date), JSON.stringify(stats), { ex: 3600 })
           } else {
-            pipeline.set(kvKey(stats.date), JSON.stringify(stats))
+            pipeline.set(kvKey(stats.date), JSON.stringify(stats), { ex: 86400 * 30 })
           }
         }
         await pipeline.exec()
@@ -126,7 +127,10 @@ export async function GET(request: NextRequest) {
       headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' },
     })
   } catch (error) {
-    console.error('[api/discord-stats] Error:', error)
+    console.error(
+      '[api/discord-stats] Error:',
+      error instanceof Error ? error.message : 'Unknown error',
+    )
     return NextResponse.json({ error: 'Failed to fetch Discord stats' }, { status: 500 })
   }
 }

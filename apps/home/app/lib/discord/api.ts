@@ -80,7 +80,7 @@ export async function fetchChannelMessages(
     }
 
     messages.push(...batch)
-    if (batch.length < 100) {
+    if (batch.length < 100 || messages.length >= 5000) {
       break
     }
 

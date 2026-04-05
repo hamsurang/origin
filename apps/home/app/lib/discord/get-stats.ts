@@ -57,12 +57,12 @@ async function getRedis() {
 }
 
 function kvKey(date: string): string {
-  return `discord-stats:${date}`
+  return `discord-stats:${process.env.DISCORD_GUILD_ID ?? 'default'}:${date}`
 }
 
 async function fetchDiscordStatsResult(): Promise<DiscordStatsResult> {
   if (!process.env.DISCORD_BOT_TOKEN || !process.env.DISCORD_GUILD_ID) {
-    console.warn('[discord-stats] Missing DISCORD_BOT_TOKEN or DISCORD_GUILD_ID')
+    console.warn('[discord-stats] Missing required configuration')
     return emptyResult()
   }
 

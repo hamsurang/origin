@@ -1,3 +1,6 @@
+// Discord user IDs, usernames, and displayNames (Korean real names)
+// are intentionally exposed to the client for community activity visualization.
+// Community members have consented to this through participation.
 export type RankedContributor = {
   id: string
   username: string
