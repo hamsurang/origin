@@ -40,14 +40,14 @@ describe('getDiscordStats', () => {
     process.env = { ...originalEnv }
   })
 
-  it('returns emptyResult when env vars are missing', async () => {
+  it('returns empty stats with all dates as missing when env vars are missing', async () => {
     process.env.DISCORD_BOT_TOKEN = undefined
     process.env.DISCORD_GUILD_ID = undefined
 
     const result = await getDiscordStats()
 
     expect(result.stats.totalMessages).toBe(0)
-    expect(result.missingDates).toEqual([])
+    expect(result.missingDates).toEqual(getDateRange())
   })
 
   it('with Redis returning all hits, missingDates is empty', async () => {

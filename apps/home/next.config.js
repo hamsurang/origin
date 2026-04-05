@@ -7,6 +7,7 @@ const nextConfig = {
   experimental: {
     typedRoutes: true,
     outputFileTracingIncludes: {
+      '/': ['./app/(profile-readme)/@readme/_shared/content/**/*'],
       '/people': ['./app/(profile-readme)/@readme/_shared/content/**/*'],
     },
   },
