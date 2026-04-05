@@ -16,10 +16,16 @@ const discordIdToName = new Map(
   ),
 )
 
-function emptyResult(dates?: string[]): DiscordStatsResult {
+function emptyResult(): DiscordStatsResult {
+  const dates = getDateRange()
   return {
-    stats: { totalMessages: 0, totalContributors: 0, dailyTotals: [], rankedContributors: [] },
-    missingDates: dates ?? getDateRange(),
+    stats: {
+      totalMessages: 0,
+      totalContributors: 0,
+      dailyTotals: dates.map((date) => ({ date, value: 0 })),
+      rankedContributors: [],
+    },
+    missingDates: dates,
   }
 }
 
