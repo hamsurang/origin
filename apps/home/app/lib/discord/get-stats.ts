@@ -57,7 +57,7 @@ async function getRedis() {
 }
 
 function kvKey(date: string): string {
-  return `discord-stats:${process.env.DISCORD_GUILD_ID ?? 'default'}:${date}`
+  return `discord-stats:${date}`
 }
 
 async function fetchDiscordStatsResult(): Promise<DiscordStatsResult> {
