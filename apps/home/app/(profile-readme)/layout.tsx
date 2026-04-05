@@ -5,6 +5,7 @@ import '@hamsurang/ui/globals.css'
 import { postMessageToParent } from '@hamsurang/utils'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { type PropsWithChildren, useEffect } from 'react'
+import { Playlist } from '../playlist/Playlist'
 
 export default function PeopleLayout({
   children,
@@ -27,16 +28,20 @@ export default function PeopleLayout({
   }, [pathname, searchParams])
 
   return (
-    <main className="flex gap-6 mobile:flex-col px-4 mt-2 max-w-[1200px] mx-auto">
-      <aside className="mobile:w-full w-[296px]">
+    <main className="flex gap-6 mobile:flex-col px-4 mt-2 max-w-[1400px] mx-auto">
+      <aside className="mobile:w-full w-[296px] shrink-0">
         {profile}
         <People />
       </aside>
 
-      <section className="flex flex-col gap-4 flex-grow">
+      <section className="flex flex-col gap-4 flex-grow min-w-0">
         {readme}
         {children}
       </section>
+
+      <aside className="mobile:w-full w-[280px] shrink-0 relative">
+        <Playlist />
+      </aside>
     </main>
   )
 }
