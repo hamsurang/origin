@@ -3,6 +3,7 @@
 import { FloatingArrow, arrow, autoUpdate, useFloating } from '@floating-ui/react'
 import { Avatar, AvatarFallback, AvatarImage } from '@hamsurang/ui'
 import { AnimatePresence, motion } from 'framer-motion'
+import type { Route } from 'next'
 import Link from 'next/link'
 import { useRef } from 'react'
 import { useTimeout } from 'react-use'
@@ -37,7 +38,7 @@ export const People = () => {
 
       <div ref={refs.setPositionReference} className="flex flex-wrap mt-3 gap-1">
         {HAMSURANG_PEOPLE.map(({ name, username }) => (
-          <Link href={`/people?username=${username}`} key={username}>
+          <Link href={`/people?username=${username}` as Route} key={username}>
             <Avatar className="cursor-pointer">
               <AvatarImage
                 src={`https://github.com/${username}.png?size=70`}
