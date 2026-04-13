@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 vi.mock('server-only', () => ({}))
 
@@ -41,6 +41,14 @@ describe('getFollowers', () => {
 
   it('returns empty array when fetch fails', async () => {
     mockFetch.mockResolvedValueOnce({ ok: false, status: 403 })
+
+    const result = await getFollowers()
+
+    expect(result).toEqual([])
+  })
+
+  it('returns empty array when fetch throws', async () => {
+    mockFetch.mockRejectedValueOnce(new Error('network error'))
 
     const result = await getFollowers()
 
