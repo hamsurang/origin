@@ -1,5 +1,3 @@
-import 'server-only'
-
 import type { GitHubFollower } from './types'
 
 export async function getFollowers(): Promise<GitHubFollower[]> {
