@@ -7,23 +7,29 @@ export type PackedCircle = {
 
 export function assignRadius(count: number): number[] {
   return Array.from({ length: count }, (_, i) => {
-    if (i < Math.ceil(count * 0.06)) {
-      return 42
+    if (i < Math.ceil(count * 0.04)) {
+      return 46
     }
-    if (i < Math.ceil(count * 0.18)) {
-      return 32
+    if (i < Math.ceil(count * 0.12)) {
+      return 36
     }
-    if (i < Math.ceil(count * 0.42)) {
-      return 24
+    if (i < Math.ceil(count * 0.28)) {
+      return 28
     }
-    return 18
+    if (i < Math.ceil(count * 0.52)) {
+      return 22
+    }
+    if (i < Math.ceil(count * 0.8)) {
+      return 16
+    }
+    return 10
   })
 }
 
 function hasOverlap(circles: PackedCircle[], x: number, y: number, r: number): boolean {
   for (const c of circles) {
     const d = Math.sqrt((x - c.x) ** 2 + (y - c.y) ** 2)
-    if (d < r + c.r - 0.5) {
+    if (d < r + c.r - 0.2) {
       return true
     }
   }
@@ -39,11 +45,11 @@ export function packCircles(containerSize: number, count: number): PackedCircle[
   const circles: PackedCircle[] = []
 
   for (let i = 0; i < count; i++) {
-    const r = radii[i] ?? 18
+    const r = radii[i] ?? 10
     let placed = false
     let attempts = 0
 
-    while (!placed && attempts < 2000) {
+    while (!placed && attempts < 3000) {
       const angle = Math.random() * Math.PI * 2
       const maxDist = boundary - r
       const dist = Math.random() * maxDist
@@ -64,10 +70,9 @@ export function packCircles(containerSize: number, count: number): PackedCircle[
     }
 
     if (!placed) {
-      // Spiral outward until a non-overlapping position is found
       let spiralAngle = i * ((Math.PI * 2) / count)
       let spiralDist = 0
-      const step = r * 0.5
+      const step = r * 0.4
       while (spiralDist <= boundary) {
         const x = cx + Math.cos(spiralAngle) * spiralDist
         const y = cy + Math.sin(spiralAngle) * spiralDist
@@ -82,7 +87,6 @@ export function packCircles(containerSize: number, count: number): PackedCircle[
     }
 
     if (!placed) {
-      // Last resort: place at boundary even if overlapping
       const angle = i * ((Math.PI * 2) / count)
       const dist = boundary * 0.6
       circles.push({

@@ -3,13 +3,24 @@ import { packCircles, assignRadius } from './circle-pack'
 
 describe('assignRadius', () => {
   it('assigns larger radii to earlier items', () => {
-    const radii = assignRadius(20)
-    expect(radii[0]).toBeGreaterThan(radii[19])
+    const radii = assignRadius(50)
+    const first = radii[0]
+    const last = radii[49]
+    expect(first).toBeDefined()
+    expect(last).toBeDefined()
+    expect(first).toBeGreaterThan(last as number)
   })
 
   it('returns correct number of radii', () => {
     expect(assignRadius(5)).toHaveLength(5)
     expect(assignRadius(50)).toHaveLength(50)
+  })
+
+  it('has 6 distinct tiers for large counts', () => {
+    const radii = assignRadius(100)
+    const unique = [...new Set(radii)]
+    expect(unique).toHaveLength(6)
+    expect(unique).toEqual([46, 36, 28, 22, 16, 10])
   })
 })
 
@@ -26,7 +37,7 @@ describe('packCircles', () => {
   })
 
   it('no circles overlap', () => {
-    const circles = packCircles(400, 20)
+    const circles = packCircles(400, 30)
     for (let i = 0; i < circles.length; i++) {
       for (let j = i + 1; j < circles.length; j++) {
         const a = circles[i]
@@ -42,7 +53,7 @@ describe('packCircles', () => {
 
   it('all circles stay within the container bounds', () => {
     const size = 400
-    const circles = packCircles(size, 15)
+    const circles = packCircles(size, 20)
     const cx = size / 2
     const cy = size / 2
     const boundary = size / 2
