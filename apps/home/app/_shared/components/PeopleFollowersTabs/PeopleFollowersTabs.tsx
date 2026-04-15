@@ -1,9 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { FloatingArrow, arrow, autoUpdate, useFloating } from '@floating-ui/react'
+import { Avatar, AvatarFallback, AvatarImage } from '@hamsurang/ui'
+import { AnimatePresence, motion } from 'framer-motion'
 import type { Route } from 'next'
 import Link from 'next/link'
-import { Avatar, AvatarFallback, AvatarImage } from '@hamsurang/ui'
+import { useEffect, useRef, useState } from 'react'
+import { useTimeout } from 'react-use'
 import type { GitHubFollower } from '../../../lib/github/types'
 import { HAMSURANG_PEOPLE } from '../People/People.constants'
 import { FollowersBubble } from '../Followers/FollowersBubble'
@@ -13,6 +16,16 @@ type Tab = 'people' | 'followers'
 export const PeopleFollowersTabs = () => {
   const [activeTab, setActiveTab] = useState<Tab>('people')
   const [followers, setFollowers] = useState<GitHubFollower[]>([])
+  const arrowRef = useRef(null)
+  const { refs, floatingStyles, context } = useFloating({
+    middleware: [
+      arrow({
+        element: arrowRef,
+      }),
+    ],
+    whileElementsMounted: autoUpdate,
+  })
+  const [isReady] = useTimeout(500)
 
   useEffect(() => {
     fetch('https://api.github.com/users/hamsurang/followers?per_page=100')
@@ -63,21 +76,54 @@ export const PeopleFollowersTabs = () => {
         </button>
       </div>
 
-      <div className="mt-3">
+      <div className="relative mt-3">
         {activeTab === 'people' && (
-          <div className="flex flex-wrap gap-1">
-            {HAMSURANG_PEOPLE.map(({ username }) => (
-              <Link href={`/people?username=${username}` as Route} key={username}>
-                <Avatar className="cursor-pointer">
-                  <AvatarImage
-                    src={`https://github.com/${username}.png?size=70`}
-                    alt={`${username}의 프로필`}
-                  />
-                  <AvatarFallback />
-                </Avatar>
-              </Link>
-            ))}
-          </div>
+          <>
+            <div ref={refs.setPositionReference} className="flex flex-wrap gap-1">
+              {HAMSURANG_PEOPLE.map(({ username }) => (
+                <Link href={`/people?username=${username}` as Route} key={username}>
+                  <Avatar className="cursor-pointer">
+                    <AvatarImage
+                      src={`https://github.com/${username}.png?size=70`}
+                      alt={`${username}의 프로필`}
+                    />
+                    <AvatarFallback />
+                  </Avatar>
+                </Link>
+              ))}
+            </div>
+
+            <AnimatePresence>
+              {isReady() && (
+                <motion.div
+                  ref={refs.setFloating}
+                  style={floatingStyles}
+                  className="relative bg-black text-white p-4 mobile:hidden"
+                  initial={{ top: 0, opacity: 0 }}
+                  variants={{
+                    spring: {
+                      top: 30,
+                      transition: {
+                        type: 'spring',
+                        damping: 3,
+                        stiffness: 200,
+                      },
+                    },
+                    fadeIn: {
+                      opacity: 1,
+                      transition: {
+                        duration: 0.5,
+                      },
+                    },
+                  }}
+                  animate={['spring', 'fadeIn']}
+                >
+                  show more information
+                  <FloatingArrow ref={arrowRef} context={context} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </>
         )}
 
         {activeTab === 'followers' && (
