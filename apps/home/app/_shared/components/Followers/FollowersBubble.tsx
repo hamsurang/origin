@@ -5,7 +5,7 @@ import type { GitHubFollower } from '../../../lib/github/types'
 import { type PackedCircle, packCircles } from './circle-pack'
 import type { FollowersBubbleProps } from './Followers.types'
 
-export const FollowersBubble = ({ followers }: FollowersBubbleProps) => {
+export const FollowersBubble = ({ followers, featuredCount = 0 }: FollowersBubbleProps) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const [circles, setCircles] = useState<PackedCircle[]>([])
   const [size, setSize] = useState(0)
@@ -23,12 +23,12 @@ export const FollowersBubble = ({ followers }: FollowersBubbleProps) => {
       }
       const width = entry.contentRect.width
       setSize(width)
-      setCircles(packCircles(width, followers.length))
+      setCircles(packCircles(width, followers.length, featuredCount))
     })
 
     observer.observe(el)
     return () => observer.disconnect()
-  }, [followers.length])
+  }, [followers.length, featuredCount])
 
   return (
     <div

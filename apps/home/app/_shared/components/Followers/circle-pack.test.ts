@@ -16,11 +16,19 @@ describe('assignRadius', () => {
     expect(assignRadius(50)).toHaveLength(50)
   })
 
-  it('has 6 distinct tiers for large counts', () => {
+  it('has 5 distinct tiers without featured', () => {
     const radii = assignRadius(100)
+    const unique = [...new Set(radii)]
+    expect(unique).toHaveLength(5)
+    expect(unique).toEqual([36, 28, 22, 16, 10])
+  })
+
+  it('has 6 distinct tiers with featured', () => {
+    const radii = assignRadius(100, 3)
     const unique = [...new Set(radii)]
     expect(unique).toHaveLength(6)
     expect(unique).toEqual([46, 36, 28, 22, 16, 10])
+    expect(radii.slice(0, 3).every((r) => r === 46)).toBe(true)
   })
 })
 

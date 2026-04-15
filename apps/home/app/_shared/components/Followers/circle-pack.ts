@@ -5,21 +5,23 @@ export type PackedCircle = {
   index: number
 }
 
-export function assignRadius(count: number): number[] {
+export function assignRadius(count: number, featuredCount = 0): number[] {
   return Array.from({ length: count }, (_, i) => {
-    if (i < Math.ceil(count * 0.04)) {
+    if (i < featuredCount) {
       return 46
     }
-    if (i < Math.ceil(count * 0.12)) {
+    const remaining = count - featuredCount
+    const ri = i - featuredCount
+    if (ri < Math.ceil(remaining * 0.08)) {
       return 36
     }
-    if (i < Math.ceil(count * 0.28)) {
+    if (ri < Math.ceil(remaining * 0.24)) {
       return 28
     }
-    if (i < Math.ceil(count * 0.52)) {
+    if (ri < Math.ceil(remaining * 0.48)) {
       return 22
     }
-    if (i < Math.ceil(count * 0.8)) {
+    if (ri < Math.ceil(remaining * 0.76)) {
       return 16
     }
     return 10
@@ -36,8 +38,12 @@ function hasOverlap(circles: PackedCircle[], x: number, y: number, r: number): b
   return false
 }
 
-export function packCircles(containerSize: number, count: number): PackedCircle[] {
-  const radii = assignRadius(count)
+export function packCircles(
+  containerSize: number,
+  count: number,
+  featuredCount = 0,
+): PackedCircle[] {
+  const radii = assignRadius(count, featuredCount)
   const cx = containerSize / 2
   const cy = containerSize / 2
   const boundary = containerSize / 2

@@ -9,13 +9,42 @@ import { useEffect, useRef, useState } from 'react'
 import { useTimeout } from 'react-use'
 import type { GitHubFollower } from '../../../lib/github/types'
 import { HAMSURANG_PEOPLE } from '../People/People.constants'
+import { FEATURED_FOLLOWERS } from '../Followers/Followers.constants'
 import { FollowersBubble } from '../Followers/FollowersBubble'
 
 type Tab = 'people' | 'followers'
 
+function sortWithFeatured(
+  followers: GitHubFollower[],
+  featuredUsernames: readonly string[],
+): { sorted: GitHubFollower[]; featuredCount: number } {
+  const featured: GitHubFollower[] = []
+  const rest: GitHubFollower[] = []
+
+  const featuredSet = new Set(featuredUsernames.map((u) => u.toLowerCase()))
+  for (const f of followers) {
+    if (featuredSet.has(f.login.toLowerCase())) {
+      featured.push(f)
+      featuredSet.delete(f.login.toLowerCase())
+    } else {
+      rest.push(f)
+    }
+  }
+
+  // Fill missing featured slots with random followers
+  const missing = featuredUsernames.length - featured.length
+  for (let i = 0; i < missing && rest.length > 0; i++) {
+    const randomIdx = Math.floor(Math.random() * rest.length)
+    featured.push(rest.splice(randomIdx, 1)[0] as GitHubFollower)
+  }
+
+  return { sorted: [...featured, ...rest], featuredCount: featured.length }
+}
+
 export const PeopleFollowersTabs = () => {
   const [activeTab, setActiveTab] = useState<Tab>('people')
   const [followers, setFollowers] = useState<GitHubFollower[]>([])
+  const [featuredCount, setFeaturedCount] = useState(0)
   const arrowRef = useRef(null)
   const { refs, floatingStyles, context } = useFloating({
     middleware: [
@@ -30,7 +59,11 @@ export const PeopleFollowersTabs = () => {
   useEffect(() => {
     fetch('https://api.github.com/users/hamsurang/followers?per_page=100')
       .then((res) => (res.ok ? res.json() : []))
-      .then((data: GitHubFollower[]) => setFollowers(data))
+      .then((data: GitHubFollower[]) => {
+        const { sorted, featuredCount: fc } = sortWithFeatured(data, FEATURED_FOLLOWERS)
+        setFollowers(sorted)
+        setFeaturedCount(fc)
+      })
       .catch(() => setFollowers([]))
   }, [])
 
@@ -130,7 +163,7 @@ export const PeopleFollowersTabs = () => {
           <div>
             {followers.length > 0 ? (
               <>
-                <FollowersBubble followers={followers.slice(0, 30)} />
+                <FollowersBubble followers={followers.slice(0, 30)} featuredCount={featuredCount} />
                 <div className="mt-3 text-center">
                   <a
                     href="https://github.com/hamsurang"
