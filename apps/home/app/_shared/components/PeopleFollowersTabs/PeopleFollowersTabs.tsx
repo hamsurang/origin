@@ -38,6 +38,12 @@ function sortWithFeatured(
     featured.push(rest.splice(randomIdx, 1)[0] as GitHubFollower)
   }
 
+  // Shuffle rest so non-featured followers appear in random order
+  for (let i = rest.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[rest[i], rest[j]] = [rest[j] as GitHubFollower, rest[i] as GitHubFollower]
+  }
+
   return { sorted: [...featured, ...rest], featuredCount: featured.length }
 }
 
