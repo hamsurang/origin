@@ -1,6 +1,6 @@
 'use client'
 
-import { People } from '@/_shared'
+import { PeopleFollowersTabs } from '../_shared/components/PeopleFollowersTabs/PeopleFollowersTabs'
 import '@hamsurang/ui/globals.css'
 import { postMessageToParent } from '@hamsurang/utils'
 import { usePathname, useSearchParams } from 'next/navigation'
@@ -31,7 +31,7 @@ export default function PeopleLayout({
     <main className="flex gap-6 mobile:flex-col px-4 mt-2 max-w-[1400px] mx-auto">
       <aside className="mobile:w-full w-[296px] shrink-0">
         {profile}
-        <People />
+        <PeopleFollowersTabs />
       </aside>
 
       <section className="flex flex-col gap-4 flex-grow min-w-0">
