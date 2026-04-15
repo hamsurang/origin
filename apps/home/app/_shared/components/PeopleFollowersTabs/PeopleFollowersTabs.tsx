@@ -170,7 +170,7 @@ export const PeopleFollowersTabs = () => {
             {followers.length > 0 ? (
               <>
                 <FollowersBubble
-                  followers={followers.slice(0, featuredCount + 27)}
+                  followers={followers.slice(0, featuredCount + 28)}
                   featuredCount={featuredCount}
                 />
                 <div className="mt-3 text-center">
