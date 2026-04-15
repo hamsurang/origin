@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { ActivityLog, DiscordActivity, Followers, RepositoryList } from '@/_shared'
+import { ActivityLog, DiscordActivity, PeopleFollowersSection, RepositoryList } from '@/_shared'
 import { DiscordActivitySkeleton } from '../_shared/components/DiscordActivity/DiscordActivitySkeleton'
 import { getDiscordStats } from '../lib/discord/get-stats'
 import { ACTIVITY_LOGS, REPOSITORY_ITEMS } from '../home.constants'
@@ -22,14 +22,11 @@ export default function Page() {
       <RepositoryList items={REPOSITORY_ITEMS} />
       <p className="mt-5">Activity Logs</p>
       <ActivityLog logs={ACTIVITY_LOGS} />
-      <p className="mt-5">Followers</p>
-      <Suspense
-        fallback={
-          <div className="border border-gray-200 rounded-md p-5 h-[400px] animate-pulse bg-gray-50" />
-        }
-      >
-        <Followers />
-      </Suspense>
+      <div className="mt-5">
+        <Suspense fallback={<div className="h-[200px] animate-pulse bg-gray-50 rounded-md" />}>
+          <PeopleFollowersSection />
+        </Suspense>
+      </div>
     </section>
   )
 }
