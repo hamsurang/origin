@@ -34,7 +34,7 @@ export const FollowersBubble = ({ followers }: FollowersBubbleProps) => {
     <div
       ref={containerRef}
       className="relative w-full mx-auto"
-      style={{ maxWidth: 560, aspectRatio: '1' }}
+      style={{ maxWidth: 560, aspectRatio: '1', clipPath: 'circle(50%)' }}
     >
       {size > 0 &&
         circles.map((circle) => {
