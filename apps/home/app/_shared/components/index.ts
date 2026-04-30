@@ -1,7 +1,7 @@
 export * from './ActivityLog'
 export * from './MBTIOverview'
-export { People } from './People'
 export { Profile } from './Profile'
 export * from './Readme'
 export * from './Repository'
 export * from './DiscordActivity'
+export { PeopleFollowersSection } from './PeopleFollowersTabs'

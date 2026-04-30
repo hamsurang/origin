@@ -1,0 +1,1 @@
+export { PeopleFollowersSection } from './PeopleFollowersSection'

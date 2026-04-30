@@ -7,9 +7,9 @@ import type { Route } from 'next'
 import Link from 'next/link'
 import { useRef } from 'react'
 import { useTimeout } from 'react-use'
-import { HAMSURANG_PEOPLE } from './People.constants'
+import { HAMSURANG_PEOPLE } from '../People/People.constants'
 
-export const People = () => {
+export const PeopleTab = () => {
   const arrowRef = useRef(null)
   const { refs, floatingStyles, context } = useFloating({
     middleware: [
@@ -22,22 +22,9 @@ export const People = () => {
   const [isReady] = useTimeout(500)
 
   return (
-    <div className="relative mb-3 py-3 border-top">
-      <span className="flex gap-1">
-        <a
-          className="font-semibold hover:underline"
-          href="https://github.com/orgs/hamsurang/people"
-          target="_blank"
-          rel="noreferrer"
-        >
-          People
-        </a>
-
-        <span className="text-gray-600">{HAMSURANG_PEOPLE.length}</span>
-      </span>
-
-      <div ref={refs.setPositionReference} className="flex flex-wrap mt-3 gap-1">
-        {HAMSURANG_PEOPLE.map(({ name, username }) => (
+    <>
+      <div ref={refs.setPositionReference} className="flex flex-wrap gap-1">
+        {HAMSURANG_PEOPLE.map(({ username }) => (
           <Link href={`/people?username=${username}` as Route} key={username}>
             <Avatar className="cursor-pointer">
               <AvatarImage
@@ -80,6 +67,6 @@ export const People = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </>
   )
 }
